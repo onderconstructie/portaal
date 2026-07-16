@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FF0066">
+<title>As Gau Paust: onafhankelijke hyperlokale journalistiek over Mechelen</title>
+<meta name="description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
+
+<link rel="icon" type="image/png" href="/beelden/mug.png">
+
+<!-- Zelf-gehoste lettertypes: geen Google Fonts, geen bezoekers-IP naar derden.
+     Geist (leestekst) en JetBrains Mono (structuur/data) onder de SIL Open Font License 1.1;
+     de licenties staan in /fonts/Geist-OFL.txt en /fonts/JetBrainsMono-OFL.txt. -->
+<style>
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/geist-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jbmono-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:italic;font-weight:400 800;font-display:swap;src:url('/fonts/jbmono-italic-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
+</style>
+
+<style>
+/* =========================================================================
+   AS GAU PAUST  -  het portaal (dag-editie)
+   De deelsites draaien op de nacht-editie (--paper #0f0d0a, --ink #f5f1e8);
+   het portaal keert datzelfde vel om: het familiepapier #f5f1e8 als grond,
+   warme inkt als tekst. Zelfde pigment, andere kant van het blad.
+   De web-app-vormentaal blijft: verheven kaarten (18px), pil-badges,
+   icoon-chips, zachte warme schaduwen, ticker en gloed rond de mug.
+
+   ROZE-DISCIPLINE (geldt ook voor elk nieuw onderdeel):
+   --pink (#FF0066) alleen voor VLAKKEN, grote display-tekst, gloed en de
+   tickerstrook. Elke KLEINE roze tekst gebruikt --pink-tekst (#c80054),
+   want #FF0066 haalt op licht maar ~3,9:1 en zakt dus onder AA.
+   Schaduwen zijn warm getint (rgba(72,56,38,...)), nooit neutraal grijs.
+   ========================================================================= */
+:root{
+  --bg:#f5f1e8;                       /* grond: het familiepapier */
+  --bg-band:#ece7db;                  /* afwijkende sectieband */
+  --bg-diep:#1a1712;                  /* de donkere eilanden: banner + privacymelding */
+  --bg-modal:#fffdf7; --bg-veld:#fffdf7;
+  --kaart-a:#fffefb; --kaart-b:#fffdf7;   /* de kaart tilt boven het papier uit */
+  --kaart-hover:#ffffff;
+  --paper:#f5f1e8;                    /* papierwit, nu enkel nog op de donkere eilanden */
+  --tekst:#1a1712; --tekst-2:#514a40; --tekst-zacht:#514a40;
+  --stil:#635a4d; --heel-stil:#635a4d;
+  --lijn:rgba(26,23,18,.10);
+  --lijn-kaart:rgba(26,23,18,.12);    /* de kaartlift is geplafonneerd op ~1,13:1, dus de
+                                         haarlijn draagt de vorm, niet de schaduw alleen */
+  --lijn-sterk:rgba(26,23,18,.22); --lijn-stippel:rgba(26,23,18,.2);
+  --pink:#FF0066; --pink-tekst:#c80054; --pink-deep:#b3004a;
+  --pink-zacht:rgba(255,0,102,.09); --ticker-band:#fbe4ea;
+  --schaduw-kaart:0 1px 2px rgba(72,56,38,.05), 0 10px 30px -12px rgba(72,56,38,.16);
+  --schaduw-hover:0 2px 4px rgba(72,56,38,.07), 0 24px 50px -18px rgba(255,0,102,.28);
+  --r-kaart:18px; --r-chip:14px; --r-input:10px;
+  --max:1180px; --pad-x:clamp(1.1rem,4vw,3rem);
+}
+*{box-sizing:border-box}
+*::selection{background:var(--pink);color:#fff}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tekst);
+  font-family:'Geist',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"kern","liga";overflow-x:hidden}
+.shell{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}
+a{color:var(--pink-tekst);text-decoration:none}
+a:hover{color:var(--pink)}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+
+@keyframes agpPulse{0%{box-shadow:0 0 0 0 rgba(255,0,102,.45)}70%,100%{box-shadow:0 0 0 9px rgba(255,0,102,0)}}
+@keyframes agpBol{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes agpTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes agpRing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.45);opacity:0}}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:rgba(245,241,232,.82);
+  backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid var(--lijn)}
+.nav-in{display:flex;align-items:center;gap:1.2rem;height:64px}
+.brand{display:flex;align-items:center;gap:.65rem;font-family:'JetBrains Mono',monospace;
+  font-weight:600;font-size:1rem;letter-spacing:-.01em;color:var(--tekst)}
+.brand:hover{color:var(--tekst)}
+.brand .mk{width:34px;height:34px;flex:none;display:block}
+.mk img{width:100%;height:100%;display:block;border-radius:50%}
+.brand em{color:var(--pink);font-style:normal;font-weight:600}
+.nav-links{display:flex;gap:1.3rem;margin-left:auto;font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
+.nav-links a{color:var(--tekst-2);padding:.2rem 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+.nav-links a:hover{color:var(--pink-tekst);border-bottom-color:var(--pink)}
+.nav-links .soon{color:var(--stil);padding:.2rem 0;white-space:nowrap;cursor:default}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* ticker onder de nav */
+.ticker{overflow:hidden;border-bottom:1px solid var(--lijn);background:var(--ticker-band)}
+.ticker-baan{display:flex;gap:0;width:max-content;animation:agpTicker 28s linear infinite;padding:.45rem 0}
+.ticker-groep{display:flex;gap:2.6rem;padding:0 1.3rem;font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink-deep);white-space:nowrap}
+.ticker-groep span{align-self:center}
+.ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;
+  background:radial-gradient(1100px 480px at 78% -10%, rgba(255,0,102,.10), transparent 65%)}
+.hero .shell{padding-top:clamp(2rem,4.5vw,3.4rem);padding-bottom:clamp(1.8rem,3.5vw,3rem)}
+.hub-intro{display:grid;grid-template-columns:1fr auto;gap:clamp(1.5rem,4vw,4.5rem);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem}
+.eyebrow .pulse{width:.55em;height:.55em;background:var(--pink);border-radius:50%;margin-right:.7em;flex:none;
+  animation:agpPulse 2.4s ease-out infinite}
+.hero-title{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.04em;line-height:1.02;
+  font-size:clamp(2.4rem,4.6vw,3.9rem);margin:0;max-width:16ch;text-wrap:balance}
+.hero-title em{color:var(--pink);font-style:normal}
+.hero-lede{font-size:clamp(1.02rem,1.4vw,1.2rem);line-height:1.55;max-width:52ch;margin:1.1rem 0 0;color:var(--tekst-2)}
+.hero-mark{position:relative;justify-self:end;width:clamp(120px,16vw,200px);aspect-ratio:1;display:grid;place-items:center}
+.hero-mark .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,0,102,.45);animation:agpRing 3.6s ease-out infinite}
+.hero-mark .ring.r2{border-color:rgba(255,0,102,.35);animation-delay:1.8s}
+/* halo (leest als licht) + gerichte worp (leest als lift); warm getint, niet grijs */
+.hero-mark>img{width:100%;height:100%;border-radius:50%;animation:agpBol 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 18px rgba(255,0,102,.18)) drop-shadow(0 14px 40px rgba(255,0,102,.34)) drop-shadow(0 3px 8px rgba(72,56,38,.10))}
+@media(max-width:640px){.hero-mark{width:110px}}
+
+/* de grote blokken */
+.portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
+@media(max-width:900px){.portals{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.portals{grid-template-columns:1fr}}
+.pcard{position:relative;display:flex;flex-direction:column;min-height:200px;
+  background:linear-gradient(180deg,var(--kaart-a),var(--kaart-b));border:1px solid var(--lijn-kaart);
+  border-radius:var(--r-kaart);padding:1.3rem 1.35rem 1.2rem;color:var(--tekst);overflow:hidden;
+  box-shadow:var(--schaduw-kaart);
+  transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s,border-color .28s,background .28s}
+.pcard.live:hover{transform:translateY(-4px);border-color:var(--pink);color:var(--tekst);
+  background:var(--kaart-hover);box-shadow:var(--schaduw-hover)}
+.pcard.soon{background:rgba(255,255,255,.42);border:1px dashed var(--lijn-stippel);box-shadow:none}
+.pcard.soon h3{color:var(--tekst-2)}
+.pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
+.pcard-ic{width:52px;height:52px;flex:none;display:grid;place-items:center;color:var(--pink);
+  background:var(--pink-zacht);border:1px solid rgba(255,0,102,.28);border-radius:var(--r-chip)}
+.pcard.soon .pcard-ic{background:rgba(255,0,102,.05);border:1px dashed rgba(255,0,102,.3)}
+.pcard.soon .pcard-ic .ic-svg{opacity:.85}
+.pcard-ic .ic-svg{width:28px;height:28px}
+.badge{display:inline-flex;align-items:center;gap:.45em;font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  padding:.32rem .6rem;border-radius:999px;flex:none;align-self:flex-start;white-space:nowrap}
+.badge.on{background:var(--pink);color:#fff}
+.badge.on .dotje{width:.5em;height:.5em;background:#fff;border-radius:50%;animation:agpPulse 2.4s ease-out infinite}
+.badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
+.pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
+.pcard h3{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;line-height:1;
+  font-size:clamp(1.65rem,2.6vw,2.05rem);margin:.4rem 0 .1rem}
+.pcard h3 em{color:var(--pink);font-style:normal}
+.pcard .fam{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--stil);margin-bottom:.7rem}
+.pcard p{font-size:.9rem;color:var(--tekst-2);margin:0;line-height:1.5}
+.pcard.soon p{color:var(--tekst-zacht)}
+.pcard .go{margin-top:auto;padding-top:.95rem;display:flex;align-items:center;gap:.5rem;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase}
+.pcard.live .go{color:var(--pink-tekst)}
+.pcard.soon .go{color:var(--stil)}
+.pcard .go .ar{transition:transform .2s}
+.pcard.live:hover .go .ar{transform:translateX(5px)}
+
+/* over-blok */
+.over{border-top:1px solid var(--lijn);background:var(--bg-band)}
+.over .shell{padding-top:clamp(2.4rem,5vw,3.6rem);padding-bottom:clamp(2.4rem,5vw,3.6rem)}
+.over h2{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(1.4rem,2.6vw,2rem);margin:0 0 .8rem;line-height:1.1}
+.over h2 em{color:var(--pink);font-style:normal}
+.over p{color:var(--tekst-2);max-width:56ch;margin:0 0 .9rem;line-height:1.62}
+.over p b{color:var(--pink-tekst);font-weight:600}
+.over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--pink);color:#fff;border:1px solid var(--pink);border-radius:999px;transition:.16s}
+.over-cta:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.over-cta .ar{transition:transform .16s}
+.over-cta:hover .ar{transform:translateX(4px)}
+
+/* oproep-banner: bewust het donkere eiland op het lichte vel, in warme inkt (geen puur
+   zwart, dat komt op papier te hard aan). De rgba-waarden hierbinnen zijn papierwit. */
+.hb-banner{position:relative;margin-top:2.6rem;background:var(--bg-diep);color:var(--paper);
+  display:flex;align-items:center;gap:2.4rem;padding:2.3rem 2.5rem;flex-wrap:wrap;
+  border:1px solid rgba(26,23,18,.1);border-radius:var(--r-kaart);overflow:hidden;
+  box-shadow:0 10px 34px -14px rgba(72,56,38,.3)}
+.hb-banner::before{content:'';position:absolute;left:0;top:0;height:3px;width:72px;background:var(--pink)}
+.hbb-geo{display:flex;align-items:flex-end;justify-content:center;flex:none;position:relative;
+  padding:0 .5rem .75rem;border-bottom:2px solid var(--pink)}
+.hbb-geo img{width:72px;height:72px;display:block;border-radius:50%}
+.hbb-txt{flex:1 1 320px;min-width:0;border-left:1px solid rgba(245,241,232,.15);padding-left:2.4rem}
+.hbb-kicker{display:inline-flex;align-items:center;gap:.6em;font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);margin-bottom:.6rem}
+.hbb-kicker::before{content:'';width:.5em;height:.5em;background:var(--pink);flex:none}
+.hb-banner .hbb-title{margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500;
+  font-size:clamp(1.2rem,2.6vw,1.55rem);letter-spacing:-.02em;line-height:1.3;max-width:34ch;color:var(--paper)}
+.hbb-title .hou-samen{white-space:nowrap}
+@media(max-width:480px){.hbb-title .hou-samen{white-space:normal}}
+.hb-banner .hbb-sub{margin:.55rem 0 0;font-size:.95rem;color:rgba(245,241,232,.65);line-height:1.55;max-width:52ch}
+.hb-banner .hbb-sub em{color:var(--pink);font-style:normal;font-weight:600}
+@media(max-width:640px){.hbb-txt{border-left:0;padding-left:0}}
+
+/* footer */
+footer{border-top:1px solid var(--lijn)}
+.foot{display:flex;align-items:flex-start;gap:1.1rem;flex-wrap:wrap;padding-top:2.6rem;padding-bottom:3.2rem}
+.foot .mk{width:52px;height:52px;flex:none}
+.foot-body{max-width:58ch}
+.foot p{margin:.1rem 0;font-size:.9rem;color:var(--tekst-2)}
+.foot .fam{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--stil);margin-top:.9rem;display:flex;gap:.9rem;flex-wrap:wrap}
+.foot .fam a{color:var(--stil)}
+.foot .fam a:hover{color:var(--pink-tekst)}
+
+/* contact-modal (mailto, geen server) */
+.ov-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
+.ov-modal[hidden]{display:none}
+.ov-modal-overlay{position:absolute;inset:0;background:rgba(26,23,18,.5);backdrop-filter:blur(4px)}
+.ov-modal-card{position:relative;background:var(--bg-modal);border:1px solid var(--lijn-kaart);
+  border-radius:var(--r-kaart);box-shadow:0 30px 80px -18px rgba(72,56,38,.45);
+  max-width:520px;width:100%;padding:1.7rem;max-height:90vh;overflow:auto;color:var(--tekst)}
+.ov-modal-close{position:absolute;top:.6rem;right:.6rem;width:36px;height:36px;background:none;border:0;
+  font-size:1.35rem;line-height:1;cursor:pointer;color:var(--stil)}
+.ov-modal-close:hover{color:var(--pink)}
+.ov-modal-card .eyebrow{margin-bottom:0;font-size:.68rem;letter-spacing:.16em}
+.ov-modal-card h3{font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500;letter-spacing:-.02em;
+  font-size:1.35rem;margin:.45rem 0 .35rem}
+.ov-modal-context{font-size:.92rem;color:var(--tekst-2);margin:0 0 .4rem;line-height:1.5}
+.ov-fields-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:460px){.ov-fields-row{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.3rem;margin-top:.85rem}
+.field-lbl{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.63rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--heel-stil)}
+.field-hint{text-transform:none;letter-spacing:0}
+.field-input{font:inherit;padding:.6rem .7rem;border:1px solid var(--lijn-sterk);border-radius:var(--r-input);
+  background:var(--bg-veld);color:var(--paper)}
+.field-input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,0,102,.15)}
+textarea.field-input{resize:vertical}
+.ov-error{margin-top:.85rem;padding:.6rem .8rem;background:var(--pink-zacht);border-left:2px solid var(--pink);
+  color:var(--pink-tekst);font-size:.85rem;border-radius:0 8px 8px 0}
+.ov-error[hidden]{display:none}
+.ov-mail-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;margin-top:1.1rem;
+  padding:.9rem 1.25rem;cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);
+  border-radius:999px;transition:.16s}
+.ov-mail-btn:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.ov-modal-foot{margin-top:.8rem;font-size:.78rem;color:var(--stil);line-height:1.45}
+
+/* Eerlijke privacymelding (geen consent-banner): omgekeerd, warme inkt op het lichte vel. */
+.cookie-note{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:150;max-width:540px;margin:0 auto;
+  display:flex;align-items:center;gap:1rem;padding:.95rem 1.15rem;
+  background:var(--bg-diep);color:var(--paper);border-radius:14px;
+  box-shadow:0 10px 34px -10px rgba(72,56,38,.45);
+  font-size:.82rem;line-height:1.45}
+.cookie-note[hidden]{display:none}
+.cn-text{margin:0;flex:1}
+.cn-text strong{color:var(--pink);font-weight:600}
+.cn-ok{flex:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;
+  text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);
+  border-radius:999px;padding:.6rem 1rem;cursor:pointer}
+.cn-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="shell nav-in">
+  <a class="brand" href="/" aria-label="As Gau Paust, naar de startpagina">
+    <span class="mk"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></span>
+    <span>As Gau <em>Paust</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="https://denkmee.asgaupaust.be">Denk mee</a>
+    <a href="https://leesmee.asgaupaust.be">Lees mee</a>
+    <span class="soon">Reken mee</span>
+  </div>
+</div></nav>
+
+<!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-baan">
+    <div class="ticker-groep"><span>Onafhankelijke hyperlokale journalistiek</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
+    <div class="ticker-groep"><span>Onafhankelijke hyperlokale journalistiek</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="shell">
+    <div class="hub-intro">
+      <div class="hub-copy">
+        <span class="eyebrow"><span class="pulse"></span>Experimentele hyperlokale journalistiek</span>
+        <h1 class="hero-title">As Gau <em>Paust</em></h1>
+        <p class="hero-lede">Volg Mechelen van dichtbij: de besluitvorming, het archief en de cijfers. Kies je ingang.</p>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <div class="ring"></div>
+        <div class="ring r2"></div>
+        <img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512">
+      </div>
+    </div>
+
+    <div class="portals">
+
+      <a class="pcard live" href="https://denkmee.asgaupaust.be">
+        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="9.6" cy="10" r=".55" fill="currentColor" stroke="none"/><circle cx="12.2" cy="10" r=".55" fill="currentColor" stroke="none"/><circle cx="14.8" cy="10" r=".55" fill="currentColor" stroke="none"/><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg></span><span class="badge on"><span class="dotje"></span>Online</span></div>
+        <span class="k">de besluitvorming in mensentaal</span>
+        <h3>Denk <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Van agenda tot besluit: wat de gemeenteraad, het college, het vast bureau en de raad voor maatschappelijk welzijn beslissen.</p>
+        <span class="go">denkmee.asgaupaust.be <span class="ar">&#8594;</span></span>
+      </a>
+
+      <a class="pcard live" href="https://leesmee.asgaupaust.be">
+        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span><span class="badge on"><span class="dotje"></span>Online</span></div>
+        <span class="k">zeven jaar in het archief</span>
+        <h3>Lees <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Zeven jaar hyperlokale journalistiek over Mechelen, gebundeld per thema en dossier. Met het kookboek over de aanpak.</p>
+        <span class="go">leesmee.asgaupaust.be <span class="ar">&#8594;</span></span>
+      </a>
+
+      <div class="pcard soon">
+        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="12" width="3" height="8"/><rect x="11" y="7" width="3" height="13"/><rect x="16" y="15" width="3" height="5"/></svg></span><span class="badge wait">Binnenkort</span></div>
+        <span class="k">het bestuur in cijfers</span>
+        <h3>Reken <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Ontdek opvallende statistieken over het bestuur van de stad, straks in heldere dashboards.</p>
+        <span class="go">in de maak</span>
+      </div>
+
+      <div class="pcard soon">
+        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span><span class="badge wait">Onderweg</span></div>
+        <span class="k">dit portaal groeit</span>
+        <h3>En <em>meer</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Er kan nog meer bij: extra toepassingen zijn in voorbereiding.</p>
+        <span class="go">wordt vervolgd</span>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<section class="over"><div class="shell">
+  <div>
+    <h2>Ook iets voor <em>jouw stad</em>?</h2>
+    <p><b>As Gau Paust</b> is een experimenteel platform voor hyperlokale journalistiek, gebouwd rond één stad: Mechelen.</p>
+    <p>De bouwblokken liggen klaar voor hergebruik. Ben je journalist of burgerjournalist? Ga ermee aan de slag in je eigen stad of gemeente.</p>
+    <button type="button" class="over-cta" onclick="openContactModal()">Stuur ons een bericht <span class="ar">&#8594;</span></button>
+  </div>
+
+  <aside class="hb-banner">
+    <div class="hbb-geo" aria-hidden="true"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
+    <div class="hbb-txt">
+      <div class="hbb-kicker">Oproep</div>
+      <p class="hbb-title">Steun <span class="hou-samen">hyperlokale, onafhankelijke</span> journalistiek. Structureel.</p>
+      <p class="hbb-sub">Niet voor &eacute;&eacute;n magazine, wel voor een <em>mug in de kamer</em> van elke stad.</p>
+    </div>
+  </aside>
+</div></section>
+
+<footer><div class="shell foot">
+  <span class="mk"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></span>
+  <div class="foot-body">
+    <p><strong>As Gau Paust</strong>, onafhankelijke hyperlokale journalistiek.</p>
+    <div class="fam">
+      <a href="https://denkmee.asgaupaust.be">Denk mee</a>
+      <a href="https://leesmee.asgaupaust.be">Lees mee</a>
+      <span>Reken mee (binnenkort)</span>
+      <span>en er komt meer</span>
+    </div>
+  </div>
+</div></footer>
+
+<!-- Contactformulier-modal (zelfde patroon als op Denk mee met Mechelen): de bezoeker
+     verstuurt zelf via de eigen mailclient, er is geen server en er wordt niets bewaard. -->
+<div class="ov-modal" id="contactModal" hidden>
+  <div class="ov-modal-overlay" onclick="closeContactModal()"></div>
+  <div class="ov-modal-card" role="dialog" aria-modal="true" aria-labelledby="ctTitel">
+    <button class="ov-modal-close" onclick="closeContactModal()" aria-label="Sluit">&#215;</button>
+    <div class="eyebrow">Contact &#183; via e-mail</div>
+    <h3 id="ctTitel">Stuur ons een bericht</h3>
+    <p class="ov-modal-context">Een vraag, een tip, of zin om zelf aan de slag te gaan met de bouwblokken? We horen het graag.</p>
+
+    <div class="ov-fields-row">
+      <div class="field">
+        <label class="field-lbl" for="ctNaam">Naam</label>
+        <input type="text" id="ctNaam" class="field-input" placeholder="Voornaam Naam" autocomplete="name">
+      </div>
+      <div class="field">
+        <label class="field-lbl" for="ctEmail">E-mailadres</label>
+        <input type="email" id="ctEmail" class="field-input" placeholder="jij@voorbeeld.be" autocomplete="email">
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-lbl" for="ctOnderwerp">Onderwerp</label>
+      <input type="text" id="ctOnderwerp" class="field-input" placeholder="Waarover gaat het?">
+    </div>
+    <div class="field">
+      <label class="field-lbl" for="ctBericht">Bericht</label>
+      <textarea id="ctBericht" class="field-input" rows="3" placeholder="Je bericht&#8230;"></textarea>
+    </div>
+
+    <div class="ov-error" id="ctError" hidden></div>
+
+    <button type="button" class="ov-mail-btn" onclick="contactVerstuur()">Open mail-template <span class="ar">&#8594;</span></button>
+    <div class="ov-modal-foot">Je eigen mailclient opent met je bericht. Jij verstuurt zelf, wij bewaren niets.</div>
+  </div>
+</div>
+
+<!-- Eerlijke privacymelding (geen toestemmingsbanner). De site zet geen cookies en geen
+     trackers; het enige dat we bewaren is dat je deze melding al zag (in je eigen browser). -->
+<div id="cookieNote" class="cookie-note" hidden role="note" aria-label="Privacy">
+  <p class="cn-text"><strong>Geen cookies, geen trackers.</strong> Alleen onze host (GitHub) ziet je IP-adres, zoals bij elke webserver, om de site te tonen en te beveiligen.</p>
+  <button type="button" class="cn-ok" id="cnOk">Begrepen</button>
+</div>
+
+<script>
+(function(){
+  var el = document.getElementById('cookieNote');
+  var ok = document.getElementById('cnOk');
+  var gezien = false;
+  try{ gezien = localStorage.getItem('asgaupaust.privacyok') === '1'; }catch(e){}
+  if(!gezien) el.hidden = false;
+  ok.addEventListener('click', function(){
+    try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
+    el.hidden = true;
+  });
+})();
+
+// Contactformulier: opent de mailclient van de bezoeker naar een adres dat base64-gecodeerd
+// in de code staat, niet als platte tekst — zo is het niet zomaar uit de broncode te grepen
+// of te scrapen. Geen server, geen opslag: de bezoeker verstuurt zelf.
+var CONTACT_TO = 'dm9sY2thYmFAZ21haWwuY29t';
+function openContactModal(){
+  document.getElementById('ctError').hidden = true;
+  document.getElementById('contactModal').hidden = false;
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ document.getElementById('ctNaam').focus(); }, 50);
+}
+function closeContactModal(){
+  document.getElementById('contactModal').hidden = true;
+  document.body.style.overflow = '';
+}
+function contactVerstuur(){
+  var v = function(id){ return document.getElementById(id).value.trim(); };
+  var naam = v('ctNaam'), email = v('ctEmail'), onderwerp = v('ctOnderwerp'), bericht = v('ctBericht');
+  var fout = function(msg, id){
+    var e = document.getElementById('ctError');
+    e.textContent = msg; e.hidden = false;
+    if(id) document.getElementById(id).focus();
+  };
+  if(!naam) return fout('Vul je naam in.', 'ctNaam');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fout('Vul een geldig e-mailadres in.', 'ctEmail');
+  if(!onderwerp) return fout('Vul een onderwerp in.', 'ctOnderwerp');
+  var naar = atob(CONTACT_TO);
+  var body = 'Naam: ' + naam + '\nE-mail: ' + email + '\n\n' + bericht;
+  window.location.href = 'mailto:' + naar
+    + '?subject=' + encodeURIComponent('[As Gau Paust] ' + onderwerp)
+    + '&body=' + encodeURIComponent(body);
+  closeContactModal();
+}
+window.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && !document.getElementById('contactModal').hidden) closeContactModal();
+});
+</script>
+
+</body>
+</html>

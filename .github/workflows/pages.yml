@@ -1,0 +1,40 @@
+# Publiceert dist/ (het portaal van asgaupaust.be) naar GitHub Pages.
+#
+# Bouwen gebeurt lokaal (python build.py), net als bij denkmee en leesmee;
+# deze workflow publiceert enkel wat daaruit komt: de map dist/.
+#
+# Eenmalig instellen: GitHub → repo → Settings → Pages → Source = "GitHub Actions",
+# en Custom domain = asgaupaust.be. Daarna publiceert elke push vanzelf.
+name: Publiceer naar GitHub Pages
+
+on:
+  push:
+    branches: [main]           # elke push naar main publiceert (geen paths-filter, zoals de
+                               # officiële Pages-workflow) — zo is re-triggeren altijd simpel
+  workflow_dispatch: {}        # ook handmatig te starten vanuit het Actions-tabblad
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  # false: een lopende deploy niet annuleren als er snel een nieuwe push volgt. Annuleren
+  # laat de deploy in een 'failed'-staat achter (die rode X); we laten hem liever afronden.
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist            # de hele map; bevat enkel index.html
+      - id: deployment
+        uses: actions/deploy-pages@v4

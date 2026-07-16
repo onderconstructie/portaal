@@ -1,0 +1,12 @@
+# --- As Gau Paust (portaal) ---
+# De gepubliceerde site is de map dist/ (index.html + CNAME + fonts). Die wordt
+# WEL meegecommit; de workflow publiceert ze naar GitHub Pages.
+
+# Python
+__pycache__/
+*.pyc
+
+# Lokale tooling / scratch
+.claude/
+_*.py
+*.bak
