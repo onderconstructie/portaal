@@ -211,20 +211,25 @@ img,svg{max-width:100%}
 .colofon{
   --co-r:1.5rem;
   --co-teken:calc(var(--co-r) * 2);   /* 48px = twee regels */
-  /* Gemeten uit geist-var.woff2 (cap .710): bij .95rem in een regelbox van
-     24px ligt de kaplijn op 6,6px. Dit is de enige natikwaarde. */
-  --co-kap:.41rem;
+  /* Geen --co-kap hier: de deelsites hebben die nodig om het teken aan de kaplijn van regel 1
+     te hangen, maar deze voet telt maar EEN regel en centreert dus. */
   border-top:1px solid var(--c-lijn);
   padding-block:calc(var(--co-r) * 2) calc(var(--co-r) * 3);
 }
+/* Hier CENTREREN, waar Denk mee en Lees mee hun teken aan de kaplijn hangen. Dat is geen
+   afwijking van het systeem maar het gevolg ervan: het teken is twee regels hoog, en die
+   sites hebben drie tot vier regels tekst, zodat het aan regel 1 hoort te haken. Het portaal
+   heeft er EEN. Nagemeten stak het teken dan 30px onder de tekst uit en plakte het zinnetje
+   tegen het plafond. Bij een of twee regels is een gedeelde middenas het juiste antwoord. */
 .co-shell{
   max-width:var(--max); margin-inline:auto; padding-inline:var(--pad-x);
-  display:flex; align-items:flex-start; gap:var(--co-r);
+  display:flex; align-items:center; gap:var(--co-r);
 }
+/* Geen kaplijn-correctie hier: het teken hangt niet aan regel 1 maar deelt een middenas met
+   de zin. Op de deelsites staat op deze plek margin-top:var(--co-kap). */
 .co-mark{
   flex:none; display:block;
   width:var(--co-teken); height:var(--co-teken);
-  margin-top:var(--co-kap);
   border-radius:50%; transition:box-shadow .16s;
 }
 .co-mark > *{ display:block; width:100%; height:100%; }
