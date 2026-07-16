@@ -33,9 +33,6 @@ IC = {
     # Denk mee: gedachtenwolkje (echte wolkvorm) met drie punten en twee dalende bolletjes
     "__IC_DENK__": _ic('<g transform="translate(2.4 -1.5) scale(0.8)">'
                        '<path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g>'
-                       '<circle cx="9.6" cy="10" r=".55" fill="currentColor" stroke="none"/>'
-                       '<circle cx="12.2" cy="10" r=".55" fill="currentColor" stroke="none"/>'
-                       '<circle cx="14.8" cy="10" r=".55" fill="currentColor" stroke="none"/>'
                        # De sleepbolletjes moeten de wolk NIET raken: op (7.6,16.4) r1.5 was de
                        # speling -0,16 (dus raak). Nagemeten langs de wolkrand: dit geeft ~0,8
                        # speling tot de wolk en ~0,8 tussen de bolletjes onderling.
