@@ -246,7 +246,10 @@ img,svg{max-width:100%}
   font-weight:500; font-size:.96em; letter-spacing:-.015em;
   color:var(--c-ink); white-space:nowrap;
 }
-.co-zin .co-naam em{ font-style:italic; color:var(--c-pink-tekst); }
+/* Rechtop, niet cursief. Op de deelsites staat er in de em een ONDERTITEL ("met Mechelen"),
+   en die hoort cursief. Hier zit "Paust" in de em, en dat is geen ondertitel maar een stuk van
+   de merknaam zelf. Zelfde behandeling als de accentwoorden op Lees mee: roze, rechtop. */
+.co-zin .co-naam em{ font-style:normal; color:var(--c-pink-tekst); }
 .co-fam{
   margin:var(--co-r) 0 0;
   font-family:'JetBrains Mono',ui-monospace,monospace;
