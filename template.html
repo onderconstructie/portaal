@@ -80,7 +80,9 @@ img,svg{max-width:100%}
 .brand:hover{color:var(--tekst)}
 .brand .mk{width:34px;height:34px;flex:none;display:block}
 .mk img{width:100%;height:100%;display:block;border-radius:50%}
-.brand em{color:var(--pink);font-style:normal;font-weight:600}
+/* --pink-tekst en niet --pink: 16px is geen display-tekst, en de roze-discipline hierboven
+   schrijft dan --pink-tekst voor. Nagemeten haalde --pink hier 3,42. */
+.brand em{color:var(--pink-tekst);font-style:normal;font-weight:600}
 .nav-links{display:flex;gap:1.3rem;margin-left:auto;font-family:'JetBrains Mono',monospace;
   font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
 .nav-links a{color:var(--tekst-2);padding:.2rem 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
@@ -97,12 +99,19 @@ img,svg{max-width:100%}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
 /* hero */
+/* De gloed stond op .10 en legde daarmee een roze waas (#f6d9db) onder je eigen roze tekst:
+   roze op roze. Nagemeten zakten de eyebrow (4,42 bij drempel 4,5) en de 38px "Paust" (2,91
+   bij drempel 3) daardoor allebei. Vanaf .08 halen ze het nipt, bij .06 met marge (4,72 en
+   3,11). De gloed blijft dus, hij duwt de tekst alleen niet meer onder de drempel. */
 .hero{position:relative;overflow:hidden;
-  background:radial-gradient(1100px 480px at 78% -10%, rgba(255,0,102,.10), transparent 65%)}
+  background:radial-gradient(1100px 480px at 78% -10%, rgba(255,0,102,.06), transparent 65%)}
 .hero .shell{padding-top:clamp(2rem,4.5vw,3.4rem);padding-bottom:clamp(1.8rem,3.5vw,3rem)}
 .hub-intro{display:grid;grid-template-columns:1fr auto;gap:clamp(1.5rem,4vw,4.5rem);align-items:center}
 .eyebrow{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:1.1rem}
+  /* De eyebrow is de kleinste tekst van de pagina (10,9 tot 11,5px), dus per de roze-discipline
+     --pink-tekst. Met --pink haalde ze 2,91 in de hero en 3,79 in de contactmodal. Die 2,91
+     komt mede door de roze gloed erachter: daar stond roze op roze. */
+  font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pink-tekst);margin-bottom:1.1rem}
 .eyebrow .pulse{width:.55em;height:.55em;background:var(--pink);border-radius:50%;margin-right:.7em;flex:none;
   animation:agpPulse 2.4s ease-out infinite}
 .hero-title{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.04em;line-height:1.02;
@@ -162,7 +171,9 @@ img,svg{max-width:100%}
 .over .shell{padding-top:clamp(2.4rem,5vw,3.6rem);padding-bottom:clamp(2.4rem,5vw,3.6rem)}
 .over h2{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;
   font-size:clamp(1.4rem,2.6vw,2rem);margin:0 0 .8rem;line-height:1.1}
-.over h2 em{color:var(--pink);font-style:normal}
+/* 22,4px bij gewicht 500 telt niet als grote tekst (WCAG: 24px, of 18,66px vetgedrukt), dus
+   geldt hier de drempel 4,5 en niet 3. Met --pink haalde "jouw stad" 3,13. */
+.over h2 em{color:var(--pink-tekst);font-style:normal}
 .over p{color:var(--tekst-2);max-width:56ch;margin:0 0 .9rem;line-height:1.62}
 .over p b{color:var(--pink-tekst);font-weight:600}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
@@ -284,8 +295,12 @@ img,svg{max-width:100%}
 .field-lbl{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.63rem;letter-spacing:.13em;
   text-transform:uppercase;color:var(--heel-stil)}
 .field-hint{text-transform:none;letter-spacing:0}
+/* De inkt van de dag-editie, NIET --paper. Dat was een restant van de nacht-editie, waar
+   --paper de lichte inkt op donkere velden was. Op #fffdf7 gaf dat 1,108:1: wat je typte was
+   onzichtbaar, cursor incluis, terwijl de placeholder wel gewoon leesbaar bleef. Je zag dus
+   "Voornaam Naam" staan, begon te typen, en je tekst verdween. Nu 17,57:1. */
 .field-input{font:inherit;padding:.6rem .7rem;border:1px solid var(--lijn-sterk);border-radius:var(--r-input);
-  background:var(--bg-veld);color:var(--paper)}
+  background:var(--bg-veld);color:var(--tekst)}
 .field-input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,0,102,.15)}
 textarea.field-input{resize:vertical}
 .ov-error{margin-top:.85rem;padding:.6rem .8rem;background:var(--pink-zacht);border-left:2px solid var(--pink);
@@ -337,7 +352,10 @@ textarea.field-input{resize:vertical}
   </div>
 </div>
 
-<header class="hero">
+<!-- De vier ingangen zijn de hoofdinhoud van deze pagina, dus horen ze in <main>.
+     Stond dit in <header> (rol banner), dan sloeg "spring naar de hoofdinhoud" ze over. -->
+<main>
+<section class="hero">
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
@@ -392,7 +410,7 @@ textarea.field-input{resize:vertical}
 
     </div>
   </div>
-</header>
+</section>
 
 <section class="over"><div class="shell">
   <div>
@@ -413,6 +431,8 @@ textarea.field-input{resize:vertical}
 </div></section>
 
 <!-- Het colofon. Geen link op het teken: dit is asgaupaust.be zelf. -->
+</main>
+
 <footer class="colofon"><div class="co-shell">
   <span class="co-mark" aria-hidden="true">__MARK__</span>
   <div class="co-body">
@@ -433,23 +453,23 @@ textarea.field-input{resize:vertical}
     <div class="ov-fields-row">
       <div class="field">
         <label class="field-lbl" for="ctNaam">Naam</label>
-        <input type="text" id="ctNaam" class="field-input" placeholder="Voornaam Naam" autocomplete="name">
+        <input type="text" id="ctNaam" class="field-input" placeholder="Voornaam Naam" autocomplete="name" required>
       </div>
       <div class="field">
         <label class="field-lbl" for="ctEmail">E-mailadres</label>
-        <input type="email" id="ctEmail" class="field-input" placeholder="jij@voorbeeld.be" autocomplete="email">
+        <input type="email" id="ctEmail" class="field-input" placeholder="jij@voorbeeld.be" autocomplete="email" required>
       </div>
     </div>
     <div class="field">
       <label class="field-lbl" for="ctOnderwerp">Onderwerp</label>
-      <input type="text" id="ctOnderwerp" class="field-input" placeholder="Waarover gaat het?">
+      <input type="text" id="ctOnderwerp" class="field-input" placeholder="Waarover gaat het?" required>
     </div>
     <div class="field">
       <label class="field-lbl" for="ctBericht">Bericht</label>
       <textarea id="ctBericht" class="field-input" rows="3" placeholder="Je bericht&#8230;"></textarea>
     </div>
 
-    <div class="ov-error" id="ctError" hidden></div>
+    <div class="ov-error" id="ctError" role="alert" hidden></div>
 
     <button type="button" class="ov-mail-btn" onclick="contactVerstuur()">Open mail-template <span class="ar">&#8594;</span></button>
     <div class="ov-modal-foot">Je eigen mailclient opent met je bericht. Jij verstuurt zelf, wij bewaren niets.</div>
@@ -480,24 +500,59 @@ textarea.field-input{resize:vertical}
 // in de code staat, niet als platte tekst — zo is het niet zomaar uit de broncode te grepen
 // of te scrapen. Geen server, geen opslag: de bezoeker verstuurt zelf.
 var CONTACT_TO = 'dm9sY2thYmFAZ21haWwuY29t';
+// Wat er ACHTER de modal ligt, moet buiten bereik: aria-modal="true" verbergt de achtergrond
+// enkel voor de bladermodus van een schermlezer, maar niet voor de Tab-toets. Nagemeten stonden
+// er 13 focusbare elementen open terwijl de modal aan stond, en de eerste zes lagen erachter.
+// inert regelt allebei in een keer, en zet de focus terug wanneer we het weghalen.
+var CT_ACHTERGROND = ['nav', 'main', 'header', 'footer', '#cookieNote'];
+var ct_opener = null;
+
+function ctAchtergrond(uit){
+  CT_ACHTERGROND.forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(e){ e.inert = uit; });
+  });
+}
+
 function openContactModal(){
+  ct_opener = document.activeElement;      // om de focus later terug te geven
   document.getElementById('ctError').hidden = true;
   document.getElementById('contactModal').hidden = false;
   document.body.style.overflow = 'hidden';
+  ctAchtergrond(true);
   setTimeout(function(){ document.getElementById('ctNaam').focus(); }, 50);
 }
 function closeContactModal(){
   document.getElementById('contactModal').hidden = true;
   document.body.style.overflow = '';
+  ctAchtergrond(false);
+  // Focus terug naar de knop waarmee je opende. Zonder dit valt hij op een verborgen element
+  // en begint een toetsenbordgebruiker weer bovenaan de pagina.
+  if(ct_opener && ct_opener.focus) ct_opener.focus();
+  ct_opener = null;
 }
 function contactVerstuur(){
   var v = function(id){ return document.getElementById(id).value.trim(); };
   var naam = v('ctNaam'), email = v('ctEmail'), onderwerp = v('ctOnderwerp'), bericht = v('ctBericht');
+  // De melding was alleen te ZIEN. Met role="alert" wordt ze voorgelezen zodra ze verschijnt,
+  // en aria-describedby plakt ze aan het veld zelf, zodat je ook daar hoort wat er scheelt.
+  var wisFout = function(){
+    ['ctNaam','ctEmail','ctOnderwerp'].forEach(function(id){
+      var f = document.getElementById(id);
+      f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby');
+    });
+  };
   var fout = function(msg, id){
     var e = document.getElementById('ctError');
+    wisFout();
     e.textContent = msg; e.hidden = false;
-    if(id) document.getElementById(id).focus();
+    if(id){
+      var f = document.getElementById(id);
+      f.setAttribute('aria-invalid', 'true');
+      f.setAttribute('aria-describedby', 'ctError');
+      f.focus();
+    }
   };
+  wisFout();
   if(!naam) return fout('Vul je naam in.', 'ctNaam');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fout('Vul een geldig e-mailadres in.', 'ctEmail');
   if(!onderwerp) return fout('Vul een onderwerp in.', 'ctOnderwerp');
