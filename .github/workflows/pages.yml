@@ -32,6 +32,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # De naam van de initiatiefnemer staat NIET in git. Hij komt uit de secret OVER_NAAM
+      # en wordt hier pas bij het publiceren in dist/index.html gestikt (zie inject_over.py).
+      - name: Initiatiefnemer injecteren (uit de secret, niet uit git)
+        env:
+          OVER_NAAM: ${{ secrets.OVER_NAAM }}
+        run: python3 .github/inject_over.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

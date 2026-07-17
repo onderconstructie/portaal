@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#FF0066">
-<title>As Gau Paust: onafhankelijke hyperlokale journalistiek over Mechelen</title>
-<meta name="description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
+<title>As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen</title>
+<meta name="description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
 
 <link rel="icon" type="image/png" href="/beelden/mug.png">
 
@@ -183,6 +183,35 @@ img,svg{max-width:100%}
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
 
+/* Wie zit hierachter: een terughoudende uitklap, net onder de banner. De naam staat niet
+   in git; pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
+.wie{margin-top:1.8rem}
+.wie summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--pink-tekst);cursor:pointer;
+  list-style:none;display:inline-flex;align-items:center;gap:.55rem;transition:color .15s}
+.wie summary::-webkit-details-marker{display:none}
+.wie summary::before{content:'+';font-size:1.15em;width:1em;text-align:center;line-height:1}
+.wie[open] summary::before{content:'\2013'}
+.wie summary:hover{color:var(--pink-deep)}
+.wie-in{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.2rem}
+/* De cartoon-bol, even groot (72px) als de mug-bol in de banner erboven, met de roze ring.
+   Twee gestapelde beelden: de cartoon (met ronde bijsnede, de zwarte hoeken vallen weg) en
+   de mug. Bij hover (desktop), focus of een tik (touch, via .toon-mug) wisselt de cartoon
+   naar de mug: een kleine knipoog. */
+.wie-fig{position:relative;width:72px;height:72px;flex:none;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 2px var(--pink);padding:0;border:0;overflow:hidden;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;display:block}
+.wie-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;
+  transition:opacity .25s ease}
+.wf-cartoon{object-position:center 40%;opacity:1}
+.wf-mug{object-position:center;opacity:0}
+.wie-fig:hover .wf-cartoon,.wie-fig:focus-visible .wf-cartoon,.wie-fig.toon-mug .wf-cartoon{opacity:0}
+.wie-fig:hover .wf-mug,.wie-fig:focus-visible .wf-mug,.wie-fig.toon-mug .wf-mug{opacity:1}
+.wie-fig:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.wie-in{gap:1.3rem}
+.wie .wie-init{flex:1;min-width:16rem;margin:0;color:var(--tekst-2);line-height:1.62;max-width:52ch}
+
+
 /* oproep-banner: bewust het donkere eiland op het lichte vel, in warme inkt (geen puur
    zwart, dat komt op papier te hard aan). De rgba-waarden hierbinnen zijn papierwit. */
 .hb-banner{position:relative;margin-top:2.6rem;background:var(--bg-diep);color:var(--paper);
@@ -275,6 +304,7 @@ img,svg{max-width:100%}
 .co-fam a{ color:var(--c-pink-tekst); border-bottom:1px solid var(--c-pink); }
 .co-fam a:hover{ color:var(--c-pink-deep); border-bottom-color:var(--c-pink-deep); }
 
+
 /* contact-modal (mailto, geen server) */
 .ov-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
 .ov-modal[hidden]{display:none}
@@ -347,8 +377,8 @@ textarea.field-input{resize:vertical}
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-baan">
-    <div class="ticker-groep"><span>Onafhankelijke hyperlokale journalistiek</span>__MARK__<span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-    <div class="ticker-groep"><span>Onafhankelijke hyperlokale journalistiek</span>__MARK__<span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Onafhankelijke hyperlokale (burger)journalistiek</span>__MARK__<span>Experimenteel platform</span>__MARK__<span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Onafhankelijke hyperlokale (burger)journalistiek</span>__MARK__<span>Experimenteel platform</span>__MARK__<span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
   </div>
 </div>
 
@@ -359,7 +389,7 @@ textarea.field-input{resize:vertical}
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
-        <span class="eyebrow"><span class="pulse"></span>Experimentele hyperlokale journalistiek</span>
+        <span class="eyebrow"><span class="pulse"></span>Experimentele hyperlokale (burger)journalistiek</span>
         <h1 class="hero-title">As Gau <em>Paust</em></h1>
         <p class="hero-lede">Volg Mechelen van dichtbij: de besluitvorming, het archief en de cijfers. Kies je ingang.</p>
       </div>
@@ -415,7 +445,7 @@ textarea.field-input{resize:vertical}
 <section class="over"><div class="shell">
   <div>
     <h2>Ook iets voor <em>jouw stad</em>?</h2>
-    <p><b>As Gau Paust</b> is een experimenteel platform voor hyperlokale journalistiek, gebouwd rond één stad: Mechelen.</p>
+    <p><b>As Gau Paust</b> is een experimenteel platform voor hyperlokale (burger)journalistiek, gebouwd rond één stad: Mechelen.</p>
     <p>De bouwblokken liggen klaar voor hergebruik. Ben je journalist of burgerjournalist? Ga ermee aan de slag in je eigen stad of gemeente.</p>
     <button type="button" class="over-cta" onclick="openContactModal()">Stuur ons een bericht <span class="ar">&#8594;</span></button>
   </div>
@@ -428,6 +458,21 @@ textarea.field-input{resize:vertical}
       <p class="hbb-sub">Niet voor &eacute;&eacute;n magazine, wel voor een <em>mug in de kamer</em> van elke stad.</p>
     </div>
   </aside>
+
+  <!-- Wie zit hierachter. De naam staat NIET in git: pages.yml stikt hem bij het publiceren
+       uit de GitHub-secret OVER_NAAM in de placeholder. Blijft de secret leeg, dan haalt de
+       workflow de hele Initiatiefnemer-zin (wie-init) weg. -->
+  <details class="wie">
+    <summary>Wie zit hierachter?</summary>
+    <div class="wie-in">
+      <!-- De cartoon wordt de mug bij hover (desktop) of tik (touch): een kleine knipoog. -->
+      <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+        <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
+        <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
+      </button>
+      <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+    </div>
+  </details>
 </div></section>
 
 <!-- Het colofon. Geen link op het teken: dit is asgaupaust.be zelf. -->
@@ -450,6 +495,7 @@ textarea.field-input{resize:vertical}
     <h3 id="ctTitel">Stuur ons een bericht</h3>
     <p class="ov-modal-context">Een vraag, een tip, of zin om zelf aan de slag te gaan met de bouwblokken? We horen het graag.</p>
 
+    <form id="ctForm" novalidate>
     <div class="ov-fields-row">
       <div class="field">
         <label class="field-lbl" for="ctNaam">Naam</label>
@@ -471,7 +517,8 @@ textarea.field-input{resize:vertical}
 
     <div class="ov-error" id="ctError" role="alert" hidden></div>
 
-    <button type="button" class="ov-mail-btn" onclick="contactVerstuur()">Open mail-template <span class="ar">&#8594;</span></button>
+    <button type="submit" class="ov-mail-btn">Open mail-template <span class="ar">&#8594;</span></button>
+    </form>
     <div class="ov-modal-foot">Je eigen mailclient opent met je bericht. Jij verstuurt zelf, wij bewaren niets.</div>
   </div>
 </div>
@@ -566,6 +613,13 @@ function contactVerstuur(){
 window.addEventListener('keydown', function(e){
   if(e.key === 'Escape' && !document.getElementById('contactModal').hidden) closeContactModal();
 });
+// Een echt <form>, zodat Enter in een veld verstuurt. preventDefault houdt de mailto-route
+// in eigen hand in plaats van een echte formulierpost.
+document.getElementById('ctForm').addEventListener('submit', function(e){ e.preventDefault(); contactVerstuur(); });
+// De cartoon-bol wisselt met de mug. Hover regelt desktop (CSS); een tik regelt touch: we
+// togglen .toon-mug. preventDefault houdt de <details> open (de knop zit in de inhoud).
+var _wf = document.querySelector('.wie-fig');
+if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 </script>
 
 </body>
