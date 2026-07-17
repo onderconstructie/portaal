@@ -196,8 +196,9 @@ img,svg{max-width:100%}
 .wie-in{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.2rem}
 /* De cartoon-bol, even groot (72px) als de mug-bol in de banner erboven, met de roze ring.
    Twee gestapelde beelden: de cartoon (met ronde bijsnede, de zwarte hoeken vallen weg) en
-   de mug. Bij hover (desktop), focus of een tik (touch, via .toon-mug) wisselt de cartoon
-   naar de mug: een kleine knipoog. */
+   de mug. Elke klik/tik wisselt (via .toon-mug in JS): cartoon, mug, cartoon, ... Bewust
+   GEEN :hover-wissel: die zou de mug forceren en het terugklikken naar de wink blokkeren
+   (op iOS blijft hover bovendien plakken na een tik). */
 .wie-fig{position:relative;width:72px;height:72px;flex:none;border-radius:50%;background:#fff;
   box-shadow:0 0 0 2px var(--pink);padding:0;border:0;overflow:hidden;cursor:pointer;
   -webkit-tap-highlight-color:transparent;display:block}
@@ -205,8 +206,9 @@ img,svg{max-width:100%}
   transition:opacity .25s ease}
 .wf-cartoon{object-position:center 40%;opacity:1}
 .wf-mug{object-position:center;opacity:0}
-.wie-fig:hover .wf-cartoon,.wie-fig:focus-visible .wf-cartoon,.wie-fig.toon-mug .wf-cartoon{opacity:0}
-.wie-fig:hover .wf-mug,.wie-fig:focus-visible .wf-mug,.wie-fig.toon-mug .wf-mug{opacity:1}
+/* Enkel de klik-toggle stuurt de wissel: zo alterneert elke klik netjes cartoon <-> mug. */
+.wie-fig.toon-mug .wf-cartoon{opacity:0}
+.wie-fig.toon-mug .wf-mug{opacity:1}
 .wie-fig:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 .wie-in{gap:1.3rem}
 .wie .wie-init{flex:1;min-width:16rem;margin:0;color:var(--tekst-2);line-height:1.62;max-width:52ch}
@@ -377,8 +379,8 @@ textarea.field-input{resize:vertical}
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-baan">
-    <div class="ticker-groep"><span>Onafhankelijke hyperlokale (burger)journalistiek</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Experimenteel platform</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Ook iets voor jouw stad?</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
-    <div class="ticker-groep"><span>Onafhankelijke hyperlokale (burger)journalistiek</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Experimenteel platform</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Ook iets voor jouw stad?</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Ook iets voor jouw stad?</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>De mug in de kamer</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Voor de meedenkende Mechelaar</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Paust dan ma gau eet anders</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"><span>Ook iets voor jouw stad?</span><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></div>
   </div>
 </div>
 
@@ -389,7 +391,7 @@ textarea.field-input{resize:vertical}
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
-        <span class="eyebrow"><span class="pulse"></span>Experimentele hyperlokale (burger)journalistiek</span>
+        <span class="eyebrow"><span class="pulse"></span>Experimenteel platform</span>
         <h1 class="hero-title">As Gau <em>Paust</em></h1>
         <p class="hero-lede">Volg Mechelen van dichtbij: de besluitvorming, het archief en de cijfers. Kies je ingang.</p>
       </div>
