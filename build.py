@@ -68,6 +68,29 @@ out_dir = BASE / "dist"
 out_dir.mkdir(exist_ok=True)
 (out_dir / "index.html").write_text(html, encoding="utf-8")
 
+# 2b) Aparte pagina /en-meer/ : de filosofie van het platform. De ECHTE tekst staat er bewust
+#     nog niet in (die werken we eerst uit voor we publiceren); dit is voorlopig een lorem-
+#     plaatshouder. De pagina deelt de <head> van het portaal (zelfde CSS, fonts en merk),
+#     met een eigen titel en omschrijving.
+enmeer_tpl = BASE / "template-enmeer.html"
+if enmeer_tpl.exists():
+    import re
+    m = re.search(r"<head>.*?</head>", html, flags=re.DOTALL)
+    head = m.group(0) if m else ""
+    head = re.sub(r"<title>.*?</title>",
+                  "<title>En meer, de filosofie van het platform · As Gau Paust</title>",
+                  head, count=1, flags=re.DOTALL)
+    head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
+                  r"\g<1>En meer: waar het experimentele platform van As Gau Paust voor staat en waar "
+                  r"het heen groeit. Deze pagina is nog in de maak.\g<2>",
+                  head, count=1, flags=re.DOTALL)
+    enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    for _k, _svg in IC.items():
+        enmeer_html = enmeer_html.replace(_k, _svg)
+    (out_dir / "en-meer").mkdir(exist_ok=True)
+    (out_dir / "en-meer" / "index.html").write_text(enmeer_html, encoding="utf-8")
+    print("       en-meer-pagina gebouwd: dist/en-meer/index.html")
+
 # 3) CNAME voor GitHub Pages. Eenmalig, pas bij live-zetten: Settings -> Pages ->
 #    Custom domain = asgaupaust.be, plus een DNS-record naar <gebruiker>.github.io.
 (out_dir / "CNAME").write_text(CUSTOM_DOMAIN + "\n", encoding="utf-8")
