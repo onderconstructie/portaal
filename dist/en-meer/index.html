@@ -81,9 +81,9 @@ img,svg{max-width:100%}
    aandacht; puur dekking laten ademen las dan weer niet als een puls. Dit zit ertussenin: je
    ziet dat het leeft, het knippert niet. */
 @keyframes agpOnline{
-  0%{box-shadow:0 0 0 0 rgba(255,255,255,.5);opacity:.8}
-  70%{box-shadow:0 0 0 3.5px rgba(255,255,255,0);opacity:1}
-  100%{box-shadow:0 0 0 0 rgba(255,255,255,0);opacity:.8}
+  0%{box-shadow:0 0 0 0 rgba(255,0,102,.45);opacity:.8}
+  70%{box-shadow:0 0 0 3.5px rgba(255,0,102,0);opacity:1}
+  100%{box-shadow:0 0 0 0 rgba(255,0,102,0);opacity:.8}
 }
 @keyframes agpBol{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes agpTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -180,10 +180,14 @@ img,svg{max-width:100%}
    klein pulserend roze bolletje met het woord ernaast, in plaats van een gevuld roze vlak met
    "Online". Dat scheelt meteen contrast: wit op #FF0066 haalt 3,86:1, terwijl --pink-tekst op
    papier ruim AA haalt. Het info-blok (En meer) draagt bewust GEEN badge: geen experiment. */
-.badge.exp{background:var(--pink);color:#fff}
-/* Klein wit online-bolletje met een hele lichte puls (zie agpOnline hierboven).
+/* Live-badge: een licht roze vlakje met roze tekst en een roze pulsbolletje. De tekst gebruikt
+   --pink-tekst (#c80054) en niet het volle merkroze: op dit lichte vlak haalt #c80054 4,88:1 en
+   dus AA, terwijl #FF0066 op 3,26 blijft steken. Het bolletje mag wel vol merkroze zijn, dat is
+   decoratie en geen tekst. De haarlijn geeft het chipje definitie op de bijna-witte kaart. */
+.badge.live{background:var(--pink-zacht);color:var(--pink-tekst);border:1px solid rgba(255,0,102,.22)}
+/* Klein roze bolletje met een hele lichte puls (zie agpOnline hierboven).
    De reduced-motion-regel onderaan zet het desgewenst helemaal stil. */
-.badge.exp .dotje{width:.45em;height:.45em;background:#fff;border-radius:50%;flex:none;
+.badge.live .dotje{width:.45em;height:.45em;background:var(--pink);border-radius:50%;flex:none;
   animation:agpOnline 3s ease-out infinite}
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
