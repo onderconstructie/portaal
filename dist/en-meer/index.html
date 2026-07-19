@@ -364,9 +364,13 @@ textarea.field-input{resize:vertical}
   border-radius:999px;padding:.6rem 1rem;cursor:pointer}
 .cn-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
 
+/* Offset voor de plakkende bovenbalk wanneer een tab naar een blok scrollt (ook bij aankomst
+   vanuit de En meer-pagina via /#blok-...). */
+#blok-denkmee,#blok-leesmee,#jouwstad{scroll-margin-top:72px}
+
 /* App-achtige onderbalk op smartphone (bestaat niet op groter scherm; de pagina is kort genoeg
    om te scrollen). Spiegelt de tabbalk van Denk mee en Lees mee: vaste balk onderaan, per functie
-   een icoon met label, de actieve sectie kleurt roze met een streepje bovenaan. */
+   een icoon met label. Op de En meer-pagina staat dezelfde balk, met de huidige pagina roze. */
 .tabbar{display:none}
 @media(max-width:700px){
   .tabbar{
@@ -385,6 +389,9 @@ textarea.field-input{resize:vertical}
   .tabbar svg{width:22px;height:22px;display:block;flex:none}
   .tabbar span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.55rem;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
   .tabbar a:hover,.tabbar button:hover{color:var(--pink-tekst)}
+  /* Huidige pagina (op de En meer-pagina): roze met een streepje bovenaan. */
+  .tabbar a[aria-current="page"]{color:var(--pink-tekst)}
+  .tabbar a[aria-current="page"]::before{content:'';position:absolute;top:0;left:24%;right:24%;height:2px;background:var(--pink)}
   /* Ruimte onder de pagina zodat niets achter de balk verdwijnt; de privacymelding erbovenop. */
   body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
   .cookie-note{bottom:calc(68px + env(safe-area-inset-bottom))}
@@ -429,6 +436,17 @@ textarea.field-input{resize:vertical}
     <p class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.</p>
   </div>
 </div></footer>
+
+<!-- Dezelfde app-onderbalk als op het portaal, voor de logica. De tabs wijzen terug naar de
+     portaal-blokken (/#blok-...), 'En meer' is hier de huidige pagina, en 'Contact' opent de
+     mailmodal op het portaal via /#contact. Geen eigen JS nodig: het portaal vangt de hash op. -->
+<nav class="tabbar" id="tabbar" aria-label="De experimenten en contact">
+  <a href="/#blok-denkmee"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg><span>Denk mee</span></a>
+  <a href="/#blok-leesmee"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg><span>Lees mee</span></a>
+  <a href="/en-meer/" aria-current="page"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg><span>En meer</span></a>
+  <a href="/#jouwstad"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V5.5H9V7.5H11V5.5H13V7.5H15V5.5H17V8"/><path d="M7 8v13h10V8"/><path d="M10.5 21v-2.6a1.5 1.5 0 0 1 3 0V21"/></svg><span>Jouw stad</span></a>
+  <a href="/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
+</nav>
 
 </body>
 </html>
