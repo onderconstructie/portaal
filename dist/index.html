@@ -182,6 +182,11 @@ img,svg{max-width:100%}
 .over-cta:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
+/* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
+   de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
+@media(max-width:520px){
+  .over-cta{display:flex;width:100%;justify-content:center;margin-top:1.4rem}
+}
 
 /* Wie zit hierachter: een terughoudende uitklap, net onder de banner. De naam staat niet
    in git; pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
