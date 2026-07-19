@@ -369,18 +369,15 @@ textarea.field-input{resize:vertical}
     <span class="mk">__MARK__</span>
     <span>As Gau <em>Paust</em></span>
   </a>
-  <div class="nav-links">
-    <a href="https://denkmee.asgaupaust.be">Denk mee</a>
-    <a href="https://leesmee.asgaupaust.be">Lees mee</a>
-    <span class="soon">Reken mee</span>
-  </div>
+  <!-- Geen nav-links meer rechtsboven: die herhaalden enkel de grote ingangs-kaarten
+       hieronder (Denk mee / Lees mee / Reken mee). Op de startpagina blijft de balk rustig. -->
 </div></nav>
 
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-baan">
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
   </div>
 </div>
 
@@ -391,9 +388,9 @@ textarea.field-input{resize:vertical}
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
-        <span class="eyebrow"><span class="pulse"></span>Experimenteel platform</span>
+        <span class="eyebrow"><span class="pulse"></span>Experiment</span>
         <h1 class="hero-title">As Gau <em>Paust</em></h1>
-        <p class="hero-lede">Volg Mechelen van dichtbij: de besluitvorming, het archief en de cijfers. Kies je ingang.</p>
+        <p class="hero-lede">As Gau Paust volgt één stad van dichtbij, Mechelen, in aparte bouwblokken: de besluitvorming in mensentaal, zeven jaar archief, en straks de cijfers achter het bestuur. Het platform groeit, er komen er nog bij. Kies hieronder je ingang.</p>
       </div>
       <div class="hero-mark" aria-hidden="true">
         <div class="ring"></div>
@@ -536,11 +533,18 @@ textarea.field-input{resize:vertical}
 (function(){
   var el = document.getElementById('cookieNote');
   var ok = document.getElementById('cnOk');
-  var gezien = false;
-  try{ gezien = localStorage.getItem('asgaupaust.privacyok') === '1'; }catch(e){}
-  if(!gezien) el.hidden = false;
+  // Veerkrachtig over lagen: een in-app-browser (Facebook/Instagram) of de privémodus kan
+  // localStorage blokkeren. Dan bleef de vlag onbewaard en kwam de melding op elke load terug,
+  // niet meer weg te klikken. sessionStorage overleeft een reload binnen hetzelfde tabblad.
+  function gezien(){
+    try{ if(localStorage.getItem('asgaupaust.privacyok') === '1') return true; }catch(e){}
+    try{ if(sessionStorage.getItem('asgaupaust.privacyok') === '1') return true; }catch(e){}
+    return false;
+  }
+  if(!gezien()) el.hidden = false;
   ok.addEventListener('click', function(){
     try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
+    try{ sessionStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
     el.hidden = true;
   });
 })();
