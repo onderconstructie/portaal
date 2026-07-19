@@ -148,6 +148,18 @@ img,svg{max-width:100%}
   background:var(--kaart-hover);box-shadow:var(--schaduw-hover)}
 .pcard.soon{background:rgba(255,255,255,.42);border:1px dashed var(--lijn-stippel);box-shadow:none}
 .pcard.soon h3{color:var(--tekst-2)}
+/* Derde soort blok: GEEN tool, maar een pagina die er wel al is (En meer). Reageert net zo
+   levendig als de live blokken (optillen, schaduw, pijl schuift mee), alleen in neutraal grijs
+   in plaats van roze: zo zie je meteen dat dit achtergrond is en geen experiment. De schaduw
+   krijgt bewust dezelfde vorm als --schaduw-hover maar in warm grijs, want die variabele
+   draagt een roze gloed. 'soon' blijft voor wat er echt nog niet is (Reken mee). */
+.pcard.info:hover{transform:translateY(-4px);border-color:var(--stil);color:var(--tekst);
+  background:var(--kaart-hover);
+  box-shadow:0 2px 4px rgba(72,56,38,.07), 0 24px 50px -18px rgba(72,56,38,.30)}
+.pcard.info .pcard-ic{color:var(--stil);background:rgba(26,23,18,.05);border:1px solid var(--lijn-kaart)}
+.pcard.info h3 em{color:var(--tekst-2)}
+.pcard.info .go{color:var(--tekst-2)}
+.pcard.info:hover .go .ar{transform:translateX(5px)}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
 .pcard-ic{width:52px;height:52px;flex:none;display:grid;place-items:center;color:var(--pink);
   background:var(--pink-zacht);border:1px solid rgba(255,0,102,.28);border-radius:var(--r-chip)}
@@ -160,6 +172,10 @@ img,svg{max-width:100%}
 .badge.on{background:var(--pink);color:#fff}
 .badge.on .dotje{width:.5em;height:.5em;background:#fff;border-radius:50%;animation:agpPulse 2.4s ease-out infinite}
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
+/* Neutrale Online-badge voor het info-blok: die pagina is wel live, maar geen tool.
+   Dus geen roze vlak en geen pulsje (die blijven voor de experimenten), wel de
+   gewone tekstkleur zodat "Online" niet fluistert zoals de wait-badge. */
+.badge.stil{border:1px solid var(--lijn-sterk);color:var(--tekst-2)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
 .pcard h3{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;line-height:1;
@@ -502,8 +518,8 @@ textarea.field-input{resize:vertical}
         <span class="go">in de maak</span>
       </div>
 
-      <a class="pcard soon" href="/en-meer/">
-        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span><span class="badge wait">In de maak</span></div>
+      <a class="pcard info" href="/en-meer/">
+        <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span><span class="badge stil">Online</span></div>
         <span class="k">dit portaal groeit</span>
         <h3>En <em>meer</em></h3>
         <div class="fam">met Mechelen</div>
