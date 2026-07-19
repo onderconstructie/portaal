@@ -364,6 +364,33 @@ textarea.field-input{resize:vertical}
   border-radius:999px;padding:.6rem 1rem;cursor:pointer}
 .cn-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
 
+/* App-achtige onderbalk op smartphone (bestaat niet op groter scherm; de pagina is kort genoeg
+   om te scrollen). Spiegelt de tabbalk van Denk mee en Lees mee: vaste balk onderaan, per functie
+   een icoon met label, de actieve sectie kleurt roze met een streepje bovenaan. */
+.tabbar{display:none}
+@media(max-width:700px){
+  .tabbar{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    position:fixed;left:0;right:0;bottom:0;z-index:120;
+    background:rgba(245,241,232,.93);
+    backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-top:1px solid var(--lijn);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .tabbar a,.tabbar button{
+    position:relative;display:flex;flex-direction:column;align-items:center;gap:.26rem;
+    padding:.6rem 0 .55rem;background:none;border:0;cursor:pointer;font:inherit;
+    color:var(--tekst-2);text-decoration:none;transition:color .15s;
+  }
+  .tabbar svg{width:21px;height:21px;display:block;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tabbar span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .tabbar a:hover,.tabbar button:hover{color:var(--pink-tekst)}
+  .tabbar a.active{color:var(--pink-tekst)}
+  .tabbar a.active::before{content:'';position:absolute;top:0;left:24%;right:24%;height:2px;background:var(--pink)}
+  /* Ruimte onder de pagina zodat niets achter de balk verdwijnt; de privacymelding erbovenop. */
+  body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
+  .cookie-note{bottom:calc(68px + env(safe-area-inset-bottom))}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -389,7 +416,7 @@ textarea.field-input{resize:vertical}
 <!-- De vier ingangen zijn de hoofdinhoud van deze pagina, dus horen ze in <main>.
      Stond dit in <header> (rol banner), dan sloeg "spring naar de hoofdinhoud" ze over. -->
 <main>
-<section class="hero">
+<section class="hero" id="top">
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
@@ -404,7 +431,7 @@ textarea.field-input{resize:vertical}
       </div>
     </div>
 
-    <div class="portals">
+    <div class="portals" id="ingangen">
 
       <a class="pcard live" href="https://denkmee.asgaupaust.be">
         <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg></span><span class="badge on"><span class="dotje"></span>Online</span></div>
@@ -446,7 +473,7 @@ textarea.field-input{resize:vertical}
   </div>
 </section>
 
-<section class="over"><div class="shell">
+<section class="over" id="jouwstad"><div class="shell">
   <div>
     <h2>Ook iets voor <em>jouw stad</em>?</h2>
     <p>Wat hier voor Mechelen draait, is niet aan Mechelen gebonden. Elk bouwblok past net zo goed op een andere stad.</p>
@@ -534,6 +561,28 @@ textarea.field-input{resize:vertical}
   <button type="button" class="cn-ok" id="cnOk">Begrepen</button>
 </div>
 
+<!-- App-achtige onderbalk op smartphone: snelnavigatie naar de ingangen en 'Jouw stad', plus de
+     contactknop die de mailtemplate opent. Op groter scherm bestaat de balk niet (de pagina is
+     kort genoeg om te scrollen). Spiegelt de tabbalk van Denk mee en Lees mee. -->
+<nav class="tabbar" id="tabbar" aria-label="Snelnavigatie">
+  <a href="#top" data-sec="top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5.5 9.5V20h13V9.5"/></svg>
+    <span>Start</span>
+  </a>
+  <a href="#ingangen" data-sec="ingangen">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg>
+    <span>Ingangen</span>
+  </a>
+  <a href="#jouwstad" data-sec="jouwstad">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8l6-3v16"/><path d="M10 21V11l9-3v13"/><line x1="6" y1="10.5" x2="8" y2="10.5"/><line x1="6" y1="14.5" x2="8" y2="14.5"/><line x1="13.5" y1="12.5" x2="15.5" y2="12.5"/><line x1="13.5" y1="16.5" x2="15.5" y2="16.5"/></svg>
+    <span>Jouw stad</span>
+  </a>
+  <button type="button" class="tab-actie" onclick="openContactModal()">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg>
+    <span>Contact</span>
+  </button>
+</nav>
+
 <script>
 (function(){
   var el = document.getElementById('cookieNote');
@@ -562,7 +611,7 @@ var CONTACT_TO = 'dm9sY2thYmFAZ21haWwuY29t';
 // enkel voor de bladermodus van een schermlezer, maar niet voor de Tab-toets. Nagemeten stonden
 // er 13 focusbare elementen open terwijl de modal aan stond, en de eerste zes lagen erachter.
 // inert regelt allebei in een keer, en zet de focus terug wanneer we het weghalen.
-var CT_ACHTERGROND = ['nav', 'main', 'header', 'footer', '#cookieNote'];
+var CT_ACHTERGROND = ['nav', 'main', 'header', 'footer', '#cookieNote', '.tabbar'];
 var ct_opener = null;
 
 function ctAchtergrond(uit){
@@ -631,6 +680,35 @@ document.getElementById('ctForm').addEventListener('submit', function(e){ e.prev
 // togglen .toon-mug. preventDefault houdt de <details> open (de knop zit in de inhoud).
 var _wf = document.querySelector('.wie-fig');
 if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
+
+// Onderbalk (smartphone): de actieve sectie volgt het scrollen, en een tik scrollt zacht met
+// een offset voor de plakkende bovenbalk. Contact is een aparte knop die de modal opent.
+(function(){
+  var bar = document.getElementById('tabbar');
+  if(!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('a[data-sec]'));
+  var secs = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
+  function opActief(){
+    var peil = window.innerHeight * 0.35;         // peillijn op 35% van boven
+    var idx = 0;
+    secs.forEach(function(s, i){ if(s && s.getBoundingClientRect().top <= peil) idx = i; });
+    links.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
+  }
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var gedrag = stil.matches ? 'auto' : 'smooth';
+      var s = document.getElementById(a.getAttribute('href').slice(1));
+      if(a.getAttribute('href') === '#top' || !s){ window.scrollTo({top:0, behavior:gedrag}); return; }
+      var y = s.getBoundingClientRect().top + window.scrollY - 60;   // 60px: hoogte plakkende balk
+      window.scrollTo({top: Math.max(0, y), behavior:gedrag});
+    });
+  });
+  window.addEventListener('scroll', opActief, {passive:true});
+  window.addEventListener('resize', opActief);
+  opActief();
+})();
 </script>
 
 </body>
