@@ -5,7 +5,8 @@ Twee dingen staan BEWUST niet in de repo en komen enkel uit GitHub-secrets
 (Settings -> Secrets and variables -> Actions):
 
 1. OVER_NAAM: de naam van de initiatiefnemer, in de placeholder %%OVER_NAAM%%
-   van dist/index.html. Is de secret leeg, dan verdwijnt de hele zin.
+   van dist/en-meer/index.html. De wie-sectie staat sinds de verhuizing daar en
+   niet meer op het portaal. Is de secret leeg, dan verdwijnt de hele zin.
 
 2. ENMEER_FILOSOFIE: de filosofietekst van het platform, als platte tekst met
    lege regels tussen de alinea's. Elke alinea wordt hier een <p> in
@@ -16,19 +17,22 @@ import html as htmllib
 import os
 import re
 
-# --- 1. De initiatiefnemer-naam op het portaal. ---
-PAD = "dist/index.html"
+# --- 1. De initiatiefnemer-naam, op /en-meer/ (daar staat de wie-sectie sinds de verhuizing). ---
+#     Let op de volgorde: stap 2 hieronder bewerkt hetzelfde bestand, maar leest het opnieuw in,
+#     dus beide bewerkingen blijven staan.
+PAD = "dist/en-meer/index.html"
 naam = os.environ.get("OVER_NAAM", "").strip()
-s = open(PAD, encoding="utf-8").read()
-
-if naam:
-    s = s.replace("%%OVER_NAAM%%", naam)
+if os.path.exists(PAD):
+    s = open(PAD, encoding="utf-8").read()
+    if naam:
+        s = s.replace("%%OVER_NAAM%%", naam)
+    else:
+        # geen naam: de hele placeholder-zin weg (niet-hebzuchtig, blijft binnen die ene <p>)
+        s = re.sub(r'\s*<p class="wie-init">.*?</p>', "", s, flags=re.DOTALL)
+    open(PAD, "w", encoding="utf-8").write(s)
+    print("initiatiefnemer: " + ("gezet" if naam else "geen secret, zin verwijderd"))
 else:
-    # geen naam: de hele placeholder-zin weg (niet-hebzuchtig, blijft binnen die ene <p>)
-    s = re.sub(r'\s*<p class="wie-init">.*?</p>', "", s, flags=re.DOTALL)
-
-open(PAD, "w", encoding="utf-8").write(s)
-print("initiatiefnemer: " + ("gezet" if naam else "geen secret, zin verwijderd"))
+    print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
 
 # --- 2. De filosofie op /en-meer/. ---
 PAD2 = "dist/en-meer/index.html"
@@ -54,3 +58,17 @@ if os.path.exists(PAD2):
         s = re.sub(r'\s*<div id="filosofie-echt">.*?</div>', "", s, flags=re.DOTALL)
         open(PAD2, "w", encoding="utf-8").write(s)
         print("filosofie: geen secret, plaatshouder blijft staan")
+
+# --- 3. Vangnet: nooit een rauwe placeholder publiceren. ---
+#     Verhuist een blok ooit naar een ander bestand terwijl dit script nog naar het oude wijst,
+#     dan zou %%OVER_NAAM%% letterlijk op de site belanden. Liever de publicatie afbreken.
+for wortel, _mappen, bestanden in os.walk("dist"):
+    for bestand in bestanden:
+        if not bestand.endswith(".html"):
+            continue
+        pad = os.path.join(wortel, bestand)
+        inhoud = open(pad, encoding="utf-8").read()
+        for merk in ("%%OVER_NAAM%%", "%%ENMEER_FILOSOFIE%%"):
+            if merk in inhoud:
+                raise SystemExit("FOUT: %s staat nog in %s. Publiceren afgebroken." % (merk, pad))
+print("vangnet: geen rauwe placeholders in dist/")

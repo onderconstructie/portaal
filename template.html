@@ -547,20 +547,8 @@ textarea.field-input{resize:vertical}
     </div>
   </aside>
 
-  <!-- Wie zit hierachter. De naam staat NIET in git: pages.yml stikt hem bij het publiceren
-       uit de GitHub-secret OVER_NAAM in de placeholder. Blijft de secret leeg, dan haalt de
-       workflow de hele Initiatiefnemer-zin (wie-init) weg. -->
-  <details class="wie">
-    <summary>Wie zit hierachter?</summary>
-    <div class="wie-in">
-      <!-- De cartoon wordt de mug bij hover (desktop) of tik (touch): een kleine knipoog. -->
-      <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
-        <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
-        <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
-      </button>
-      <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
-    </div>
-  </details>
+  <!-- "Wie zit hierachter" is verhuisd naar /en-meer/: daar staat het verhaal van het platform
+       (filosofie + initiatiefnemer), zodat dit portaal een schone keuzehub blijft. -->
 </div></section>
 
 <!-- Het colofon. Geen link op het teken: dit is asgaupaust.be zelf. -->
@@ -725,10 +713,6 @@ window.addEventListener('keydown', function(e){
 // Een echt <form>, zodat Enter in een veld verstuurt. preventDefault houdt de mailto-route
 // in eigen hand in plaats van een echte formulierpost.
 document.getElementById('ctForm').addEventListener('submit', function(e){ e.preventDefault(); contactVerstuur(); });
-// De cartoon-bol wisselt met de mug. Hover regelt desktop (CSS); een tik regelt touch: we
-// togglen .toon-mug. preventDefault houdt de <details> open (de knop zit in de inhoud).
-var _wf = document.querySelector('.wie-fig');
-if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 
 // Onderbalk (smartphone): de experiment-tabs scrollen naar het overeenkomstige blok op deze
 // pagina (Denk mee, Lees mee, Jouw stad), met een offset voor de plakkende bovenbalk. Zo verlaat

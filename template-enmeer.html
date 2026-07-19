@@ -31,6 +31,22 @@ __PORTAAL_HEAD__
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
+  <!-- Wie zit hierachter. Verhuisd van het portaal naar deze achtergrondpagina: hier hoort het
+       verhaal thuis, terwijl het portaal een schone keuzehub blijft. De naam staat NIET in git:
+       de workflow stikt hem bij het publiceren uit de GitHub-secret OVER_NAAM in de placeholder.
+       Blijft die secret leeg, dan haalt inject_over.py de hele Initiatiefnemer-zin weg. -->
+  <details class="wie">
+    <summary>Wie zit hierachter?</summary>
+    <div class="wie-in">
+      <!-- De cartoon wordt de mug bij hover (desktop) of tik (touch): een kleine knipoog. -->
+      <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+        <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
+        <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
+      </button>
+      <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+    </div>
+  </details>
+
   <!-- Contact als afsluiter, niet "terug naar het portaal": het merk bovenaan en de Start-tab
        brengen je al terug, dus die plek gaat naar de enige actie die hier iets toevoegt.
        /#contact opent op het portaal meteen de mailmodal (checkContact draait daar bij het laden). -->
@@ -65,6 +81,12 @@ __PORTAAL_HEAD__
   t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
   window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
 })();
+
+// De cartoon-bol wisselt met de mug. Hover regelt desktop (CSS); een tik regelt touch: we
+// togglen .toon-mug. preventDefault houdt de <details> open (de knop zit in de inhoud).
+// Meeverhuisd met de wie-sectie: deze pagina erft alleen de <head> van het portaal, niet zijn script.
+var _wf = document.querySelector('.wie-fig');
+if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 </script>
 
 </body>
