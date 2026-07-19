@@ -204,6 +204,31 @@ img,svg{max-width:100%}
 /* over-blok */
 .over{border-top:1px solid var(--lijn);background:var(--bg-band)}
 .over .shell{padding-top:clamp(2.4rem,5vw,3.6rem);padding-bottom:clamp(2.4rem,5vw,3.6rem)}
+
+/* --- Het merkteken als groot watermerk achter de tekst (enkel /en-meer/) -------------
+   Niet nagetekend maar het echte logo (beelden/mug.png), enorm en heel zacht. De
+   leeskolom is 56ch breed en staat links, dus rechts blijft ruimte over: daar staat de
+   mug, half buiten beeld, zodat hij als achtergrond leest en niet als een stempel.
+   Puur decoratief (aria-hidden in de markup, nooit klikbaar) en de band knipt hem af,
+   zodat hij nooit een horizontale schuifbalk veroorzaakt. */
+.over-merk{position:relative;overflow:hidden}
+.over-merk .shell{position:relative;z-index:1}   /* tekst, uitklap en knop blijven bovenop */
+.over-mug{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  top:50%;right:-6%;transform:translateY(-50%);
+  width:min(46rem,72vw);height:auto;
+  opacity:.14;
+  /* De harde rand van de schijf wegvegen: zonder dit snijdt er een cirkel dwars door de
+     band en leest het als een sticker. Met deze vignettering blijft het hart (de mug zelf)
+     staan en lost het roze naar buiten toe op, dus het wordt textuur in plaats van vlak. */
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 42%, rgba(0,0,0,.55) 60%, transparent 74%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 42%, rgba(0,0,0,.55) 60%, transparent 74%);
+}
+/* Smal scherm: dan loopt de leeskolom over de volle breedte en zou de mug ónder de
+   lopende tekst komen. Daarom kleiner, verder naar buiten en nog zachter. */
+@media(max-width:820px){
+  .over-mug{width:min(32rem,96vw);right:-24%;opacity:.09}
+}
 .over h2{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;
   font-size:clamp(1.4rem,2.6vw,2rem);margin:0 0 .8rem;line-height:1.1}
 /* 22,4px bij gewicht 500 telt niet als grote tekst (WCAG: 24px, of 18,66px vetgedrukt), dus
