@@ -438,8 +438,9 @@ textarea.field-input{resize:vertical}
 </head>
 <body>
 
-<!-- LET OP: de echte filosofie-tekst staat hier bewust NIET (die werken we eerst nog uit voor we
-     publiceren). Onderstaande body is een lorem-plaatshouder; enkel het kader is af. -->
+<!-- LET OP: de echte filosofie-tekst staat bewust NIET in git. Ze komt uit de GitHub-secret
+     ENMEER_FILOSOFIE en wordt pas bij het publiceren ingevuld (zie .github/inject_over.py).
+     Zonder secret blijft het plaatshouder-blok hieronder staan. -->
 <nav class="nav"><div class="shell nav-in">
   <a class="brand" href="/" aria-label="As Gau Paust, naar de startpagina">
     <span class="mk"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></span>
@@ -452,17 +453,19 @@ textarea.field-input{resize:vertical}
   <div class="shell">
     <span class="eyebrow"><span class="pulse"></span>En meer &#183; in de maak</span>
     <h1 class="hero-title">De <em>filosofie</em><br>van het platform</h1>
-    <p class="hero-lede">Deze pagina is nog in de maak. Hier komt straks, in mensentaal, waar dit platform voor staat en waar het heen groeit. De tekst hieronder is voorlopig een plaatshouder.</p>
+    <p class="hero-lede">Waar dit experimentele platform voor staat en waar het heen groeit, in mensentaal.</p>
   </div>
 </section>
 
 <section class="over"><div class="shell">
-  <h2>Waar dit <em>voor staat</em></h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <h2>Waar het <em>heen groeit</em></h2>
-  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+  <div id="filosofie-echt">
+%%ENMEER_FILOSOFIE%%
+  </div>
+  <div id="filosofie-plaatshouder">
+    <p>Deze pagina is nog in de maak. Hier komt straks, in mensentaal, waar dit platform voor staat en waar het heen groeit. De tekst hieronder is voorlopig een plaatshouder.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
   <a class="over-cta" href="/">Terug naar het portaal <span class="ar">&#8594;</span></a>
 </div></section>
 </main>
