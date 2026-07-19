@@ -76,8 +76,15 @@ img,svg{max-width:100%}
 :focus-visible{outline:2px solid var(--pink);outline-offset:2px}
 
 @keyframes agpPulse{0%{box-shadow:0 0 0 0 rgba(255,0,102,.45)}70%,100%{box-shadow:0 0 0 9px rgba(255,0,102,0)}}
-/* Zachte adem voor het bolletje in de experiment-badge: alleen dekking, geen ring. */
-@keyframes agpAdem{0%,100%{opacity:.4}50%{opacity:1}}
+/* Heel lichte puls op het online-bolletje in de experiment-badges: een kleine witte halo die
+   maar 3,5px uitdijt. De oorspronkelijke ring ging tot 9px en trok naast vier kaarten te veel
+   aandacht; puur dekking laten ademen las dan weer niet als een puls. Dit zit ertussenin: je
+   ziet dat het leeft, het knippert niet. */
+@keyframes agpOnline{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,.5);opacity:.8}
+  70%{box-shadow:0 0 0 3.5px rgba(255,255,255,0);opacity:1}
+  100%{box-shadow:0 0 0 0 rgba(255,255,255,0);opacity:.8}
+}
 @keyframes agpBol{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes agpTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes agpRing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.45);opacity:0}}
@@ -174,11 +181,10 @@ img,svg{max-width:100%}
    "Online". Dat scheelt meteen contrast: wit op #FF0066 haalt 3,86:1, terwijl --pink-tekst op
    papier ruim AA haalt. Het info-blok (En meer) draagt bewust GEEN badge: geen experiment. */
 .badge.exp{background:var(--pink);color:#fff}
-/* Het bolletje ademt zacht (opacity) in plaats van een uitdijende ring te pulsen: naast vier
-   kaarten trok dat laatste te veel de aandacht. Traag en met weinig amplitude, dus het leeft
-   zonder te roepen. De reduced-motion-regel onderaan zet het desgewenst helemaal stil. */
+/* Klein wit online-bolletje met een hele lichte puls (zie agpOnline hierboven).
+   De reduced-motion-regel onderaan zet het desgewenst helemaal stil. */
 .badge.exp .dotje{width:.45em;height:.45em;background:#fff;border-radius:50%;flex:none;
-  animation:agpAdem 3.4s ease-in-out infinite}
+  animation:agpOnline 3s ease-out infinite}
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
