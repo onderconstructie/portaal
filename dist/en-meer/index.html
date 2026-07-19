@@ -149,15 +149,15 @@ img,svg{max-width:100%}
 .pcard.soon{background:rgba(255,255,255,.42);border:1px dashed var(--lijn-stippel);box-shadow:none}
 .pcard.soon h3{color:var(--tekst-2)}
 /* Derde soort blok: GEEN tool, maar een pagina die er wel al is (En meer). Reageert net zo
-   levendig als de live blokken (optillen, schaduw, pijl schuift mee), alleen in neutraal grijs
-   in plaats van roze: zo zie je meteen dat dit achtergrond is en geen experiment. De schaduw
-   krijgt bewust dezelfde vorm als --schaduw-hover maar in warm grijs, want die variabele
-   draagt een roze gloed. 'soon' blijft voor wat er echt nog niet is (Reken mee). */
+   levendig als de live blokken (optillen, schaduw, pijl schuift mee), maar soberder: de
+   omlijsting en de call-to-action blijven neutraal grijs.
+   De merkaccenten blijven wel roze: het plusje in het icoon en het woord "meer" in de titel.
+   Die erven de gewone .pcard-regels, dus daar staat hier bewust niets over.
+   De hover-schaduw krijgt dezelfde vorm als --schaduw-hover maar in warm grijs, want die
+   variabele draagt een roze gloed. 'soon' blijft voor wat er echt nog niet is (Reken mee). */
 .pcard.info:hover{transform:translateY(-4px);border-color:var(--stil);color:var(--tekst);
   background:var(--kaart-hover);
   box-shadow:0 2px 4px rgba(72,56,38,.07), 0 24px 50px -18px rgba(72,56,38,.30)}
-.pcard.info .pcard-ic{color:var(--stil);background:rgba(26,23,18,.05);border:1px solid var(--lijn-kaart)}
-.pcard.info h3 em{color:var(--tekst-2)}
 .pcard.info .go{color:var(--tekst-2)}
 .pcard.info:hover .go .ar{transform:translateX(5px)}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
@@ -482,7 +482,10 @@ textarea.field-input{resize:vertical}
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
-  <a class="over-cta" href="/">Terug naar het portaal <span class="ar">&#8594;</span></a>
+  <!-- Contact als afsluiter, niet "terug naar het portaal": het merk bovenaan en de Start-tab
+       brengen je al terug, dus die plek gaat naar de enige actie die hier iets toevoegt.
+       /#contact opent op het portaal meteen de mailmodal (checkContact draait daar bij het laden). -->
+  <a class="over-cta" href="/#contact">Stuur ons een bericht <span class="ar">&#8594;</span></a>
 </div></section>
 </main>
 
