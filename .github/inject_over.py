@@ -44,7 +44,14 @@ if os.path.exists(PAD2):
         # de pagina heeft haar eigen hoofdtitel)
         alineas = [a.strip() for a in re.split(r"\n\s*\n", tekst)
                    if a.strip() and not a.strip().startswith("#")]
-        blok = "\n".join("  <p>%s</p>" % htmllib.escape(" ".join(a.split())) for a in alineas)
+
+        def alinea_html(a):
+            t = htmllib.escape(" ".join(a.split()))
+            # **zo** gemarkeerde tekst wordt echte nadruk; ná de escaping, dus al
+            # de rest van de secret blijft gewoon platte tekst
+            return re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+
+        blok = "\n".join("  <p>%s</p>" % alinea_html(a) for a in alineas)
         s = s.replace("%%ENMEER_FILOSOFIE%%", blok)
         s = re.sub(r'\s*<div id="filosofie-plaatshouder">.*?</div>', "", s, flags=re.DOTALL)
         # De eyebrow blijft gewoon "En meer" (de hoofdtitel zegt al dat dit de filosofie is),
