@@ -1,0 +1,15 @@
+{
+  "name": "As Gau Paust",
+  "short_name": "As Gau Paust",
+  "description": "Experimenteel platform voor hyperlokale journalistiek over Mechelen.",
+  "lang": "nl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#FF0066",
+  "icons": [
+    { "src": "/beelden/mug-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/beelden/mug-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

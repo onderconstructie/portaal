@@ -115,6 +115,14 @@ if beelden_src.exists():
         if f.is_file():
             shutil.copy2(f, beelden_dst / f.name)
 
+# 4c) PWA-bestanden: manifest en service worker meekopieren (installeerbaar op het beginscherm
+#     + offline). Geen tracking, enkel een lokale cache op het toestel van de bezoeker.
+for _naam in ("manifest.json", "sw.js"):
+    _src = BASE / _naam
+    if _src.exists():
+        shutil.copy2(_src, out_dir / _naam)
+        print("       PWA-bestand gekopieerd: dist/%s" % _naam)
+
 print("Klaar! dist/index.html gebouwd: %s tekens" % format(len(html), ","))
 print("       fonts gekopieerd naar dist/fonts/: %d bestanden" % n)
 print("       CNAME: %s  (nog niet live; pas activeren wanneer je publiceert)" % CUSTOM_DOMAIN)

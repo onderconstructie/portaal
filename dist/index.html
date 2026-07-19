@@ -9,6 +9,15 @@
 
 <link rel="icon" type="image/png" href="/beelden/mug.png">
 
+<!-- Installeerbaar als app (op je beginscherm), werkt ook offline. Geen cookies, geen trackers:
+     de service worker is enkel een lokale cache op je toestel. -->
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/beelden/mug-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="As Gau Paust">
+
 <!-- Zelf-gehoste lettertypes: geen Google Fonts, geen bezoekers-IP naar derden.
      Geist (leestekst) en JetBrains Mono (structuur/data) onder de SIL Open Font License 1.1;
      de licenties staan in /fonts/Geist-OFL.txt en /fonts/JetBrainsMono-OFL.txt. -->
@@ -410,6 +419,20 @@ textarea.field-input{resize:vertical}
 }
 .to-top.show{opacity:.72;transform:none;pointer-events:auto}
 .to-top.show:hover,.to-top.show:focus-visible{opacity:1;border-color:var(--pink);color:var(--pink-tekst)}
+/* Installeer-melding (eerste bezoek): onderaan, boven de tabbalk; op groter scherm gewoon onderaan. */
+.install-note{
+  position:fixed;left:1rem;right:1rem;bottom:calc(74px + env(safe-area-inset-bottom));z-index:130;
+  max-width:520px;margin:0 auto;display:flex;align-items:center;gap:.75rem;
+  padding:.7rem .85rem;background:var(--bg);border:1px solid var(--lijn-kaart);border-radius:var(--r-chip);
+  box-shadow:0 12px 36px rgba(26,23,18,.16);font-size:.86rem;line-height:1.4;
+}
+.install-note .in-mug{width:36px;height:36px;flex:none;border-radius:50%}
+.install-note .in-txt{flex:1;min-width:0;margin:0;color:var(--tekst-2)}
+.install-note .in-txt strong{color:var(--tekst)}
+.install-note .in-ok{flex:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);border-radius:999px;padding:.5rem .85rem;cursor:pointer}
+.install-note .in-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.install-note .in-close{flex:none;background:none;border:0;color:var(--stil);font-size:1.3rem;line-height:1;cursor:pointer;padding:.1rem .35rem}
+@media(min-width:701px){ .install-note{ bottom:1.5rem } }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -610,6 +633,7 @@ textarea.field-input{resize:vertical}
     try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
     try{ sessionStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
     el.hidden = true;
+    if(window.__toonInstall) setTimeout(window.__toonInstall, 500);   // dan pas de installeer-melding
   });
 })();
 
@@ -728,6 +752,42 @@ if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.clas
   var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
   t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
   window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
+})();
+// PWA: service worker registreren, zodat de site installeerbaar is (op je beginscherm) en offline werkt.
+if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+// Installeer-melding bij het eerste bezoek: zet As Gau Paust als app op je beginscherm. Verschijnt
+// NA de privacymelding (geen twee tegelijk) en maar één keer.
+(function(){
+  var KEY = 'asgaupaust.installgezien';
+  function seen(){ try{ return localStorage.getItem(KEY) === '1'; }catch(e){ return true; } }
+  function remember(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+  function standalone(){ return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
+  function privacyWeg(){ try{ return localStorage.getItem('asgaupaust.privacyok')==='1' || sessionStorage.getItem('asgaupaust.privacyok')==='1'; }catch(e){ return false; } }
+  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var deferred = null, shown = false;
+  function toon(){
+    if(shown || seen() || standalone()) return;
+    if(!deferred && !iOS) return;                 // geen installpad op dit toestel
+    shown = true;
+    var b = document.createElement('div'); b.className = 'install-note'; b.setAttribute('role','note');
+    b.innerHTML = '<img class="in-mug" src="/beelden/mug-192.png" alt="" aria-hidden="true">'
+      + '<p class="in-txt">' + (iOS
+          ? 'Zet <strong>As Gau Paust</strong> op je beginscherm: tik op het deel-icoon en kies “Zet op beginscherm”.'
+          : 'Zet <strong>As Gau Paust</strong> als app op je beginscherm.') + '</p>'
+      + (iOS ? '' : '<button type="button" class="in-ok">Installeren</button>')
+      + '<button type="button" class="in-close" aria-label="Sluiten">×</button>';
+    document.body.appendChild(b);
+    b.querySelector('.in-close').addEventListener('click', function(){ b.remove(); remember(); });
+    var ok = b.querySelector('.in-ok');
+    if(ok) ok.addEventListener('click', function(){
+      remember();
+      if(deferred){ deferred.prompt(); if(deferred.userChoice){ deferred.userChoice.then(function(){}).catch(function(){}); } deferred = null; }
+      b.remove();
+    });
+  }
+  window.__toonInstall = toon;                     // de privacy-OK-knop roept dit aan
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; if(privacyWeg()) toon(); });
+  if(privacyWeg()) setTimeout(toon, 900);          // privacy al weg (terugkerend bezoek): toon meteen
 })();
 </script>
 
