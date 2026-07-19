@@ -47,11 +47,11 @@ if os.path.exists(PAD2):
         blok = "\n".join("  <p>%s</p>" % htmllib.escape(" ".join(a.split())) for a in alineas)
         s = s.replace("%%ENMEER_FILOSOFIE%%", blok)
         s = re.sub(r'\s*<div id="filosofie-plaatshouder">.*?</div>', "", s, flags=re.DOTALL)
-        # de pagina is niet langer "in de maak"
-        s = s.replace("En meer &#183; in de maak", "En meer &#183; de filosofie")
+        # De eyebrow blijft gewoon "En meer" (de hoofdtitel zegt al dat dit de filosofie is),
+        # dus daar valt niets meer om te wisselen. Enkel de omschrijving wordt scherper.
         s = re.sub(r'(<meta name="description" content=")[^"]*(">)',
                    r"\g<1>En meer: waar het experimentele platform van As Gau Paust voor staat "
-                   r"en waar het heen groeit, in mensentaal.\g<2>", s, count=1)
+                   r"en waar het heen groeit.\g<2>", s, count=1)
         open(PAD2, "w", encoding="utf-8").write(s)
         print("filosofie: gezet (%d alinea's)" % len(alineas))
     else:
