@@ -764,9 +764,18 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
   function standalone(){ return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
   function privacyWeg(){ try{ return localStorage.getItem('asgaupaust.privacyok')==='1' || sessionStorage.getItem('asgaupaust.privacyok')==='1'; }catch(e){ return false; } }
   var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  // Alleen op mobiele toestellen (telefoon/tablet): "op je beginscherm zetten" slaat op een
+  // desktop nergens op. Primaire aanwijzer 'coarse' = aanraakscherm; een desktop met muis is
+  // 'fine'. (beforeinstallprompt vuurt óók op desktop-Chrome, vandaar deze extra poort.)
+  function mobiel(){
+    var coarse = window.matchMedia ? window.matchMedia('(pointer:coarse)').matches : false;
+    var iPadOS = navigator.platform === 'MacIntel' && (navigator.maxTouchPoints||0) > 1;
+    return coarse || iOS || iPadOS;
+  }
   var deferred = null, shown = false;
   function toon(){
     if(shown || seen() || standalone()) return;
+    if(!mobiel()) return;                         // alleen telefoon/tablet, niet op desktop
     if(!deferred && !iOS) return;                 // geen installpad op dit toestel
     shown = true;
     var b = document.createElement('div'); b.className = 'install-note'; b.setAttribute('role','note');
