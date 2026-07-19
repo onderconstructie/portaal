@@ -763,14 +763,17 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
   function remember(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
   function standalone(){ return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
   function privacyWeg(){ try{ return localStorage.getItem('asgaupaust.privacyok')==='1' || sessionStorage.getItem('asgaupaust.privacyok')==='1'; }catch(e){ return false; } }
-  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  // iOS/iPadOS: alle Apple-aanraaktoestellen. iPadOS 13+ meldt zich in de UA als "Macintosh",
+  // vandaar de extra MacIntel+touch-test. Safari kent geen beforeinstallprompt, dus daar tonen
+  // we handmatige uitleg ("deel-icoon -> Zet op beginscherm") i.p.v. een Installeren-knop.
+  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+            || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints||0) > 1);
   // Alleen op mobiele toestellen (telefoon/tablet): "op je beginscherm zetten" slaat op een
   // desktop nergens op. Primaire aanwijzer 'coarse' = aanraakscherm; een desktop met muis is
   // 'fine'. (beforeinstallprompt vuurt óók op desktop-Chrome, vandaar deze extra poort.)
   function mobiel(){
     var coarse = window.matchMedia ? window.matchMedia('(pointer:coarse)').matches : false;
-    var iPadOS = navigator.platform === 'MacIntel' && (navigator.maxTouchPoints||0) > 1;
-    return coarse || iOS || iPadOS;
+    return coarse || iOS;
   }
   var deferred = null, shown = false;
   function toon(){
