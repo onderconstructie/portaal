@@ -39,16 +39,27 @@ __PORTAAL_HEAD__
   </div>
 </div></footer>
 
-<!-- Dezelfde app-onderbalk als op het portaal, voor de logica. De tabs wijzen terug naar de
-     portaal-blokken (/#blok-...), 'En meer' is hier de huidige pagina, en 'Contact' opent de
-     mailmodal op het portaal via /#contact. Geen eigen JS nodig: het portaal vangt de hash op. -->
-<nav class="tabbar" id="tabbar" aria-label="De experimenten en contact">
-  <a href="/#blok-denkmee">__IC_DENK__<span>Denk mee</span></a>
-  <a href="/#blok-leesmee">__IC_LEES__<span>Lees mee</span></a>
-  <a href="/en-meer/" aria-current="page">__IC_MEER__<span>En meer</span></a>
-  <a href="/#jouwstad"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V5.5H9V7.5H11V5.5H13V7.5H15V5.5H17V8"/><path d="M7 8v13h10V8"/><path d="M10.5 21v-2.6a1.5 1.5 0 0 1 3 0V21"/></svg><span>Jouw stad</span></a>
-  <a href="/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
+<!-- Dezelfde app-onderbalk als op het portaal en de deelsites: één familie-switcher. 'En meer'
+     is hier de huidige pagina; de andere tabs springen naar de betreffende site. -->
+<button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
+
+<nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
+  <a href="https://asgaupaust.be/"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Start</span></a>
+  <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
+  <a href="https://leesmee.asgaupaust.be/">__IC_LEES__<span>Lees mee</span></a>
+  <a href="https://asgaupaust.be/en-meer/" aria-current="page">__IC_MEER__<span>En meer</span></a>
+  <a href="https://asgaupaust.be/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
 </nav>
+
+<script>
+(function(){
+  var t = document.getElementById('toTop');
+  if(!t) return;
+  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
+  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
+  window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
+})();
+</script>
 
 </body>
 </html>
