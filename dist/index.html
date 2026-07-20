@@ -255,6 +255,13 @@ img,svg{max-width:100%}
 .over h2 em{color:var(--pink-tekst);font-style:normal}
 .over p{color:var(--tekst-2);max-width:56ch;margin:0 0 .9rem;line-height:1.62}
 .over p b{color:var(--pink-tekst);font-weight:600}
+/* Een titel MET kader heeft meer regelhoogte nodig dan de gewone 1.02 van deze site. De
+   achtergrond van een inline-kader is namelijk zo hoog als het letterbeeld zelf (nagemeten
+   1,31 keer de lettergrootte, zowel hier als op Denk mee), en die hoogte volgt de regelhoogte
+   niet. Staat de regelafstand krapper dan 1,31, dan bloedt het zwart over de regel eronder.
+   Denk mee komt weg met 1,14 omdat die titel daar op één regel staat; hier zijn het er twee,
+   dus moet de afstand echt boven 1,31. Enkel op deze titels, zodat de startpagina strak blijft. */
+.hero-title.met-kader{line-height:1.34}
 /* Het kader rond de sitenaam in de hoofdtitel, exact zoals op Denk mee en Lees mee: roze letter
    op de warme inkt. box-decoration-break houdt het kader heel als de regel afbreekt. */
 .hero-title .box{
