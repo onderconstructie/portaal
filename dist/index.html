@@ -129,6 +129,13 @@ img,svg{max-width:100%}
 .hero{position:relative;overflow:hidden;
   background:radial-gradient(1100px 480px at 78% -10%, rgba(255,0,102,.06), transparent 65%)}
 .hero .shell{padding-top:clamp(2rem,4.5vw,3.4rem);padding-bottom:clamp(1.8rem,3.5vw,3rem)}
+/* Onderpagina's zoals /en-meer/ hebben géén ticker onder de nav, de homepagina wél. Zonder
+   correctie begon de eyebrow daar 21px lager dan "Experiment" op Denk mee en Lees mee. Deze
+   pagina's volgen daarom de maatvoering van de deelsites: nav + 1rem. De eyebrow gaat mee naar
+   blok-niveau, want als inline-flex zit ze op een tekstregel en voegt de leading er nog 5px
+   bovenop; dat is precies de rest die niet klopte. */
+.hero-sub .shell{padding-top:1rem}
+.hero-sub .eyebrow{display:flex}
 .hub-intro{display:grid;grid-template-columns:1fr auto;gap:clamp(1.5rem,4vw,4.5rem);align-items:center}
 .eyebrow{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;
   /* De eyebrow is de kleinste tekst van de pagina (10,9 tot 11,5px), dus per de roze-discipline
