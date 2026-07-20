@@ -92,7 +92,12 @@ img,svg{max-width:100%}
 /* nav */
 .nav{position:sticky;top:0;z-index:40;background:rgba(245,241,232,.82);
   backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid var(--lijn)}
-.nav-in{display:flex;align-items:center;gap:1.2rem;height:64px}
+/* 67px + de 1px onderrand = 68px, exact de balkhoogte van Denk mee en Lees mee. Onder 430px
+   zakken die twee naar 64px totaal (daar krimpt de hamburger van Denk mee), dus het portaal
+   volgt die sprong mee. Zonder dit stond de mug hier een halve pixel lager dan op de
+   deelsites, en dat zag je verspringen bij het wisselen van site. */
+.nav-in{display:flex;align-items:center;gap:1.2rem;height:67px}
+@media(max-width:430px){ .nav-in{height:63px} }
 .brand{display:flex;align-items:center;gap:.65rem;font-family:'JetBrains Mono',monospace;
   font-weight:600;font-size:1rem;letter-spacing:-.01em;color:var(--tekst)}
 .brand:hover{color:var(--tekst)}
