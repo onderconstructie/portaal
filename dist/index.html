@@ -231,9 +231,12 @@ img,svg{max-width:100%}
 .over-merk .shell{position:relative;z-index:1}   /* tekst, uitklap en knop blijven bovenop */
 .over-mug{
   position:absolute;z-index:0;pointer-events:none;user-select:none;
-  top:50%;right:-6%;transform:translateY(-50%);
-  width:min(46rem,72vw);height:auto;
-  opacity:.14;
+  /* Kleiner en minder ver buiten beeld dan eerst (was 46rem/72vw op right:-6%): zo staat de mug
+     er als een herkenbaar merkteken in plaats van als een kolos die half wegvalt. Doordat het
+     beeld compacter is, leest de tekening zelf scherper, ook al blijft de dekking laag. */
+  top:50%;right:-1%;transform:translateY(-50%);
+  width:min(30rem,46vw);height:auto;
+  opacity:.16;
   /* De harde rand van de schijf wegvegen: zonder dit snijdt er een cirkel dwars door de
      band en leest het als een sticker. Met deze vignettering blijft het hart (de mug zelf)
      staan en lost het roze naar buiten toe op, dus het wordt textuur in plaats van vlak. */
@@ -243,7 +246,7 @@ img,svg{max-width:100%}
 /* Smal scherm: dan loopt de leeskolom over de volle breedte en zou de mug ónder de
    lopende tekst komen. Daarom kleiner, verder naar buiten en nog zachter. */
 @media(max-width:820px){
-  .over-mug{width:min(32rem,96vw);right:-24%;opacity:.09}
+  .over-mug{width:min(20rem,62vw);right:-8%;opacity:.11}
 }
 .over h2{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;
   font-size:clamp(1.4rem,2.6vw,2rem);margin:0 0 .8rem;line-height:1.1}
@@ -252,6 +255,23 @@ img,svg{max-width:100%}
 .over h2 em{color:var(--pink-tekst);font-style:normal}
 .over p{color:var(--tekst-2);max-width:56ch;margin:0 0 .9rem;line-height:1.62}
 .over p b{color:var(--pink-tekst);font-weight:600}
+/* Het naamcitaat op /en-meer/: groot en sierlijk, in het leeslettertype en niet in mono, want
+   dat oogt technisch waar dit juist warm moet zijn. Roze in --pink-tekst en niet in het volle
+   merkroze: #FF0066 haalt op deze zandkleurige band te weinig, ook voor grote tekst. De nadruk
+   krijgt --pink-deep, dus donkerder in plaats van feller, plus wat meer gewicht. */
+.fil-quote{
+  margin:2.4rem 0;
+  padding-left:clamp(1rem,3vw,1.6rem);
+  border-left:3px solid var(--pink);
+}
+.fil-quote p{
+  margin:0; max-width:26ch;
+  font-size:clamp(1.35rem,3.6vw,2rem);
+  line-height:1.28; letter-spacing:-.015em;
+  color:var(--pink-tekst); font-weight:500;
+}
+/* Geen schuine letters in de uitleg: de nadruk komt van kleur en gewicht. */
+.fil-quote em{font-style:normal;font-weight:600;color:var(--pink-deep)}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
   background:var(--pink);color:#fff;border:1px solid var(--pink);border-radius:999px;transition:.16s}

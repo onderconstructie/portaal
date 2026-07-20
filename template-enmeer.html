@@ -13,13 +13,22 @@ __PORTAAL_HEAD__
   </a>
 </div></nav>
 
+<!-- Dezelfde tickerstrook als op de startpagina: die hoort bij de schil van het portaal,
+     niet bij één pagina. Identieke inhoud en volgorde, zodat het één band blijft. -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-baan">
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+  </div>
+</div>
+
 <main>
 <section class="hero hero-sub">
   <div class="shell">
     <!-- De eyebrow zegt alleen waar je bent. "De filosofie" staat al in de hoofdtitel
          hieronder; twee keer hetzelfde bovenaan leest als een echo. -->
     <span class="eyebrow"><span class="pulse"></span>En meer</span>
-    <h1 class="hero-title">De <em>filosofie</em><br>van het platform</h1>
+    <h1 class="hero-title">De <em>filosofie</em><br>van As Gau Paust</h1>
     <p class="hero-lede">Waar dit experimentele platform voor staat en waar het heen groeit.</p>
   </div>
 </section>
@@ -29,14 +38,31 @@ __PORTAAL_HEAD__
        leeskolom. Puur decoratief, dus buiten de toegankelijkheidsboom. -->
   <img class="over-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512" loading="lazy">
   <div class="shell">
-  <div id="filosofie-echt">
-%%ENMEER_FILOSOFIE%%
-  </div>
-  <div id="filosofie-plaatshouder">
-    <p>Deze pagina is nog in de maak. Hier komt straks, in mensentaal, waar dit platform voor staat en waar het heen groeit. De tekst hieronder is voorlopig een plaatshouder.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
+  <!-- De filosofietekst staat sinds 20/07/2026 rechtstreeks hier, op uitdrukkelijke keuze van
+       de maker; de secret ENMEER_FILOSOFIE is daarmee vervallen. De NAAM van de initiatiefnemer
+       blijft wel uit git: die komt nog altijd uit een secret, zie de wie-sectie verderop.
+       Schrijf de placeholder-tekst van die naam hier NIET voluit: het injectiescript vervangt
+       elk voorkomen, ook in commentaar, en dan zou de naam mee in de paginabron belanden. -->
+  <p>As Gau Paust is een experimenteel platform voor hyperlokale journalistiek. De naam is een eerbetoon aan het officieuze Mechelse volkslied (een klassieker van Günther Neefs met tekst van Mark Uytterhoeven): denk niet dat de macht aan jou denkt, blijf vooral zelf kritisch nadenken.</p>
+
+  <p>Zo bouwen we innovatieve tools die burgers en (burger)journalisten helpen om <b>te weten wat er in hun naam wordt beslist</b>. Altijd met de bron erbij, zodat iedereen het kan nakijken. Hoe werkt de stad echt, wie beslist er, waar gaat het geld naartoe, wat verandert er in jouw straat?</p>
+
+  <!-- De naamverklaring is de kern van het hele platform, dus die staat als citaat en niet
+       verstopt in een alinea. -->
+  <blockquote class="fil-quote">
+    <p>&#8220;As gau paust&#8221; is Mechels voor &#8220;als jij denkt&#8221;.<br>
+       Denk niet dat de macht aan jou denkt. <em>Denk zelf mee.</em></p>
+  </blockquote>
+
+  <p>De naam is dus een uitnodiging. Doe gerust mee: volg de raad, stel een vraag, begin er zelf aan. Van meedenken naar meedoen is maar een kleine stap.</p>
+
+  <p>En dat geldt voor iedereen. Dit is niet alleen voor de meedenkende Mechelaar: <b>iedereen is een meedenker</b>, zodra hij ziet wat er op tafel ligt. Daarom leggen we het gewoon open.</p>
+
+  <p>We doen dat onafhankelijk: aan niemand schatplichtig, hard op de documenten maar nooit op de mensen. En we doen het niet alleen. We leren graag van andere expertises, en ook AI werkt mee. Als meewerkend voorwerp, niet als leidend: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
+
+  <p>Wat we bouwen en leren, delen we over de stads- en gemeentegrenzen heen. Goede verhalen mogen reizen, goede tools ook. Zin om dit voor jouw stad te proberen? De bouwblokken liggen klaar.</p>
+
+  <p>As Gau Paust wil de mug in de kamer van het bestuur zijn. Klein, wakker en moeilijk te negeren. Het liefst één van velen.</p>
   <!-- Wie zit hierachter. Verhuisd van het portaal naar deze achtergrondpagina: hier hoort het
        verhaal thuis, terwijl het portaal een schone keuzehub blijft. De naam staat NIET in git:
        de workflow stikt hem bij het publiceren uit de GitHub-secret OVER_NAAM in de placeholder.
