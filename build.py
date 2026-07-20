@@ -78,7 +78,7 @@ if enmeer_tpl.exists():
     m = re.search(r"<head>.*?</head>", html, flags=re.DOTALL)
     head = m.group(0) if m else ""
     head = re.sub(r"<title>.*?</title>",
-                  "<title>En meer, de filosofie van het platform · As Gau Paust</title>",
+                  "<title>En meer As Gau Paust</title>",
                   head, count=1, flags=re.DOTALL)
     head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
                   r"\g<1>En meer: waar het experimentele platform van As Gau Paust voor staat en waar "

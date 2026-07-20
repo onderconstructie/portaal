@@ -25,10 +25,10 @@ __PORTAAL_HEAD__
 <main>
 <section class="hero hero-sub">
   <div class="shell">
-    <!-- De eyebrow zegt alleen waar je bent. "De filosofie" staat al in de hoofdtitel
-         hieronder; twee keer hetzelfde bovenaan leest als een echo. -->
-    <span class="eyebrow"><span class="pulse"></span>En meer</span>
-    <h1 class="hero-title">De <em>filosofie</em><br>van As Gau Paust</h1>
+    <!-- De eyebrow benoemt wat deze pagina is, net zoals "Experiment" dat doet op Denk mee en
+         Lees mee. De sitenaam zit in de hoofdtitel, met hetzelfde kader als daar. -->
+    <span class="eyebrow"><span class="pulse"></span>Onze filosofie</span>
+    <h1 class="hero-title"><span class="box">En meer</span> van As Gau Paust</h1>
     <p class="hero-lede">Waar dit experimentele platform voor staat en waar het heen groeit.</p>
   </div>
 </section>
@@ -43,30 +43,45 @@ __PORTAAL_HEAD__
        blijft wel uit git: die komt nog altijd uit een secret, zie de wie-sectie verderop.
        Schrijf de placeholder-tekst van die naam hier NIET voluit: het injectiescript vervangt
        elk voorkomen, ook in commentaar, en dan zou de naam mee in de paginabron belanden. -->
-  <p>As Gau Paust is een experimenteel platform voor hyperlokale journalistiek. De naam is een eerbetoon aan het officieuze Mechelse volkslied (een klassieker van Günther Neefs met tekst van Mark Uytterhoeven): denk niet dat de macht aan jou denkt, blijf vooral zelf kritisch nadenken.</p>
+  <p>As Gau Paust is een experimenteel platform voor hyperlokale journalistiek. De naam is een eerbetoon aan het officieuze Mechelse volkslied (een klassieker van Günther Neefs met tekst van Mark Uytterhoeven). De clou: denk niet dat de macht aan jou denkt, blijf vooral zelf kritisch nadenken.</p>
 
   <p>Zo bouwen we innovatieve tools die burgers en (burger)journalisten helpen om <b>te weten wat er in hun naam wordt beslist</b>. Altijd met de bron erbij, zodat iedereen het kan nakijken. Hoe werkt de stad echt, wie beslist er, waar gaat het geld naartoe, wat verandert er in jouw straat?</p>
 
-  <!-- De naamverklaring is de kern van het hele platform, dus die staat als citaat en niet
-       verstopt in een alinea. -->
-  <blockquote class="fil-quote">
-    <p>&#8220;As gau paust&#8221; is Mechels voor &#8220;als jij denkt&#8221;.<br>
-       Denk niet dat de macht aan jou denkt. <em>Denk zelf mee.</em></p>
-  </blockquote>
+  <!-- Het rijmpje achter de naam als omdraaikaart: voorkant het Mechels, achterkant de
+       vertaling. Een echte <button>, dus toetsenbord werkt vanzelf; de weggedraaide zijde
+       krijgt inert zodat een schermlezer niet beide kanten na elkaar voorleest. -->
+  <button class="fil-flip" type="button" aria-pressed="false"
+          aria-label="Het Mechelse rijmpje achter de naam. Draai om voor de vertaling.">
+    <div class="fc-inner">
+      <div class="fc-front">
+        <span class="fc-lab">In het Mechels</span>
+        <p class="fil-vers">As gau paust<br>dat de paus oep au paust<br>Paust dan ma gau eet anders</p>
+        <span class="fc-hint" aria-hidden="true">&#8635;</span>
+      </div>
+      <div class="fc-back" inert>
+        <span class="fc-lab">Vertaald</span>
+        <p class="fil-vers">Als jij denkt<br>dat de paus aan jou denkt<br>Denk dan maar snel iets anders</p>
+        <span class="fc-hint" aria-hidden="true">&#8635;</span>
+      </div>
+    </div>
+  </button>
 
-  <p>De naam is dus een uitnodiging. Doe gerust mee: volg de raad, stel een vraag, begin er zelf aan. Van meedenken naar meedoen is maar een kleine stap.</p>
-
-  <p>En dat geldt voor iedereen. Dit is niet alleen voor de meedenkende Mechelaar: <b>iedereen is een meedenker</b>, zodra hij ziet wat er op tafel ligt. Daarom leggen we het gewoon open.</p>
+  <p>De naam is dus een uitnodiging. Doe gerust mee: volg de raad, stel een vraag, begin er zelf aan. Van meedenken naar meedoen is maar een kleine stap. <b>Iedereen is een meedenker!</b></p>
 
   <p>We doen dat onafhankelijk: aan niemand schatplichtig, hard op de documenten maar nooit op de mensen. En we doen het niet alleen. We leren graag van andere expertises, en ook AI werkt mee. Als meewerkend voorwerp, niet als leidend: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
 
   <p>Wat we bouwen en leren, delen we over de stads- en gemeentegrenzen heen. Goede verhalen mogen reizen, goede tools ook. Zin om dit voor jouw stad te proberen? De bouwblokken liggen klaar.</p>
 
   <p>As Gau Paust wil de mug in de kamer van het bestuur zijn. Klein, wakker en moeilijk te negeren. Het liefst één van velen.</p>
-  <!-- Wie zit hierachter. Verhuisd van het portaal naar deze achtergrondpagina: hier hoort het
-       verhaal thuis, terwijl het portaal een schone keuzehub blijft. De naam staat NIET in git:
-       de workflow stikt hem bij het publiceren uit de GitHub-secret OVER_NAAM in de placeholder.
-       Blijft die secret leeg, dan haalt inject_over.py de hele Initiatiefnemer-zin weg. -->
+  <!-- Contact als afsluiter, niet "terug naar het portaal": het merk bovenaan en de Start-tab
+       brengen je al terug, dus die plek gaat naar de enige actie die hier iets toevoegt.
+       /#contact opent op het portaal meteen de mailmodal (checkContact draait daar bij het laden). -->
+  <a class="over-cta" href="/#contact">Stuur ons een bericht <span class="ar">&#8594;</span></a>
+
+  <!-- Wie zit hierachter, bewust ONDER de mailknop: de uitnodiging om te schrijven is de actie
+       van deze pagina, het colofon-achtige stukje mag daarna komen. De naam staat NIET in git,
+       die komt uit een secret; schrijf de placeholder hier niet voluit (het injectiescript
+       vervangt elk voorkomen, ook in commentaar). -->
   <details class="wie">
     <summary>Wie zit hierachter?</summary>
     <div class="wie-in">
@@ -78,11 +93,6 @@ __PORTAAL_HEAD__
       <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
     </div>
   </details>
-
-  <!-- Contact als afsluiter, niet "terug naar het portaal": het merk bovenaan en de Start-tab
-       brengen je al terug, dus die plek gaat naar de enige actie die hier iets toevoegt.
-       /#contact opent op het portaal meteen de mailmodal (checkContact draait daar bij het laden). -->
-  <a class="over-cta" href="/#contact">Stuur ons een bericht <span class="ar">&#8594;</span></a>
 </div></section>
 </main>
 
@@ -119,6 +129,21 @@ __PORTAAL_HEAD__
 // Meeverhuisd met de wie-sectie: deze pagina erft alleen de <head> van het portaal, niet zijn script.
 var _wf = document.querySelector('.wie-fig');
 if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
+
+// De omdraaikaart met het Mechelse rijmpje. aria-pressed volgt de stand, en de weggedraaide
+// zijde krijgt inert zodat een schermlezer niet voor- en achterkant na elkaar voorleest.
+(function(){
+  var kaart = document.querySelector('.fil-flip');
+  if(!kaart) return;
+  kaart.addEventListener('click', function(){
+    var om = !kaart.classList.contains('flipped');
+    kaart.classList.toggle('flipped', om);
+    kaart.setAttribute('aria-pressed', om);
+    var voor = kaart.querySelector('.fc-front'), achter = kaart.querySelector('.fc-back');
+    if(om){ voor.setAttribute('inert',''); achter.removeAttribute('inert'); }
+    else  { achter.setAttribute('inert',''); voor.removeAttribute('inert'); }
+  });
+})();
 </script>
 
 </body>
