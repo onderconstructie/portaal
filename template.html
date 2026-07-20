@@ -262,6 +262,14 @@ img,svg{max-width:100%}
    Denk mee komt weg met 1,14 omdat die titel daar op één regel staat; hier zijn het er twee,
    dus moet de afstand echt boven 1,31. Enkel op deze titels, zodat de startpagina strak blijft. */
 .hero-title.met-kader{line-height:1.34}
+/* "As Gau Paust" moet ook op een telefoon op ÉÉN regel staan. De titel deelt de hero-rij met
+   de mug (110px vast), dus er blijft maar 206px over op 375px en 151px op 320px, terwijl de
+   naam op 38,4px al 258px nodig heeft. De maat schaalt daarom mee met de schermbreedte, exact
+   de aanpak van Denk mee (die zakt op 320px ook naar ~21,6px). De min() plafonneert op de
+   gewone 2,4rem, zodat er bij 700px geen sprong zit met de desktopmaat. */
+@media(max-width:700px){
+  .hub-intro .hero-title{font-size:min(2.4rem, calc(14.6vw - 25px))}
+}
 /* Het kader rond de sitenaam in de hoofdtitel, exact zoals op Denk mee en Lees mee: roze letter
    op de warme inkt. box-decoration-break houdt het kader heel als de regel afbreekt. */
 .hero-title .box{
