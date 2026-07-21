@@ -3,7 +3,7 @@
 build.py  -  template.html  ->  dist/index.html
 
 Bouwt het zelfstandige portaal van As Gau Paust (de moedersite boven Denk mee,
-Lees mee, Reken mee en Doe mee). Geen data-JSON: de enige "injectie" is het
+Lees mee, Reken mee en En meer). Geen data-JSON: de enige "injectie" is het
 gedeelde toren-logo en de vier blok-iconen, zodat er maar één bron van waarheid
 is voor het merk. Zelf-gehoste fonts gaan mee naar dist/. Geen internet nodig.
 """
@@ -68,10 +68,11 @@ out_dir = BASE / "dist"
 out_dir.mkdir(exist_ok=True)
 (out_dir / "index.html").write_text(html, encoding="utf-8")
 
-# 2b) Aparte pagina /en-meer/ : de filosofie van het platform. De ECHTE tekst staat er bewust
-#     nog niet in (die werken we eerst uit voor we publiceren); dit is voorlopig een lorem-
-#     plaatshouder. De pagina deelt de <head> van het portaal (zelfde CSS, fonts en merk),
-#     met een eigen titel en omschrijving.
+# 2b) Aparte pagina /en-meer/ : de filosofie van het platform. De tekst staat rechtstreeks in
+#     template-enmeer.html (op keuze van de maker); enkel de NAAM van de initiatiefnemer blijft
+#     uit git en wordt bij het publiceren uit de secret OVER_NAAM gestikt (.github/inject_over.py).
+#     De pagina deelt de <head> van het portaal (zelfde CSS, fonts en merk), met een eigen titel
+#     en omschrijving.
 enmeer_tpl = BASE / "template-enmeer.html"
 if enmeer_tpl.exists():
     import re
@@ -81,8 +82,8 @@ if enmeer_tpl.exists():
                   "<title>En meer As Gau Paust</title>",
                   head, count=1, flags=re.DOTALL)
     head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
-                  r"\g<1>En meer: waar het experimentele platform van As Gau Paust voor staat en waar "
-                  r"het heen groeit. Deze pagina is nog in de maak.\g<2>",
+                  r"\g<1>En meer: de filosofie van As Gau Paust. Waar het experimentele platform "
+                  r"voor staat en waar het heen groeit.\g<2>",
                   head, count=1, flags=re.DOTALL)
     enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
