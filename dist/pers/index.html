@@ -615,7 +615,7 @@ textarea.field-input{resize:vertical}
 .pers-downloads{ display:flex; flex-wrap:wrap; gap:1rem; }
 .dl-kaart{ display:flex; align-items:center; gap:1rem; background:var(--kaart-a); border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart); padding:1rem 1.15rem; box-shadow:var(--schaduw-kaart); }
-.dl-kaart img{ width:64px; height:64px; border-radius:50%; flex:none; }
+.dl-kaart img{ width:64px; height:64px; border-radius:50%; flex:none; object-fit:cover; object-position:center; }
 .dl-kaart .dl-body{ min-width:0; }
 .dl-kaart .dl-naam{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.82rem; margin:0 0 .15rem; color:var(--tekst); }
 .dl-kaart .dl-meta{ font-size:.72rem; color:var(--stil); margin:0 0 .5rem; }
@@ -683,7 +683,7 @@ textarea.field-input{resize:vertical}
 
   <div class="pers-sec">
     <h2 class="pers-kop">Beeld<em>materiaal</em></h2>
-    <p class="pers-lead">Het logo van As Gau Paust: de mug in de kamer. Klein, wakker en moeilijk te negeren.</p>
+    <p class="pers-lead">Het logo van As Gau Paust: de mug in de kamer. Klein, wakker en moeilijk te negeren. Daarnaast een knipogende cartoonfiguur voor wie een gezicht bij het platform zoekt.</p>
     <div class="pers-downloads">
       <div class="dl-kaart">
         <img src="/beelden/mug.png" alt="Het logo van As Gau Paust: een mug." width="512" height="512">
@@ -693,6 +693,16 @@ textarea.field-input{resize:vertical}
           <div class="dl-links">
             <a href="/beelden/mug.png" download>Web</a>
             <a href="/beelden/mug-512.png" download>Groot (512px)</a>
+          </div>
+        </div>
+      </div>
+      <div class="dl-kaart">
+        <img src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
+        <div class="dl-body">
+          <p class="dl-naam">Cartoonfiguur</p>
+          <p class="dl-meta">PNG, een knipogende cartoonfiguur in zwart-wit op een witte schijf (geen transparantie, zwarte hoeken)</p>
+          <div class="dl-links">
+            <a href="/beelden/AGP.png" download="as-gau-paust-cartoon.png">PNG (1024px)</a>
           </div>
         </div>
       </div>
