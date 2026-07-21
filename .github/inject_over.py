@@ -14,10 +14,13 @@ Die secret wordt niet meer gelezen en mag in GitHub verwijderd worden.
 import os
 import re
 
-# --- 1. De initiatiefnemer-naam, op /en-meer/ (daar staat de wie-sectie sinds de verhuizing). ---
-PAD = "dist/en-meer/index.html"
+# --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat op /en-meer/ EN
+#        /pers/, dus beide pagina's krijgen de naam (of, zonder secret, de zin verwijderd). ---
 naam = os.environ.get("OVER_NAAM", "").strip()
-if os.path.exists(PAD):
+for PAD in ("dist/en-meer/index.html", "dist/pers/index.html"):
+    if not os.path.exists(PAD):
+        print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
+        continue
     s = open(PAD, encoding="utf-8").read()
     if naam:
         s = s.replace("%%OVER_NAAM%%", naam)
@@ -25,9 +28,7 @@ if os.path.exists(PAD):
         # geen naam: de hele placeholder-zin weg (niet-hebzuchtig, blijft binnen die ene <p>)
         s = re.sub(r'\s*<p class="wie-init">.*?</p>', "", s, flags=re.DOTALL)
     open(PAD, "w", encoding="utf-8").write(s)
-    print("initiatiefnemer: " + ("gezet" if naam else "geen secret, zin verwijderd"))
-else:
-    print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
+    print("initiatiefnemer (%s): %s" % (PAD, "gezet" if naam else "geen secret, zin verwijderd"))
 
 # --- 2. Vangnet: nooit een rauwe placeholder publiceren. ---
 #     Verhuist een blok ooit naar een ander bestand terwijl dit script nog naar het oude wijst,

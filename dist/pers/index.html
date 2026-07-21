@@ -716,6 +716,23 @@ textarea.field-input{resize:vertical}
       <p><b>E-mail:</b> <a id="persMail" href="#">het adres verschijnt hier</a></p>
       <p style="margin-top:.5rem;color:var(--tekst-2);font-size:.9rem">Of via het contactformulier op de <a href="/#contact" style="color:var(--pink-tekst);border-bottom:1px solid var(--pink)">startpagina</a>.</p>
     </div>
+
+    <!-- Wie zit hierachter, dezelfde uitklap als op /en-meer/ (kaartje: cartoon + initiatiefnemer).
+         De naam staat NIET in git; die komt bij het publiceren uit de secret OVER_NAAM. Schrijf de
+         placeholder hier niet voluit, ook niet in commentaar: het injectiescript vervangt elk
+         voorkomen. Sinds deze pagina de placeholder heeft, verwerkt inject_over.py haar ook. -->
+    <details class="wie">
+      <summary>Wie zit hierachter?</summary>
+      <div class="wie-in">
+        <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+          <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
+          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
+        </button>
+        <div class="wie-tekst">
+          <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+        </div>
+      </div>
+    </details>
   </div>
 </div></section>
 </main>
@@ -757,6 +774,14 @@ textarea.field-input{resize:vertical}
   var adres = atob('YXNnYXVwYXVzdEBnbWFpbC5jb20=');
   a.textContent = adres;
   a.href = 'mailto:' + adres + '?subject=' + encodeURIComponent('[Pers] As Gau Paust');
+})();
+
+// De cartoon-bol in "Wie zit hierachter" wisselt bij een tik met de mug (op desktop doet hover
+// dat via CSS). Dezelfde knipoog als op /en-meer/; die pagina erft het portaal-script niet, dus
+// deze staat hier apart.
+(function(){
+  var wf = document.querySelector('.wie-fig');
+  if(wf) wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 })();
 
 // "Kopieer de tekst": zet de vaste omschrijving op het klembord, met een korte bevestiging.
