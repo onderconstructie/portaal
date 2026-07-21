@@ -91,6 +91,28 @@ if enmeer_tpl.exists():
     (out_dir / "en-meer" / "index.html").write_text(enmeer_html, encoding="utf-8")
     print("       en-meer-pagina gebouwd: dist/en-meer/index.html")
 
+# 2c) Aparte pagina /pers/ : de persmap. Werkinstrument voor journalisten (feiten, boilerplate,
+#     schrijfwijze, logo, contact). Deelt net als /en-meer/ de <head> van het portaal, met een
+#     eigen titel en omschrijving. Geen persoonsnaam, geen externe verzoeken.
+pers_tpl = BASE / "template-pers.html"
+if pers_tpl.exists():
+    import re
+    m = re.search(r"<head>.*?</head>", html, flags=re.DOTALL)
+    head = m.group(0) if m else ""
+    head = re.sub(r"<title>.*?</title>",
+                  "<title>Pers As Gau Paust</title>",
+                  head, count=1, flags=re.DOTALL)
+    head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
+                  r"\g<1>Persmap van As Gau Paust: de feiten, een kant-en-klare omschrijving, de juiste "
+                  r"schrijfwijze, het logo en het perscontact van het platform voor hyperlokale journalistiek.\g<2>",
+                  head, count=1, flags=re.DOTALL)
+    pers_html = pers_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    for _k, _svg in IC.items():
+        pers_html = pers_html.replace(_k, _svg)
+    (out_dir / "pers").mkdir(exist_ok=True)
+    (out_dir / "pers" / "index.html").write_text(pers_html, encoding="utf-8")
+    print("       pers-pagina gebouwd: dist/pers/index.html")
+
 # 3) CNAME voor GitHub Pages. Eenmalig, pas bij live-zetten: Settings -> Pages ->
 #    Custom domain = asgaupaust.be, plus een DNS-record naar <gebruiker>.github.io.
 (out_dir / "CNAME").write_text(CUSTOM_DOMAIN + "\n", encoding="utf-8")
