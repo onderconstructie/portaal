@@ -320,8 +320,6 @@ img,svg{max-width:100%}
 .over-cta:hover .ar{transform:translateX(4px)}
 /* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
    wel een vindbare tekstlink naar de persmap. Staat helemaal onderaan, na "Wie zit hierachter". */
-/* De perslink is verhuisd naar BINNEN de "Wie zit hierachter"-uitklap (zie .wie-pers),
-   dus geen losse slotregel meer. */
 /* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
    de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
 @media(max-width:520px){
@@ -361,13 +359,6 @@ img,svg{max-width:100%}
 .wie-fig:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 .wie-tekst{flex:1;min-width:15rem;display:flex;flex-direction:column;gap:.65rem}
 .wie .wie-init{margin:0;color:var(--tekst-2);line-height:1.6;max-width:52ch}
-/* Perslink binnen het kaartje: een discrete tekstlink met een pijltje dat meeschuift. */
-.wie-pers{align-self:flex-start;display:inline-flex;align-items:center;gap:.45rem;
-  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;
-  color:var(--pink-tekst);border-bottom:1px solid var(--pink);padding-bottom:1px;transition:color .15s,border-color .15s}
-.wie-pers .ar{transition:transform .16s}
-.wie-pers:hover{color:var(--pink-deep);border-color:var(--pink-deep)}
-.wie-pers:hover .ar{transform:translateX(3px)}
 
 
 /* oproep-banner: bewust het donkere eiland op het lichte vel, in warme inkt (geen puur

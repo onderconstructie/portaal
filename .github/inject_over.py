@@ -14,10 +14,11 @@ Die secret wordt niet meer gelezen en mag in GitHub verwijderd worden.
 import os
 import re
 
-# --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat op /en-meer/ EN
-#        /pers/, dus beide pagina's krijgen de naam (of, zonder secret, de zin verwijderd). ---
+# --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat sinds de opkuis
+#        enkel nog op /pers/. (De lijst kan groeien als de uitklap ooit ook elders komt; het
+#        vangnet onderaan pakt een vergeten placeholder sowieso op.) ---
 naam = os.environ.get("OVER_NAAM", "").strip()
-for PAD in ("dist/en-meer/index.html", "dist/pers/index.html"):
+for PAD in ("dist/pers/index.html",):
     if not os.path.exists(PAD):
         print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
         continue

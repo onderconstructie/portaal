@@ -77,26 +77,7 @@ __PORTAAL_HEAD__
        brengen je al terug, dus die plek gaat naar de enige actie die hier iets toevoegt.
        /#contact opent op het portaal meteen de mailmodal (checkContact draait daar bij het laden). -->
   <a class="over-cta" href="/#contact">Stuur ons een bericht <span class="ar">&#8594;</span></a>
-
-  <!-- Wie zit hierachter, bewust ONDER de mailknop: de uitnodiging om te schrijven is de actie
-       van deze pagina, het colofon-achtige stukje mag daarna komen. De naam staat NIET in git,
-       die komt uit een secret; schrijf de placeholder hier niet voluit (het injectiescript
-       vervangt elk voorkomen, ook in commentaar). -->
-  <details class="wie">
-    <summary>Wie zit hierachter?</summary>
-    <div class="wie-in">
-      <!-- De cartoon wordt de mug bij hover (desktop) of tik (touch): een kleine knipoog. -->
-      <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
-        <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
-        <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
-      </button>
-      <div class="wie-tekst">
-        <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
-        <!-- Perslink zit nu binnen dezelfde uitklap, niet meer als losse slotregel. -->
-        <a class="wie-pers" href="/pers/">Journalist? Bekijk de persmap <span class="ar" aria-hidden="true">&#8594;</span></a>
-      </div>
-    </div>
-  </details>
+  <!-- "Wie zit hierachter" staat nu op de persmap (/pers/), niet meer hier. -->
 </div></section>
 </main>
 
@@ -127,12 +108,6 @@ __PORTAAL_HEAD__
   t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
   window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
 })();
-
-// De cartoon-bol wisselt met de mug. Hover regelt desktop (CSS); een tik regelt touch: we
-// togglen .toon-mug. preventDefault houdt de <details> open (de knop zit in de inhoud).
-// Meeverhuisd met de wie-sectie: deze pagina erft alleen de <head> van het portaal, niet zijn script.
-var _wf = document.querySelector('.wie-fig');
-if(_wf) _wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 
 // De omdraaikaart met het Mechelse rijmpje. aria-pressed volgt de stand, en de weggedraaide
 // zijde krijgt inert zodat een schermlezer niet voor- en achterkant na elkaar voorleest.
