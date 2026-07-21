@@ -715,9 +715,13 @@ textarea.field-input{resize:vertical}
     <details class="wie">
       <summary>Wie zit hierachter?</summary>
       <div class="wie-in">
+        <!-- Bewust GEEN loading="lazy": deze bol zit in een dichte <details>, en een lazy-beeld
+             daarin start zijn fetch niet betrouwbaar bij het openklappen (de cartoon bleef zo
+             leeg terwijl de mug wel verscheen, want die is elders op de pagina al gecachet).
+             De beelden zijn klein en horen meteen klaar te staan zodra de uitklap opengaat. -->
         <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
-          <img class="wf-cartoon" src="/beelden/AGP.png" alt="" loading="lazy">
-          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true" loading="lazy">
+          <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
+          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
         </button>
         <div class="wie-tekst">
           <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
