@@ -320,9 +320,8 @@ img,svg{max-width:100%}
 .over-cta:hover .ar{transform:translateX(4px)}
 /* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
    wel een vindbare tekstlink naar de persmap. Staat helemaal onderaan, na "Wie zit hierachter". */
-.over-pers{margin:1.8rem 0 0;font-size:.9rem;color:var(--stil)}
-.over-pers a{color:var(--pink-tekst);border-bottom:1px solid var(--pink)}
-.over-pers a:hover{color:var(--pink-deep);border-bottom-color:var(--pink-deep)}
+/* De perslink is verhuisd naar BINNEN de "Wie zit hierachter"-uitklap (zie .wie-pers),
+   dus geen losse slotregel meer. */
 /* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
    de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
 @media(max-width:520px){
@@ -339,7 +338,11 @@ img,svg{max-width:100%}
 .wie summary::before{content:'+';font-size:1.15em;width:1em;text-align:center;line-height:1}
 .wie[open] summary::before{content:'\2013'}
 .wie summary:hover{color:var(--pink-deep)}
-.wie-in{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.2rem}
+/* De uitgeklapte inhoud als een zacht kaartje: de cartoon-bol links, rechts de initiatiefnemer
+   en de perslink onder elkaar. Zo lezen "wie erachter zit" en "voor de pers" als één blokje. */
+.wie-in{display:flex;align-items:center;gap:1.3rem;flex-wrap:wrap;margin-top:1rem;
+  background:var(--kaart-a);border:1px solid var(--lijn-kaart);border-radius:var(--r-kaart);
+  padding:1.15rem 1.3rem;box-shadow:var(--schaduw-kaart)}
 /* De cartoon-bol, even groot (72px) als de mug-bol in de banner erboven, met de roze ring.
    Twee gestapelde beelden: de cartoon (met ronde bijsnede, de zwarte hoeken vallen weg) en
    de mug. Elke klik/tik wisselt (via .toon-mug in JS): cartoon, mug, cartoon, ... Bewust
@@ -356,8 +359,15 @@ img,svg{max-width:100%}
 .wie-fig.toon-mug .wf-cartoon{opacity:0}
 .wie-fig.toon-mug .wf-mug{opacity:1}
 .wie-fig:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
-.wie-in{gap:1.3rem}
-.wie .wie-init{flex:1;min-width:16rem;margin:0;color:var(--tekst-2);line-height:1.62;max-width:52ch}
+.wie-tekst{flex:1;min-width:15rem;display:flex;flex-direction:column;gap:.65rem}
+.wie .wie-init{margin:0;color:var(--tekst-2);line-height:1.6;max-width:52ch}
+/* Perslink binnen het kaartje: een discrete tekstlink met een pijltje dat meeschuift. */
+.wie-pers{align-self:flex-start;display:inline-flex;align-items:center;gap:.45rem;
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;
+  color:var(--pink-tekst);border-bottom:1px solid var(--pink);padding-bottom:1px;transition:color .15s,border-color .15s}
+.wie-pers .ar{transition:transform .16s}
+.wie-pers:hover{color:var(--pink-deep);border-color:var(--pink-deep)}
+.wie-pers:hover .ar{transform:translateX(3px)}
 
 
 /* oproep-banner: bewust het donkere eiland op het lichte vel, in warme inkt (geen puur
