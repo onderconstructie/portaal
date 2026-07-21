@@ -318,6 +318,11 @@ img,svg{max-width:100%}
 .over-cta:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
+/* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
+   wel een vindbare tekstlink naar de persmap. Staat helemaal onderaan, na "Wie zit hierachter". */
+.over-pers{margin:1.8rem 0 0;font-size:.9rem;color:var(--stil)}
+.over-pers a{color:var(--pink-tekst);border-bottom:1px solid var(--pink)}
+.over-pers a:hover{color:var(--pink-deep);border-bottom-color:var(--pink-deep)}
 /* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
    de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
 @media(max-width:520px){
@@ -656,6 +661,9 @@ textarea.field-input{resize:vertical}
       <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
     </div>
   </details>
+
+  <!-- Slotregel voor journalisten: geen tweede knop, een discrete tekstlink naar de persmap. -->
+  <p class="over-pers">Journalist? <a href="/pers/">Bekijk de persmap &#8594;</a></p>
 </div></section>
 </main>
 
