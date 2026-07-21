@@ -91,7 +91,7 @@ if enmeer_tpl.exists():
     (out_dir / "en-meer" / "index.html").write_text(enmeer_html, encoding="utf-8")
     print("       en-meer-pagina gebouwd: dist/en-meer/index.html")
 
-# 2c) Aparte pagina /pers/ : de persmap. Werkinstrument voor journalisten (feiten, boilerplate,
+# 2c) Aparte pagina /pers/ : de persmap. Werkinstrument voor journalisten (feiten, een vaste omschrijving,
 #     schrijfwijze, logo, contact). Deelt net als /en-meer/ de <head> van het portaal, met een
 #     eigen titel en omschrijving. Geen persoonsnaam, geen externe verzoeken.
 pers_tpl = BASE / "template-pers.html"

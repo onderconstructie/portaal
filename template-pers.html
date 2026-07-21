@@ -3,7 +3,7 @@
 __PORTAAL_HEAD__
 <body>
 
-<!-- Persmap: één werkinstrument voor journalisten. Feiten, boilerplate, correcte schrijfwijze,
+<!-- Persmap: één werkinstrument voor journalisten. Feiten, een vaste omschrijving, correcte schrijfwijze,
      downloadbaar logo en een perscontact. Geen persoonsnaam (die staat, net als op /en-meer/,
      nergens in git). De cijfers staan bewust in de drift-bestendige vorm ("meer dan 5.200"),
      zodat de pagina niet veroudert bij elke nieuwe zitting. Deelt de <head> van het portaal. -->
@@ -24,7 +24,7 @@ __PORTAAL_HEAD__
 .pers-dl dd{ margin:0; color:var(--tekst); }
 .pers-dl dd b{ color:var(--tekst); }
 
-/* Kopieerbaar tekstblok (boilerplate + contact). */
+/* Kopieerbaar tekstblok (de vaste omschrijving + contact). */
 .kopieerblok{ position:relative; background:var(--kaart-a); border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart); padding:1.15rem 1.2rem; box-shadow:var(--schaduw-kaart); }
 .kopieerblok p{ margin:0; color:var(--tekst); line-height:1.6; }
@@ -91,8 +91,8 @@ __PORTAAL_HEAD__
   </div>
 
   <div class="pers-sec">
-    <h2 class="pers-kop">Boilerplate <em>om over te nemen</em></h2>
-    <p class="pers-lead">De vaste omschrijving van het platform. Neem ze gerust letterlijk over.</p>
+    <h2 class="pers-kop">Zo omschrijf je <em>ons</em></h2>
+    <p class="pers-lead">Een vaste omschrijving van het platform, klaar om over te nemen. Kopieer ze gerust letterlijk.</p>
     <div class="kopieerblok">
       <p id="boiler">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;: denk niet dat de macht aan jou denkt, denk zelf mee. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine, vandaag is het een experimenteel platform voor hyperlokale journalistiek. Het bouwt innovatieve tools die burgers en (burger)journalisten helpen om te weten wat er in hun naam wordt beslist: in mensentaal en altijd met de bron erbij, zodat iedereen het kan nakijken. Het platform is aan niemand schatplichtig, en AI werkt mee als meewerkend voorwerp, niet als leidend: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
       <button type="button" class="kopieer-knop" id="kopieerBoiler" data-doel="boiler">Kopieer de tekst</button>
@@ -183,7 +183,7 @@ __PORTAAL_HEAD__
   a.href = 'mailto:' + adres + '?subject=' + encodeURIComponent('[Pers] As Gau Paust');
 })();
 
-// "Kopieer de tekst": zet de boilerplate op het klembord, met een korte bevestiging.
+// "Kopieer de tekst": zet de vaste omschrijving op het klembord, met een korte bevestiging.
 (function(){
   var knop = document.getElementById('kopieerBoiler');
   if(!knop) return;
@@ -194,7 +194,7 @@ __PORTAAL_HEAD__
     var klaar = function(){ knop.textContent = 'Gekopieerd'; knop.classList.add('ok');
       setTimeout(function(){ knop.textContent = 'Kopieer de tekst'; knop.classList.remove('ok'); }, 2200); };
     // Terugval als de Clipboard-API ontbreekt of weigert (bv. onbeveiligde context): de
-    // boilerplate selecteren en met execCommand kopiëren. Zo werkt de knop overal.
+    // de omschrijving selecteren en met execCommand kopiëren. Zo werkt de knop overal.
     var viaSelectie = function(){
       try{
         var sel = window.getSelection(), r = document.createRange();
