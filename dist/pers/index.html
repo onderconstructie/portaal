@@ -612,7 +612,7 @@ textarea.field-input{resize:vertical}
 .pers-termen b{ color:var(--tekst); }
 
 /* Downloadkaarten voor het beeldmateriaal. */
-.pers-downloads{ display:flex; flex-wrap:wrap; gap:1rem; }
+.pers-downloads{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap:1rem; align-items:stretch; }
 .dl-kaart{ display:flex; align-items:center; gap:1rem; background:var(--kaart-a); border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart); padding:1rem 1.15rem; box-shadow:var(--schaduw-kaart); }
 .dl-kaart img{ width:64px; height:64px; border-radius:50%; flex:none; object-fit:cover; object-position:center; }
