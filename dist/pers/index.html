@@ -616,6 +616,8 @@ textarea.field-input{resize:vertical}
 .dl-kaart{ display:flex; align-items:center; gap:1rem; background:var(--kaart-a); border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart); padding:1rem 1.15rem; box-shadow:var(--schaduw-kaart); }
 .dl-kaart img{ width:64px; height:64px; border-radius:50%; flex:none; object-fit:cover; object-position:center; }
+/* De zwart-witte Kuifje-figuur krijgt de roze omcirkeling, net als de bol in de uitklap; de mug is al roze en heeft geen ring nodig. */
+.dl-kaart img.dl-kuifje{ box-shadow:0 0 0 2px var(--pink); }
 .dl-kaart .dl-body{ min-width:0; }
 .dl-kaart .dl-naam{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.82rem; margin:0 0 .15rem; color:var(--tekst); }
 .dl-kaart .dl-meta{ font-size:.72rem; color:var(--stil); margin:0 0 .5rem; }
@@ -697,7 +699,7 @@ textarea.field-input{resize:vertical}
         </div>
       </div>
       <div class="dl-kaart">
-        <img src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
+        <img class="dl-kuifje" src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
         <div class="dl-body">
           <p class="dl-naam">As Gau Paust</p>
           <p class="dl-meta">Merci Herg&eacute;!</p>
