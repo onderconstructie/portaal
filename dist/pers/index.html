@@ -9,8 +9,6 @@
 
 <link rel="icon" type="image/png" href="/beelden/mug.png">
 
-<!-- Installeerbaar als app (op je beginscherm), werkt ook offline. Geen cookies, geen trackers:
-     de service worker is enkel een lokale cache op je toestel. -->
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/beelden/mug-192.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -18,9 +16,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="As Gau Paust">
 
-<!-- Zelf-gehoste lettertypes: geen Google Fonts, geen bezoekers-IP naar derden.
-     Geist (leestekst) en JetBrains Mono (structuur/data) onder de SIL Open Font License 1.1;
-     de licenties staan in /fonts/Geist-OFL.txt en /fonts/JetBrainsMono-OFL.txt. -->
 <style>
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/geist-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jbmono-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
@@ -572,10 +567,6 @@ textarea.field-input{resize:vertical}
 </head>
 <body>
 
-<!-- Persmap: één werkinstrument voor journalisten. Feiten, een vaste omschrijving, correcte schrijfwijze,
-     downloadbaar logo en een perscontact. Geen persoonsnaam (die staat, net als op /en-meer/,
-     nergens in git). De cijfers staan bewust in afgeronde, drift-bestendige vorm ("meer dan ...", "ruim ..."),
-     zodat de pagina niet veroudert bij elke nieuwe zitting. Deelt de <head> van het portaal. -->
 <style>
 /* Persmap-eigen onderdelen, met de tokens van het portaal (dag-editie). */
 .pers-sec{ padding-top:clamp(1.6rem,3.5vw,2.6rem); padding-bottom:clamp(1.6rem,3.5vw,2.6rem); border-top:1px solid var(--lijn); }
@@ -720,17 +711,9 @@ textarea.field-input{resize:vertical}
       <p style="margin-top:.5rem;color:var(--tekst-2);font-size:.9rem">Of via het contactformulier op de <a href="/#contact" style="color:var(--pink-tekst);border-bottom:1px solid var(--pink)">startpagina</a>.</p>
     </div>
 
-    <!-- Wie zit hierachter, dezelfde uitklap als op /en-meer/ (kaartje: cartoon + initiatiefnemer).
-         De naam staat NIET in git; die komt bij het publiceren uit de secret OVER_NAAM. Schrijf de
-         placeholder hier niet voluit, ook niet in commentaar: het injectiescript vervangt elk
-         voorkomen. Sinds deze pagina de placeholder heeft, verwerkt inject_over.py haar ook. -->
     <details class="wie">
       <summary>Wie zit hierachter?</summary>
       <div class="wie-in">
-        <!-- Bewust GEEN loading="lazy": deze bol zit in een dichte <details>, en een lazy-beeld
-             daarin start zijn fetch niet betrouwbaar bij het openklappen (de cartoon bleef zo
-             leeg terwijl de mug wel verscheen, want die is elders op de pagina al gecachet).
-             De beelden zijn klein en horen meteen klaar te staan zodra de uitklap opengaat. -->
         <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
           <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
           <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
@@ -751,8 +734,6 @@ textarea.field-input{resize:vertical}
   </div>
 </div></footer>
 
-<!-- Dezelfde app-onderbalk als op het portaal en de deelsites. Deze pagina hoort bij het portaal,
-     dus de Start-tab draagt aria-current="true". -->
 <button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">

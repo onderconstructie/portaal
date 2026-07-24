@@ -51,6 +51,13 @@ IC = {
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),
 }
 
+def strip_html_commentaar(s):
+    """Haalt HTML-commentaren uit een gebouwde pagina: dev-notities horen in de template (voor
+    onderhoud), niet in de publieke view-source. Non-greedy en veilig omdat geen <script> op deze
+    pagina de reeks <!-- of --> bevat; ruimt ook de lege regel op die een gestript blok achterlaat."""
+    import re
+    return re.sub(r"[ \t]*<!--.*?-->[ \t]*\n?", "", s, flags=re.DOTALL)
+
 # 1) Schil lezen en de placeholders invullen.
 html = (BASE / "template.html").read_text(encoding="utf-8")
 html = html.replace("__MARK__", MARK)
@@ -110,6 +117,7 @@ if pers_tpl.exists():
     pers_html = pers_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         pers_html = pers_html.replace(_k, _svg)
+    pers_html = strip_html_commentaar(pers_html)  # dev-notities weg uit de publieke view-source (blijven in de template)
     (out_dir / "pers").mkdir(exist_ok=True)
     (out_dir / "pers" / "index.html").write_text(pers_html, encoding="utf-8")
     print("       pers-pagina gebouwd: dist/pers/index.html")
