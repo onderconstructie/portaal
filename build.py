@@ -51,6 +51,28 @@ IC = {
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),
 }
 
+def subpagina_head(portaal_html, titel, omschrijving, url):
+    """De <head> van het portaal hergebruiken, maar met de eigen identiteit van de subpagina.
+
+    Naast <title> en de description moeten ook de deelkaart-tags mee: anders toont een gedeelde
+    link naar /pers/ of /en-meer/ de titel en omschrijving van de startpagina. og:image blijft
+    voor alle pagina's hetzelfde merkbeeld; dat is bewust, het is één familie.
+    """
+    import re
+    m = re.search(r"<head>.*?</head>", portaal_html, flags=re.DOTALL)
+    head = m.group(0) if m else ""
+    head = re.sub(r"<title>.*?</title>", "<title>%s</title>" % titel, head, count=1, flags=re.DOTALL)
+    for patroon, nieuw in (
+        (r'(<meta name="description" content=")[^"]*(">)', omschrijving),
+        (r'(<meta property="og:title" content=")[^"]*(">)', titel),
+        (r'(<meta property="og:description" content=")[^"]*(">)', omschrijving),
+        (r'(<meta property="og:url" content=")[^"]*(">)', url),
+        (r'(<link rel="canonical" href=")[^"]*(">)', url),
+    ):
+        head = re.sub(patroon, lambda mm, w=nieuw: mm.group(1) + w + mm.group(2), head, count=1)
+    return head
+
+
 def strip_html_commentaar(s):
     """Haalt HTML-commentaren uit een gebouwde pagina: dev-notities horen in de template (voor
     onderhoud), niet in de publieke view-source. Non-greedy en veilig omdat geen <script> op deze
@@ -82,16 +104,12 @@ out_dir.mkdir(exist_ok=True)
 #     en omschrijving.
 enmeer_tpl = BASE / "template-enmeer.html"
 if enmeer_tpl.exists():
-    import re
-    m = re.search(r"<head>.*?</head>", html, flags=re.DOTALL)
-    head = m.group(0) if m else ""
-    head = re.sub(r"<title>.*?</title>",
-                  "<title>En meer As Gau Paust</title>",
-                  head, count=1, flags=re.DOTALL)
-    head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
-                  r"\g<1>En meer: de filosofie van As Gau Paust. Waar het experimentele platform "
-                  r"voor staat en waar het heen groeit.\g<2>",
-                  head, count=1, flags=re.DOTALL)
+    head = subpagina_head(
+        html,
+        "En meer As Gau Paust",
+        "En meer: de filosofie van As Gau Paust. Waar het experimentele platform voor staat "
+        "en waar het heen groeit.",
+        "https://asgaupaust.be/en-meer/")
     enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         enmeer_html = enmeer_html.replace(_k, _svg)
@@ -104,16 +122,12 @@ if enmeer_tpl.exists():
 #     eigen titel en omschrijving. Geen persoonsnaam, geen externe verzoeken.
 pers_tpl = BASE / "template-pers.html"
 if pers_tpl.exists():
-    import re
-    m = re.search(r"<head>.*?</head>", html, flags=re.DOTALL)
-    head = m.group(0) if m else ""
-    head = re.sub(r"<title>.*?</title>",
-                  "<title>Pers As Gau Paust</title>",
-                  head, count=1, flags=re.DOTALL)
-    head = re.sub(r'(<meta name="description" content=")[^"]*(">)',
-                  r"\g<1>Persmap van As Gau Paust: de feiten, een kant-en-klare omschrijving, de juiste "
-                  r"schrijfwijze, het logo en het perscontact van het platform voor hyperlokale journalistiek.\g<2>",
-                  head, count=1, flags=re.DOTALL)
+    head = subpagina_head(
+        html,
+        "Pers As Gau Paust",
+        "Persmap van As Gau Paust: de feiten, een kant-en-klare omschrijving, de juiste "
+        "schrijfwijze, het logo en het perscontact van het platform voor hyperlokale journalistiek.",
+        "https://asgaupaust.be/pers/")
     pers_html = pers_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         pers_html = pers_html.replace(_k, _svg)
@@ -121,6 +135,61 @@ if pers_tpl.exists():
     (out_dir / "pers").mkdir(exist_ok=True)
     (out_dir / "pers" / "index.html").write_text(pers_html, encoding="utf-8")
     print("       pers-pagina gebouwd: dist/pers/index.html")
+
+# 2d) Eigen 404-pagina. GitHub Pages toont zonder dit bestand zijn eigen Engelstalige
+#     "Page not found"-scherm: geen merk, geen Nederlands, geen weg terug. Eén typfout in een
+#     gedeelde link volstaat om daar te belanden, dus dit hoort bij de schil van de site.
+#     Zelfstandig bestand (eigen stijl inline): een 404 mag niet afhangen van de rest.
+PAGINA_404 = """<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FF0066">
+<title>Pagina niet gevonden, As Gau Paust</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/beelden/mug.png">
+<style>
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/geist-var.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jbmono-var.woff2') format('woff2')}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:#f5f1e8;color:#2b2621;font-family:'Geist',system-ui,sans-serif;line-height:1.6;padding:1.5rem}
+.doos{max-width:34rem;text-align:center}
+.mug{width:96px;height:96px;border-radius:50%;margin:0 auto 1.6rem;display:block}
+.code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#c80054;margin:0 0 .6rem}
+h1{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:clamp(1.5rem,5vw,2.2rem);
+  font-weight:600;letter-spacing:-.02em;margin:0 0 .9rem}
+p{color:#514a40;margin:0 0 1.8rem}
+.wegen{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
+.wegen a{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;padding:.7rem 1.1rem;border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);color:#2b2621;transition:.15s}
+.wegen a:hover{border-color:#FF0066;color:#c80054}
+.wegen a.prim{background:#FF0066;border-color:#FF0066;color:#fff}
+.wegen a.prim:hover{background:#b3004a;border-color:#b3004a;color:#fff}
+</style>
+</head>
+<body>
+  <main class="doos">
+    <img class="mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512">
+    <p class="code">Fout 404</p>
+    <h1>Deze pagina bestaat niet</h1>
+    <p>Misschien is de link verouderd, of staat er een tikfout in het adres.
+       Hieronder raak je weer op weg.</p>
+    <div class="wegen">
+      <a class="prim" href="/">Naar de startpagina</a>
+      <a href="https://denkmee.asgaupaust.be/">Denk mee</a>
+      <a href="https://leesmee.asgaupaust.be/">Lees mee</a>
+      <a href="/pers/">Persmap</a>
+    </div>
+  </main>
+</body>
+</html>
+"""
+(out_dir / "404.html").write_text(PAGINA_404, encoding="utf-8")
+print("       404-pagina gebouwd: dist/404.html")
 
 # 3) CNAME voor GitHub Pages. Eenmalig, pas bij live-zetten: Settings -> Pages ->
 #    Custom domain = asgaupaust.be, plus een DNS-record naar <gebruiker>.github.io.
