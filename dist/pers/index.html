@@ -165,9 +165,19 @@ img,svg{max-width:100%}
 @media(max-width:640px){.hero-mark{width:110px}}
 
 /* de grote blokken */
-.portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
+.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:900px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
+/* Reken mee bestaat nog niet, dus krijgt het geen volwaardige kaart naast de drie werkende
+   ingangen: een lege vierde kaart maakt de etalage voor een kwart leeg. Als smalle strook
+   eronder zegt het hetzelfde zonder de indruk van onaf werk. */
+.soon-strook{display:flex;align-items:baseline;flex-wrap:wrap;gap:.7rem;margin:.9rem 0 0;
+  padding:.85rem 1.1rem;border:1px dashed var(--lijn-stippel);border-radius:var(--r-kaart);
+  background:rgba(255,255,255,.42);color:var(--tekst-2);font-size:.92rem;line-height:1.5}
+.soon-strook .ss-badge{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.62rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--stil);border:1px solid var(--lijn-sterk);
+  border-radius:var(--r-chip);padding:.3rem .55rem;flex:none}
+.soon-strook strong{color:var(--tekst);font-weight:600}
 .pcard{position:relative;display:flex;flex-direction:column;min-height:200px;
   background:linear-gradient(180deg,var(--kaart-a),var(--kaart-b));border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart);padding:1.3rem 1.35rem 1.2rem;color:var(--tekst);overflow:hidden;
@@ -389,6 +399,15 @@ img,svg{max-width:100%}
 @media(max-width:480px){.hbb-title .hou-samen{white-space:normal}}
 .hb-banner .hbb-sub{margin:.55rem 0 0;font-size:.95rem;color:rgba(245,241,232,.65);line-height:1.55;max-width:52ch}
 .hb-banner .hbb-sub em{color:var(--pink);font-style:normal;font-weight:600}
+/* De knop hoort ín de oproep. Een kreet zonder uitgang ("Steun ons. Structureel.") leest als
+   een holle belofte: de bezoeker wil iets doen en kan nergens heen. Roze vlak op de donkere
+   band, zelfde vorm als de knoppen elders, zodat het één taal blijft. */
+.hb-banner .hbb-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.3rem;
+  padding:.85rem 1.35rem;cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:0;
+  border-radius:var(--r-chip);background:var(--pink);color:#fff;transition:.15s}
+.hb-banner .hbb-cta:hover{background:var(--pink-deep)}
+.hb-banner .hbb-cta:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 @media(max-width:640px){.hbb-txt{border-left:0;padding-left:0}}
 
 /* footer */
@@ -452,6 +471,15 @@ img,svg{max-width:100%}
    en die hoort cursief. Hier zit "Paust" in de em, en dat is geen ondertitel maar een stuk van
    de merknaam zelf. Zelfde behandeling als de accentwoorden op Lees mee: roze, rechtop. */
 .co-zin .co-naam em{ font-style:normal; color:var(--c-pink-tekst); }
+/* "Wie zit hierachter?" leest in het colofon als een zin, niet als een widget: geen plus-teken,
+   geen kapitalen, gewoon een klikbare vraag achter de merkregel. Dezelfde uitklap als op de
+   persmap, zodat de naam op de voordeur staat zonder er pontificaal te hangen. */
+.co-zin .wie-inline{ display:inline; margin:0; }
+.co-zin .wie-inline summary{ display:inline; font-family:inherit; font-size:inherit;
+  letter-spacing:normal; text-transform:none; color:var(--c-pink-tekst); cursor:pointer; }
+.co-zin .wie-inline summary::before{ content:none; }
+.co-zin .wie-inline summary:hover{ text-decoration:underline; }
+.co-zin .wie-inline .wie-in{ margin-top:.9rem; }
 .co-fam{
   margin:var(--co-r) 0 0;
   font-family:'JetBrains Mono',ui-monospace,monospace;

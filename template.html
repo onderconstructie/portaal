@@ -174,9 +174,19 @@ img,svg{max-width:100%}
 @media(max-width:640px){.hero-mark{width:110px}}
 
 /* de grote blokken */
-.portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
+.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:900px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
+/* Reken mee bestaat nog niet, dus krijgt het geen volwaardige kaart naast de drie werkende
+   ingangen: een lege vierde kaart maakt de etalage voor een kwart leeg. Als smalle strook
+   eronder zegt het hetzelfde zonder de indruk van onaf werk. */
+.soon-strook{display:flex;align-items:baseline;flex-wrap:wrap;gap:.7rem;margin:.9rem 0 0;
+  padding:.85rem 1.1rem;border:1px dashed var(--lijn-stippel);border-radius:var(--r-kaart);
+  background:rgba(255,255,255,.42);color:var(--tekst-2);font-size:.92rem;line-height:1.5}
+.soon-strook .ss-badge{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.62rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--stil);border:1px solid var(--lijn-sterk);
+  border-radius:var(--r-chip);padding:.3rem .55rem;flex:none}
+.soon-strook strong{color:var(--tekst);font-weight:600}
 .pcard{position:relative;display:flex;flex-direction:column;min-height:200px;
   background:linear-gradient(180deg,var(--kaart-a),var(--kaart-b));border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart);padding:1.3rem 1.35rem 1.2rem;color:var(--tekst);overflow:hidden;
@@ -398,6 +408,15 @@ img,svg{max-width:100%}
 @media(max-width:480px){.hbb-title .hou-samen{white-space:normal}}
 .hb-banner .hbb-sub{margin:.55rem 0 0;font-size:.95rem;color:rgba(245,241,232,.65);line-height:1.55;max-width:52ch}
 .hb-banner .hbb-sub em{color:var(--pink);font-style:normal;font-weight:600}
+/* De knop hoort ín de oproep. Een kreet zonder uitgang ("Steun ons. Structureel.") leest als
+   een holle belofte: de bezoeker wil iets doen en kan nergens heen. Roze vlak op de donkere
+   band, zelfde vorm als de knoppen elders, zodat het één taal blijft. */
+.hb-banner .hbb-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.3rem;
+  padding:.85rem 1.35rem;cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:0;
+  border-radius:var(--r-chip);background:var(--pink);color:#fff;transition:.15s}
+.hb-banner .hbb-cta:hover{background:var(--pink-deep)}
+.hb-banner .hbb-cta:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 @media(max-width:640px){.hbb-txt{border-left:0;padding-left:0}}
 
 /* footer */
@@ -461,6 +480,15 @@ img,svg{max-width:100%}
    en die hoort cursief. Hier zit "Paust" in de em, en dat is geen ondertitel maar een stuk van
    de merknaam zelf. Zelfde behandeling als de accentwoorden op Lees mee: roze, rechtop. */
 .co-zin .co-naam em{ font-style:normal; color:var(--c-pink-tekst); }
+/* "Wie zit hierachter?" leest in het colofon als een zin, niet als een widget: geen plus-teken,
+   geen kapitalen, gewoon een klikbare vraag achter de merkregel. Dezelfde uitklap als op de
+   persmap, zodat de naam op de voordeur staat zonder er pontificaal te hangen. */
+.co-zin .wie-inline{ display:inline; margin:0; }
+.co-zin .wie-inline summary{ display:inline; font-family:inherit; font-size:inherit;
+  letter-spacing:normal; text-transform:none; color:var(--c-pink-tekst); cursor:pointer; }
+.co-zin .wie-inline summary::before{ content:none; }
+.co-zin .wie-inline summary:hover{ text-decoration:underline; }
+.co-zin .wie-inline .wie-in{ margin-top:.9rem; }
 .co-fam{
   margin:var(--co-r) 0 0;
   font-family:'JetBrains Mono',ui-monospace,monospace;
@@ -613,9 +641,12 @@ textarea.field-input{resize:vertical}
   <div class="shell">
     <div class="hub-intro">
       <div class="hub-copy">
-        <span class="eyebrow"><span class="pulse"></span>Experiment</span>
+        <span class="eyebrow"><span class="pulse"></span>Hyperlokaal</span>
         <h1 class="hero-title">As Gau <em>Paust</em></h1>
-        <p class="hero-lede">As Gau Paust is een experimenteel platform voor hyperlokale journalistiek. Alle experimenten zijn toegespitst op de stad Mechelen. Kies hieronder je ingang.</p>
+        <!-- De naam draagt het hele merk, dus staat de betekenis hier en niet pas achter een klik.
+             Bewust geen "experimenteel platform" meer: dat woord stond drie keer op dit scherm en
+             relativeerde de belofte. De eerlijke nuance blijft op /en-meer/ en de techniekpagina. -->
+        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Wij laten je zien wat de stad in jouw naam beslist, in mensentaal en met de bron erbij. Kies hieronder je ingang.</p>
       </div>
       <div class="hero-mark" aria-hidden="true">
         <div class="ring"></div>
@@ -644,15 +675,6 @@ textarea.field-input{resize:vertical}
         <span class="go">leesmee.asgaupaust.be <span class="ar">&#8594;</span></span>
       </a>
 
-      <div class="pcard soon">
-        <div class="pcard-top"><span class="pcard-ic">__IC_REKEN__</span><span class="badge wait">Binnenkort</span></div>
-        <span class="k">het bestuur in cijfers</span>
-        <h3>Reken <em>mee</em></h3>
-        <div class="fam">met Mechelen</div>
-        <p>De cijfers achter het bestuur van Mechelen. Straks zie je in heldere dashboards hoeveel de stad beslist, en waarover.</p>
-        <span class="go">in de maak</span>
-      </div>
-
       <a class="pcard info" href="/en-meer/">
         <div class="pcard-top"><span class="pcard-ic">__IC_MEER__</span></div>
         <span class="k">dit portaal groeit</span>
@@ -663,28 +685,27 @@ textarea.field-input{resize:vertical}
       </a>
 
     </div>
+
+    <p class="soon-strook">
+      <span class="ss-badge">Binnenkort</span>
+      <span>Daar komt <strong>Reken mee met Mechelen</strong> bij: de cijfers achter het bestuur, in heldere dashboards.</span>
+    </p>
   </div>
 </section>
 
 <section class="over" id="jouwstad"><div class="shell">
-  <div>
-    <h2>Ook iets voor <em>jouw stad</em>?</h2>
-    <p>Wat hier voor Mechelen draait, is niet aan Mechelen gebonden. Elk bouwblok past net zo goed op een andere stad.</p>
-    <p>De bouwblokken liggen klaar voor hergebruik. Ben je journalist of burgerjournalist? Ga ermee aan de slag in je eigen stad of gemeente.</p>
-    <button type="button" class="over-cta" onclick="openContactModal()">Stuur ons een bericht <span class="ar">&#8594;</span></button>
-  </div>
-
+  <!-- Eén vraag in plaats van twee halve. Hiervoor stonden hier een sectie "Ook iets voor jouw
+       stad?" met een knop én een oproep-banner zonder knop, die elkaar beconcurreerden. Nu draagt
+       de banner de hele vraag, met de enige uitgang die er echt is: een bericht sturen. -->
   <aside class="hb-banner">
     <div class="hbb-geo" aria-hidden="true">__MARK__</div>
     <div class="hbb-txt">
       <div class="hbb-kicker">Oproep</div>
-      <p class="hbb-title">Steun <span class="hou-samen">hyperlokale, onafhankelijke</span> journalistiek. Structureel.</p>
-      <p class="hbb-sub">Niet voor &eacute;&eacute;n magazine, wel voor een <em>mug in de kamer</em> van elke stad.</p>
+      <h2 class="hbb-title">Structurele steun voor <span class="hou-samen">hyperlokale, onafhankelijke</span> journalistiek.</h2>
+      <p class="hbb-sub">Ken je een fonds, een redactie of een stad die dit wil dragen? Of wil je het voor je eigen stad bouwen? Wat hier voor Mechelen draait, is niet aan Mechelen gebonden: de bouwblokken liggen klaar, voor journalisten en <em>burgerjournalisten</em>.</p>
+      <button type="button" class="hbb-cta" onclick="openContactModal()">Laat het ons weten <span class="ar">&#8594;</span></button>
     </div>
   </aside>
-
-  <!-- "Wie zit hierachter" is verhuisd naar /en-meer/: daar staat het verhaal van het platform
-       (filosofie + initiatiefnemer), zodat dit portaal een schone keuzehub blijft. -->
 </div></section>
 
 <!-- Het colofon. Geen link op het teken: dit is asgaupaust.be zelf. -->
@@ -693,7 +714,25 @@ textarea.field-input{resize:vertical}
 <footer class="colofon"><div class="co-shell">
   <span class="co-mark" aria-hidden="true">__MARK__</span>
   <div class="co-body">
-    <p class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.</p>
+    <!-- co-zin is een div en geen p: een <details> mag niet in een <p> staan, en de uitklap
+         hoort hier binnen de zin te lezen. De naam zelf staat NIET in git; die komt bij het
+         publiceren uit de secret (zie .github/inject_over.py, dat dit bestand daarom ook
+         moet verwerken). Schrijf de plaatshouder nergens in commentaar: het injectiescript
+         vervangt elk voorkomen, ook daar. -->
+    <div class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.
+      <details class="wie wie-inline">
+        <summary>Wie zit hierachter?</summary>
+        <div class="wie-in">
+          <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+            <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
+            <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
+          </button>
+          <div class="wie-tekst">
+            <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+          </div>
+        </div>
+      </details>
+    </div>
     <p class="co-fam"><a href="/pers/">Persmap</a></p>
   </div>
 </div></footer>
@@ -936,6 +975,13 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
   window.__toonInstall = toon;                     // de privacy-OK-knop roept dit aan
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; if(privacyWeg()) toon(); });
   if(privacyWeg()) setTimeout(toon, 900);          // privacy al weg (terugkerend bezoek): toon meteen
+})();
+
+// De cartoon-bol in de colofon-uitklap wisselt bij een tik met de mug. Zelfde knipoog als op
+// de persmap; die pagina heeft haar eigen kopie omdat ze dit script niet erft.
+(function(){
+  var wf = document.querySelector('.wie-fig');
+  if(wf) wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
 })();
 </script>
 

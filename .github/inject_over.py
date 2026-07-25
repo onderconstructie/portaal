@@ -14,11 +14,12 @@ Die secret wordt niet meer gelezen en mag in GitHub verwijderd worden.
 import os
 import re
 
-# --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat sinds de opkuis
-#        enkel nog op /pers/. (De lijst kan groeien als de uitklap ooit ook elders komt; het
-#        vangnet onderaan pakt een vergeten placeholder sowieso op.) ---
+# --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat op /pers/ en
+#        sinds 25/07/2026 ook in het colofon van de startpagina (als uitklap in de zin, zodat
+#        de voordeur een gezicht heeft zonder het pontificaal te tonen). Het vangnet onderaan
+#        pakt een vergeten placeholder sowieso op. ---
 naam = os.environ.get("OVER_NAAM", "").strip()
-for PAD in ("dist/pers/index.html",):
+for PAD in ("dist/pers/index.html", "dist/index.html"):
     if not os.path.exists(PAD):
         print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
         continue
