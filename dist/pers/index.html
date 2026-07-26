@@ -626,13 +626,14 @@ textarea.field-input{resize:vertical}
 .pers-dl dd b{ color:var(--tekst); }
 
 /* Kopieerbaar tekstblok (de vaste omschrijving + contact). */
-/* De kaart volgt de tekstkolom, niet de volle sectiebreedte. Stond de kaart op volle breedte,
-   dan brak de tekst binnenin al na 60ch af en bleef er ruim 450px dood wit rechts staan. Door de
-   kaart op 60ch plus haar eigen zijpadding te zetten, valt de tekstkolom exact samen met de lede
-   erboven en is de leegte weg. De tekst mag daarbinnen de volle kaart vullen. */
+/* Eén leesbreedte voor de kaart, in plaats van de volle sectiebreedte. Stond ze op volle breedte
+   (1070px), dan brak de tekst binnenin al na haar leesbreedte af en bleef er ruim 450px dood wit
+   rechts staan. Bewust een vaste maat en geen fit-content: dat laatste liet de korte contactkaart
+   naar 339px krimpen, waardoor de twee kaarten sterk verschilden. Nu zijn ze even breed en vult de
+   tekst ze volledig. De kaart is iets breder dan de lede erboven, wat klopt: ze omsluit haar. */
 .kopieerblok{ position:relative; background:var(--kaart-a); border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart); padding:1.15rem 1.2rem; box-shadow:var(--schaduw-kaart);
-  max-width:calc(60ch + 2.4rem); }
+  max-width:42rem; }
 .kopieerblok p{ margin:0; color:var(--tekst); line-height:1.6; max-width:none; }
 .kopieerblok p + p{ margin-top:.7rem; }
 .kopieer-knop{ margin-top:.9rem; display:inline-flex; align-items:center; gap:.45rem; cursor:pointer;
