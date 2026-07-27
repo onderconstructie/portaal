@@ -324,7 +324,9 @@ img,svg{max-width:100%}
   padding:1.4rem 1.5rem;border-radius:var(--r-kaart);
   -webkit-backface-visibility:hidden;backface-visibility:hidden;
   transition:opacity 0s linear .27s}
-.fil-flip .fc-front{background:var(--pink);border:1px solid var(--pink)}
+/* Het diepere roze op het gevulde kaartvlak: wit op --pink haalt 3,86:1 (onder AA), op
+   --pink-deep 6,96:1. Het felle roze blijft voor het kleine en decoratieve werk. */
+.fil-flip .fc-front{background:var(--pink-deep);border:1px solid var(--pink-deep)}
 .fil-flip .fc-back{background:var(--bg-diep);border:1px solid var(--bg-diep);opacity:0;
   -webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
 .fil-flip.flipped .fc-front{opacity:0}
