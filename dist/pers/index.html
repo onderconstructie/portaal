@@ -665,6 +665,22 @@ textarea.field-input{resize:vertical}
 .dl-links a:hover{ color:var(--pink-deep); border-bottom-color:var(--pink-deep); }
 .pers-note{ font-size:.88rem; color:var(--tekst-2); max-width:62ch; margin:1rem 0 0; line-height:1.6; }
 .pers-note a{ color:var(--pink-tekst); border-bottom:1px solid var(--pink); }
+
+/* Statusstrook: de site staat online maar is nog niet publiek gelanceerd. Bewust GEEN pop-up:
+   de persmap draagt al de privacybalk, en een venster dat je kan wegklikken bereikt net de
+   journalist niet die het wegklikt en dan schrijft. Een vaste strook staat er altijd, kost geen
+   handeling en valt niet over de tekst. Bewust ook GEEN maand: schuift de lancering, dan staat
+   er anders een verouderde datum op een perspagina. De concrete datum hoort in het persbericht
+   en in rechtstreeks contact, waar de afzender kiest wie hem krijgt.
+   NA DE LANCERING: dit hele blok en zijn markup verwijderen. */
+.status-strook{ background:var(--tekst); color:var(--paper, #f5f1e8); }
+.status-strook .shell{ display:flex; align-items:baseline; gap:.75rem; flex-wrap:wrap;
+  padding-top:.8rem; padding-bottom:.8rem; }
+.status-strook b{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--pink); flex:none; }
+.status-strook span{ font-size:.9rem; line-height:1.5; color:rgba(245,241,232,.82); }
+.status-strook a{ color:#fff; border-bottom:1px solid rgba(255,255,255,.6); }
+.status-strook a:hover{ border-bottom-color:#fff; }
 </style>
 
 <nav class="nav"><div class="shell nav-in">
@@ -673,6 +689,11 @@ textarea.field-input{resize:vertical}
     <span>As Gau <em>Paust</em></span>
   </a>
 </div></nav>
+
+<div class="status-strook"><div class="shell">
+  <b>Nog niet gelanceerd</b>
+  <span>De site staat online en de cijfers zijn actueel, maar de publieke lancering volgt binnenkort. Wil je erover schrijven, <a href="#perscontact">neem dan even contact op</a>.</span>
+</div></div>
 
 <main>
 <section class="hero hero-sub">
@@ -689,7 +710,7 @@ textarea.field-input{resize:vertical}
     <h2 class="pers-kop">In het <em>kort</em></h2>
     <dl class="pers-dl">
       <dt>Wat</dt><dd>Een experimenteel platform voor hyperlokale journalistiek over Mechelen. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, en wil zo ook andere (burger)journalisten en de stad zelf inspireren om lokale data toegankelijker te maken.</dd>
-      <dt>Sinds</dt><dd>Van 2016 tot 2023 een onafhankelijk stadsmagazine, sinds juli 2026 een platform.</dd>
+      <dt>Sinds</dt><dd>Van 2016 tot 2023 een onafhankelijk stadsmagazine, sinds 2026 een platform.</dd>
       <dt>Denk mee</dt><dd>Volg wat Mechelen beslist, op maat van wat jij belangrijk vindt. Op gezette tijdstippen lees je in mensentaal wat de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester beslissen, van agenda tot besluit. Meer dan 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 1.200 dossiers om te volgen. De methode en een kritische zelfevaluatie staan op de technische pagina, denkmee.asgaupaust.be/techniek/. <b>denkmee.asgaupaust.be</b></dd>
       <dt>Lees mee</dt><dd>Zeven jaar hyperlokale journalistiek over Mechelen (2016 tot 2023): het leesarchief van het magazine, 269 artikels gebundeld per thema en dossier, met de formule van zeven technieken om een stad transparant te maken. <b>leesmee.asgaupaust.be</b></dd>
       <dt>Reken mee</dt><dd>De cijfers achter het bestuur van Mechelen, in heldere dashboards. In de maak.</dd>
@@ -703,7 +724,7 @@ textarea.field-input{resize:vertical}
     <h2 class="pers-kop">Zo omschrijf je <em>ons</em></h2>
     <p class="pers-lead">Een vaste omschrijving van het platform, klaar om over te nemen. Kopieer ze gerust letterlijk.</p>
     <div class="kopieerblok">
-      <p id="boiler">As Gau Paust, Mechels voor &#8220;als jij denkt&#8221;, is een experimenteel platform voor hyperlokale journalistiek over Mechelen. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine, sinds juli 2026 is het een platform. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, in mensentaal en met de bron erbij. Het wil ook inspireren: andere (burger)journalisten om zoiets voor hun eigen stad te bouwen, en de stad zelf om haar data toegankelijker voor de burger te ontsluiten. Het platform werkt onafhankelijk. AI is daarbij een hulpmiddel, niet de eindredacteur: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
+      <p id="boiler">As Gau Paust, Mechels voor &#8220;als jij denkt&#8221;, is een experimenteel platform voor hyperlokale journalistiek over Mechelen. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, in mensentaal en met de bron erbij. Het wil ook inspireren: andere (burger)journalisten om zoiets voor hun eigen stad te bouwen, en de stad zelf om haar data toegankelijker voor de burger te ontsluiten. Het platform werkt onafhankelijk. AI is daarbij een hulpmiddel, niet de eindredacteur: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
       <button type="button" class="kopieer-knop" id="kopieerBoiler" data-doel="boiler">Kopieer de tekst</button>
     </div>
   </div>
@@ -749,7 +770,7 @@ textarea.field-input{resize:vertical}
     <p class="pers-note">De drie sites zijn openbaar. Schermbeelden ervan zijn vrij te gebruiken met bronvermelding (As Gau Paust). Bezoek <a href="https://denkmee.asgaupaust.be/">Denk mee</a>, <a href="https://leesmee.asgaupaust.be/">Lees mee</a> of de <a href="/">startpagina</a>.</p>
   </div>
 
-  <div class="pers-sec">
+  <div class="pers-sec" id="perscontact">
     <h2 class="pers-kop">Pers<em>contact</em></h2>
     <p class="pers-lead">Voor persvragen, een demonstratie of concrete Mechelse voorbeelden uit de dossiers.</p>
     <div class="kopieerblok">
