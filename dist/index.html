@@ -75,13 +75,32 @@
   --lijn-sterk:rgba(26,23,18,.22); --lijn-stippel:rgba(26,23,18,.2);
   --pink:#FF0066; --pink-tekst:#c80054; --pink-deep:#b3004a;
   --pink-zacht:rgba(255,0,102,.09); --ticker-band:#fbe4ea;
+  /* Roze tekst op de donkere eilanden. Het felle #FF0066 haalt daar 4,63:1, dit lichtere
+     5,74:1, en het leest een stuk rustiger. Denk mee en Lees mee gebruikten dit al; het
+     portaal niet, en dat was het enige echte verschil in de kleurlogica tussen de drie. */
+  --eiland-pink:#ff4d94;
+  /* Roze VLAKKEN: kaartjes, de cockpit, knoppen en chips, alles met witte tekst erop.
+     Waarom niet het merkroze #FF0066 zelf: dat haalt met wit 3,86:1 en blijft onder AA.
+     Waarom niet --pink-deep #b3004a: dat zit op 35% helderheid en leest als bordeaux.
+     #e6005c is het LICHTSTE roze op dezelfde tint dat 4,5:1 haalt (4,66:1), dus zo dicht
+     bij het merkroze als leesbaar kan. Bij hover gaan we een stap DIEPER (5,69:1), niet
+     feller: de knop reageert zichtbaar en de tekst wordt onderweg beter leesbaar in
+     plaats van slechter. */
+  --pink-vlak:#e6005c; --pink-vlak-hover:#cc0052;
+
+  /* Aliassen. De deelsites heten deze tokens in het Engels (--ink, --pink-text, --pink-soft),
+     het portaal in het Nederlands. Zelfde kleuren, andere naam, en daardoor breekt CSS die je
+     van de ene site naar de andere kopieert stil af. Beide namen laten bestaan is goedkoper en
+     veiliger dan honderden regels hernoemen vlak voor een lancering. */
+  --ink:#1a1712; --ink-2:#514a40;
+  --pink-text:#c80054; --pink-soft:rgba(255,0,102,.09);
   --schaduw-kaart:0 1px 2px rgba(72,56,38,.05), 0 10px 30px -12px rgba(72,56,38,.16);
   --schaduw-hover:0 2px 4px rgba(72,56,38,.07), 0 24px 50px -18px rgba(255,0,102,.28);
   --r-kaart:18px; --r-chip:14px; --r-input:10px;
   --max:1180px; --pad-x:clamp(1.1rem,4vw,3rem);
 }
 *{box-sizing:border-box}
-*::selection{background:var(--pink);color:#fff}
+*::selection{background:var(--pink-vlak);color:#fff}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--tekst);
   font-family:'Geist',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;
@@ -326,7 +345,7 @@ img,svg{max-width:100%}
   transition:opacity 0s linear .27s}
 /* Het diepere roze op het gevulde kaartvlak: wit op --pink haalt 3,86:1 (onder AA), op
    --pink-deep 6,96:1. Het felle roze blijft voor het kleine en decoratieve werk. */
-.fil-flip .fc-front{background:var(--pink-deep);border:1px solid var(--pink-deep)}
+.fil-flip .fc-front{background:var(--pink-vlak);border:1px solid var(--pink-vlak)}
 .fil-flip .fc-back{background:var(--bg-diep);border:1px solid var(--bg-diep);opacity:0;
   -webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
 .fil-flip.flipped .fc-front{opacity:0}
@@ -343,8 +362,8 @@ img,svg{max-width:100%}
 .fil-flip:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--pink);color:#fff;border:1px solid var(--pink);border-radius:999px;transition:.16s}
-.over-cta:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+  background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);border-radius:999px;transition:.16s}
+.over-cta:hover{background:var(--pink-vlak-hover);border-color:var(--pink-vlak-hover)}
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
 /* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
@@ -409,15 +428,15 @@ img,svg{max-width:100%}
 .hbb-title .hou-samen{white-space:nowrap}
 @media(max-width:480px){.hbb-title .hou-samen{white-space:normal}}
 .hb-banner .hbb-sub{margin:.55rem 0 0;font-size:.95rem;color:rgba(245,241,232,.65);line-height:1.55;max-width:52ch}
-.hb-banner .hbb-sub em{color:var(--pink);font-style:normal;font-weight:600}
+.hb-banner .hbb-sub em{color:var(--eiland-pink);font-style:normal;font-weight:600}
 /* De knop hoort ín de oproep. Een kreet zonder uitgang ("Steun ons. Structureel.") leest als
    een holle belofte: de bezoeker wil iets doen en kan nergens heen. Roze vlak op de donkere
    band, zelfde vorm als de knoppen elders, zodat het één taal blijft. */
 .hb-banner .hbb-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.3rem;
   padding:.85rem 1.35rem;cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;
   font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:0;
-  border-radius:var(--r-chip);background:var(--pink);color:#fff;transition:.15s}
-.hb-banner .hbb-cta:hover{background:var(--pink-deep)}
+  border-radius:var(--r-chip);background:var(--pink-vlak);color:#fff;transition:.15s}
+.hb-banner .hbb-cta:hover{background:var(--pink-vlak-hover)}
 .hb-banner .hbb-cta:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 @media(max-width:640px){.hbb-txt{border-left:0;padding-left:0}}
 
@@ -535,9 +554,9 @@ textarea.field-input{resize:vertical}
 .ov-error[hidden]{display:none}
 .ov-mail-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;margin-top:1.1rem;
   padding:.9rem 1.25rem;cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;
-  letter-spacing:.1em;text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);
+  letter-spacing:.1em;text-transform:uppercase;background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);
   border-radius:999px;transition:.16s}
-.ov-mail-btn:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.ov-mail-btn:hover{background:var(--pink-vlak-hover);border-color:var(--pink-vlak-hover)}
 .ov-modal-foot{margin-top:.8rem;font-size:.78rem;color:var(--stil);line-height:1.45}
 
 /* Eerlijke privacymelding (geen consent-banner): omgekeerd, warme inkt op het lichte vel. */
@@ -548,11 +567,11 @@ textarea.field-input{resize:vertical}
   font-size:.82rem;line-height:1.45}
 .cookie-note[hidden]{display:none}
 .cn-text{margin:0;flex:1}
-.cn-text strong{color:var(--pink);font-weight:600}
+.cn-text strong{color:var(--eiland-pink);font-weight:600}
 .cn-ok{flex:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;
-  text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);
+  text-transform:uppercase;background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);
   border-radius:999px;padding:.6rem 1rem;cursor:pointer}
-.cn-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.cn-ok:hover{background:var(--pink-vlak-hover);border-color:var(--pink-vlak-hover)}
 
 /* Offset voor de plakkende bovenbalk wanneer een tab naar een blok scrollt (ook bij aankomst
    vanuit de En meer-pagina via /#blok-...). */
@@ -610,8 +629,8 @@ textarea.field-input{resize:vertical}
 .install-note .in-mug{width:36px;height:36px;flex:none;border-radius:50%}
 .install-note .in-txt{flex:1;min-width:0;margin:0;color:var(--tekst-2)}
 .install-note .in-txt strong{color:var(--tekst)}
-.install-note .in-ok{flex:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--pink);color:#fff;border:1px solid var(--pink);border-radius:999px;padding:.5rem .85rem;cursor:pointer}
-.install-note .in-ok:hover{background:var(--pink-deep);border-color:var(--pink-deep)}
+.install-note .in-ok{flex:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);border-radius:999px;padding:.5rem .85rem;cursor:pointer}
+.install-note .in-ok:hover{background:var(--pink-vlak-hover);border-color:var(--pink-vlak-hover)}
 .install-note .in-close{flex:none;background:none;border:0;color:var(--stil);font-size:1.3rem;line-height:1;cursor:pointer;padding:.1rem .35rem}
 @media(min-width:701px){ .install-note{ bottom:1.5rem } }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
