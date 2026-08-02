@@ -192,6 +192,28 @@ img,svg{max-width:100%}
   filter:drop-shadow(0 0 18px rgba(255,0,102,.18)) drop-shadow(0 14px 40px rgba(255,0,102,.34)) drop-shadow(0 3px 8px rgba(72,56,38,.10))}
 @media(max-width:640px){.hero-mark{width:110px}}
 
+/* De mug als knop: geen knoprand (de ringen zijn de rand), wel voelbare reactie. */
+button.hero-mark{background:none;border:0;padding:0;cursor:pointer;font:inherit}
+button.hero-mark>img{transition:transform .18s ease}
+button.hero-mark:hover>img,button.hero-mark:focus-visible>img{transform:scale(1.05)}
+button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;border-radius:50%}
+
+/* De wegwijzer achter de mug: een scherm, vier taken. Rijen als grote tikdoelen. */
+.kp-lijst{list-style:none;margin:.9rem 0 0;padding:0;display:flex;flex-direction:column;gap:.55rem}
+.kp-lijst a,.kp-lijst button{display:flex;align-items:center;gap:.9rem;width:100%;text-align:left;
+  padding:.85rem 1rem;background:var(--kaart-a);border:1px solid var(--lijn-kaart);
+  border-radius:var(--r-kaart);cursor:pointer;font:inherit;color:var(--tekst);transition:.15s}
+.kp-lijst a:hover,.kp-lijst button:hover,.kp-lijst a:focus-visible,.kp-lijst button:focus-visible{
+  border-color:var(--pink)}
+.kp-ic{flex:none;width:38px;height:38px;display:grid;place-items:center;background:var(--pink-zacht);
+  border-radius:10px;color:var(--pink-tekst)}
+.kp-ic svg{width:20px;height:20px}
+.kp-doe{display:block;font-weight:600;line-height:1.35}
+.kp-waar{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--pink-tekst);margin-top:.15rem}
+.kp-pijl{margin-left:auto;color:var(--stil);transition:transform .15s,color .15s}
+.kp-lijst a:hover .kp-pijl,.kp-lijst button:hover .kp-pijl{transform:translateX(3px);color:var(--pink-tekst)}
+
 /* de grote blokken */
 .portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:900px){.portals{grid-template-columns:repeat(2,1fr)}}
