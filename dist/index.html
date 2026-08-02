@@ -754,7 +754,7 @@ textarea.field-input{resize:vertical}
         </div>
       </details>
     </div>
-    <p class="co-fam"><a href="/pers/">Persmap</a></p>
+    <p class="co-fam"><a href="/privacy/">Privacy</a> &middot; <a href="/pers/">Persmap</a></p>
   </div>
 </div></footer>
 
@@ -830,6 +830,7 @@ textarea.field-input{resize:vertical}
   }
   if(!gezien()) el.hidden = false;
   ok.addEventListener('click', function(){
+    /* Sleutel staat in de privacyverklaring (asgaupaust.be/privacy). Nieuwe of gewijzigde opslag: die pagina mee bijwerken. */
     try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
     try{ sessionStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
     el.hidden = true;
@@ -954,6 +955,7 @@ if('serviceWorker' in navigator){ window.addEventListener('load', function(){ na
 // Installeer-melding bij het eerste bezoek: zet As Gau Paust als app op je beginscherm. Verschijnt
 // NA de privacymelding (geen twee tegelijk) en maar één keer.
 (function(){
+  /* Sleutel staat in de privacyverklaring (asgaupaust.be/privacy). Nieuwe of gewijzigde opslag: die pagina mee bijwerken. */
   var KEY = 'asgaupaust.installgezien';
   function seen(){ try{ return localStorage.getItem(KEY) === '1'; }catch(e){ return true; } }
   function remember(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }

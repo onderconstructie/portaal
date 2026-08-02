@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="nl">
+__PORTAAL_HEAD__
+<body>
+
+<!-- Privacyverklaring. Aanleiding: een externe audit meldde vier ontbrekende documenten. Drie
+     daarvan bleken niet van toepassing (er zijn geen cookies, en algemene voorwaarden zijn geen
+     privacyplicht), maar deze pagina ontbrak echt. Nagemeten voor het schrijven: nul cookies,
+     nul externe verzoeken, zelf-gehoste lettertypes, twee eigen localStorage-sleutels.
+     De naam van de verantwoordelijke komt uit de GitHub-secret, net als op de andere pagina's.
+     Deelt de <head> van het portaal. -->
+<style>
+.pv-sec{ padding-top:clamp(1.5rem,3.2vw,2.4rem); padding-bottom:clamp(1.5rem,3.2vw,2.4rem);
+  border-top:1px solid var(--lijn); }
+.pv-sec:first-of-type{ border-top:0; }
+.pv-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600; letter-spacing:-.01em;
+  font-size:clamp(1.1rem,2.1vw,1.4rem); margin:0 0 .9rem; }
+.pv-kop em{ color:var(--pink-tekst); font-style:normal; }
+.pv-sec p{ color:var(--tekst-2); max-width:62ch; margin:0 0 .9rem; line-height:1.62; }
+.pv-sec p strong{ color:var(--tekst); }
+.pv-sec ul{ list-style:none; margin:0 0 .9rem; padding:0; display:flex; flex-direction:column; gap:.6rem;
+  max-width:62ch; }
+.pv-sec li{ position:relative; padding-left:1.25rem; color:var(--tekst-2); line-height:1.55; }
+.pv-sec li::before{ content:''; position:absolute; left:0; top:.55em; width:.45em; height:.45em;
+  background:var(--pink); }
+.pv-sec a{ color:var(--pink-tekst); }
+
+/* De korte versie bovenaan. Wie alleen dit leest, weet genoeg. */
+.pv-kort{ background:var(--kaart-a); border:1px solid var(--lijn-kaart); border-radius:var(--r-kaart);
+  padding:1.15rem 1.25rem; max-width:62ch; box-shadow:var(--schaduw-kaart); }
+.pv-kort p:last-child{ margin-bottom:0; }
+.pv-kort .pv-punt{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--pink-tekst); margin:0 0 .6rem; }
+
+.pv-datum{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.7rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--stil); }
+/* De wie-uitklap erft zijn stijl uit de gedeelde head; hier alleen het ritme binnen de sectie. */
+.pv-sec details.wie{ margin:0 0 .9rem; }
+</style>
+
+<nav class="nav"><div class="shell nav-in">
+  <a class="brand" href="/" aria-label="As Gau Paust, naar de startpagina">
+    <span class="mk">__MARK__</span>
+    <span>As Gau <em>Paust</em></span>
+  </a>
+</div></nav>
+
+<main>
+<section class="hero hero-sub">
+  <div class="shell">
+    <span class="eyebrow"><span class="pulse"></span>Privacy</span>
+    <h1 class="hero-title met-kader"><span class="box">Privacy</span> op As Gau Paust</h1>
+    <!-- Bewust geen opsomming van de deelsites: bij elke nieuwe tool of site zou die zin
+         anders mee moeten veranderen. "Deelsites" vangt ze allemaal, nu en straks. -->
+    <p class="hero-lede">Wat er met je gegevens gebeurt als je asgaupaust.be of een van zijn deelsites bezoekt. Kort gezegd: bijna niets.</p>
+  </div>
+</section>
+
+<section class="over"><div class="shell">
+
+  <div class="pv-sec">
+    <div class="pv-kort">
+      <p class="pv-punt">De korte versie</p>
+      <p>Deze sites zetten <strong>geen cookies</strong> en gebruiken <strong>geen trackers</strong>. Er is geen bezoekersteller, geen advertentienetwerk en geen enkel script van een ander bedrijf. Ook de lettertypes zitten bij de site zelf, dus je browser hoeft nergens anders aan te kloppen.</p>
+      <p>Wat je op de site instelt, blijft in je eigen browser en verlaat je toestel nooit. Alleen de bedrijven die de site voor ons online houden, zien je IP-adres, zoals bij elke website.</p>
+    </div>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wie is <em>verantwoordelijk</em></h2>
+    <p>As Gau Paust is een onafhankelijk <strong>burgerjournalistiek initiatief</strong>: hyperlokale journalistiek over Mechelen. Er zit geen bedrijf achter en geen redactie: het is het werk van één persoon.</p>
+    <!-- Dezelfde uitklap als op de persmap en het colofon van de startpagina: de naam staat op
+         de site maar niet in git, en de bezoeker klapt zelf open. Geen loading="lazy" op de
+         beelden: in een dichte <details> start die fetch niet betrouwbaar bij het openklappen. -->
+    <details class="wie">
+      <summary>Wie zit hierachter?</summary>
+      <div class="wie-in">
+        <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+          <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
+          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
+        </button>
+        <div class="wie-tekst">
+          <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+        </div>
+      </div>
+    </details>
+    <p>Vragen over je gegevens, of een verzoek om iets te wissen: gebruik het <a href="/#contact">contactformulier</a>. We antwoorden zo snel als we kunnen.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wat er gebeurt als je deze site <em>opent</em></h2>
+    <!-- Bewust kaal gehouden, op vraag van de maker: geen wetsartikelen, geen kaders, geen
+         uitzonderingen bij naam. De pagina zegt wat er gebeurt; de juridische onderbouwing
+         hoeft niet op de gevel. -->
+    <p>De sites staan op GitHub Pages; GitHub levert ze uit via het netwerk van Fastly. Om een pagina bij je te krijgen, moet die server weten waar hij ze naartoe stuurt, en daarom ziet hij je IP-adres. Dat geldt voor elke website.</p>
+    <p>GitHub bewaart die gegevens in zijn eigen serverlogboeken, om de dienst te leveren en om aanvallen af te weren. <strong>Wij zien die logboeken niet</strong> en krijgen er geen kopie van. We hebben ook niets ingesteld om je te volgen: geen statistiekenpakket, geen pixel, geen profiel. GitHub is een Amerikaans bedrijf, onderdeel van Microsoft.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wat er in je <em>eigen browser</em> blijft</h2>
+    <p>Denk mee met Mechelen laat je een profiel instellen: je trefwoorden (je straat, bijvoorbeeld), je thema's, de dossiers die je volgt. Dat blijft allemaal op je eigen toestel staan, in de opslag van je browser. Het gaat nooit naar ons of naar iemand anders: de site stuurt niets van jou door, en een eigen server hebben we niet.</p>
+    <!-- Deze lijst is tegen de code nagemeten: alle setItem-aanroepen en sleutel-constanten in de
+         drie templates. Naast elke sleutel in de code staat een verwijzing naar deze pagina; wie
+         opslag toevoegt of wijzigt, werkt deze lijst mee bij. -->
+    <!-- Bewust categorieën en geen opsomming per onderdeel: de eerdere lijst hier was twee
+         keer fout of verouderd voor ze ooit live stond. Categorieën blijven waar als de code
+         verschuift. De verwijzingen naast de opslag-sleutels in de code wijzen hierheen; echt
+         NIEUWE soorten opslag horen hier nog altijd bij te komen. -->
+    <p>Verder onthoudt je browser alleen kleine praktische dingen: wat je al wegklikte of doorliep, welke stukken je al zag, standen die je zelf aanzet, en wat je invult zodat je het een volgende keer niet opnieuw hoeft te typen. Installeer je het portaal als app, dan bewaart je browser ook een offline-kopie van de pagina's. Alles daarvan staat alleen op jouw toestel.</p>
+    <p>Wil je dat weg? Wis de sitegegevens in je browser, of gebruik een privévenster. Je verliest dan enkel je eigen instellingen. Vandaar dat de melding bij je eerste bezoek alleen iets meldt en niets vraagt: deze opslag dient alleen om de site te laten werken en volgt je niet, dus er valt niets toe te staan of te weigeren.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Als je ons <em>schrijft</em></h2>
+    <p>Het contactformulier op deze site verstuurt zelf niets. Het opent je eigen e-mailprogramma met een vooraf ingevuld bericht, dat jij verstuurt. Je mail komt dan aan in een Gmail-postbus die we voor het project gebruiken. Je adres gebruiken we verder alleen als we ooit iets nieuws lanceren: dan laten we je dat misschien weten. Wil je dat niet, zeg het gerust.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Over de <em>documenten</em> op deze sites</h2>
+    <!-- Bewust één alinea, de helft korter dan de eerste versie. De kern die moest blijven:
+         de maskering, het onderscheid mandataris/burger, en de meldweg. Die laatste is de
+         bliksemafleider voor het realistische scenario: iemand vindt zijn naam en mailt. -->
+    <p>Denk mee met Mechelen vat beslissingen samen die de stad wettelijk verplicht is te publiceren. Daarin staan soms namen. Die van mandatarissen en van wie in functie optreedt laten we staan: hun handelen is waar deze site over gaat. Namen van gewone burgers <strong>maskeren we</strong>, ook in de zoekfunctie. Sta je er toch in en wil je dat niet? Laat het weten via het <a href="/#contact">contactformulier</a>; we passen het aan als dat terecht is.</p>
+  </div>
+
+  <!-- Geen aparte rechten-sectie: alles wat erin stond, staat al hoger op de pagina (de
+       browser-opslag in de korte versie, het mailgeval bij "Als je ons schrijft", en de
+       inkijk-, verbeter- en wisroute bij "Wie is verantwoordelijk"). Een sectie die zijn
+       eigen pagina samenvat, is ballast. -->
+  <div class="pv-sec">
+    <h2 class="pv-kop">Deze <em>tekst</em></h2>
+    <p>Verandert er iets aan de sites waardoor deze uitleg niet meer klopt, dan passen we hem aan. De code van het platform staat publiek, dus je kunt altijd zelf nakijken of het klopt wat hier staat.</p>
+    <p class="pv-datum">Laatst nagekeken op 28 juli 2026</p>
+  </div>
+
+</div></section>
+</main>
+
+<footer class="colofon"><div class="co-shell">
+  <span class="co-mark" aria-hidden="true">__MARK__</span>
+  <div class="co-body">
+    <p class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.</p>
+  </div>
+</div></footer>
+
+<button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
+
+<nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
+  <a href="https://asgaupaust.be/" aria-current="true"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Start</span></a>
+  <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
+  <a href="https://leesmee.asgaupaust.be/">__IC_LEES__<span>Lees mee</span></a>
+  <a href="https://asgaupaust.be/en-meer/">__IC_MEER__<span>En meer</span></a>
+  <a href="https://asgaupaust.be/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
+</nav>
+
+<script>
+(function(){
+  var t = document.getElementById('toTop');
+  if(!t) return;
+  var toon = function(){ t.classList.toggle('aan', window.scrollY > 500); };
+  window.addEventListener('scroll', toon, {passive:true}); toon();
+  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+
+// De cartoonbol in de uitklap: klik wisselt tussen figuur en mug (zelfde knipoog als op /pers/).
+(function(){
+  var wf = document.querySelector('.wie-fig');
+  if(wf) wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });
+})();
+</script>
+
+</body>
+</html>

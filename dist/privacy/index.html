@@ -4,30 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#FF0066">
-<title>As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen</title>
-<meta name="description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
+<title>Privacy op As Gau Paust</title>
+<meta name="description" content="Wat er met je gegevens gebeurt op de sites van As Gau Paust: geen cookies, geen trackers, geen statistieken. Wat je instelt blijft in je eigen browser.">
 
 <link rel="icon" type="image/png" href="/beelden/mug.png">
-<link rel="canonical" href="https://asgaupaust.be/">
+<link rel="canonical" href="https://asgaupaust.be/privacy/">
 
-<!-- Deelkaart. Zonder deze tags toont een gedeelde link in WhatsApp, Signal, LinkedIn of een
-     persmail enkel de kale URL. og:image is bewust absoluut (relatieve paden worden door de
-     meeste scrapers niet opgelost) en 1200x630, het formaat dat als grote kaart doorkomt.
-     build.py schrijft title, description en url per subpagina over. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="As Gau Paust">
 <meta property="og:locale" content="nl_BE">
-<meta property="og:title" content="As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen">
-<meta property="og:description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
-<meta property="og:url" content="https://asgaupaust.be/">
+<meta property="og:title" content="Privacy op As Gau Paust">
+<meta property="og:description" content="Wat er met je gegevens gebeurt op de sites van As Gau Paust: geen cookies, geen trackers, geen statistieken. Wat je instelt blijft in je eigen browser.">
+<meta property="og:url" content="https://asgaupaust.be/privacy/">
 <meta property="og:image" content="https://asgaupaust.be/beelden/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Het merkteken van As Gau Paust: de mug in de kamer.">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Installeerbaar als app (op je beginscherm), werkt ook offline. Geen cookies, geen trackers:
-     de service worker is enkel een lokale cache op je toestel. -->
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/beelden/mug-192.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -35,9 +29,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="As Gau Paust">
 
-<!-- Zelf-gehoste lettertypes: geen Google Fonts, geen bezoekers-IP naar derden.
-     Geist (leestekst) en JetBrains Mono (structuur/data) onder de SIL Open Font License 1.1;
-     de licenties staan in /fonts/Geist-OFL.txt en /fonts/JetBrainsMono-OFL.txt. -->
 <style>
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/geist-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jbmono-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD;}
@@ -638,370 +629,138 @@ textarea.field-input{resize:vertical}
 </head>
 <body>
 
+<style>
+.pv-sec{ padding-top:clamp(1.5rem,3.2vw,2.4rem); padding-bottom:clamp(1.5rem,3.2vw,2.4rem);
+  border-top:1px solid var(--lijn); }
+.pv-sec:first-of-type{ border-top:0; }
+.pv-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600; letter-spacing:-.01em;
+  font-size:clamp(1.1rem,2.1vw,1.4rem); margin:0 0 .9rem; }
+.pv-kop em{ color:var(--pink-tekst); font-style:normal; }
+.pv-sec p{ color:var(--tekst-2); max-width:62ch; margin:0 0 .9rem; line-height:1.62; }
+.pv-sec p strong{ color:var(--tekst); }
+.pv-sec ul{ list-style:none; margin:0 0 .9rem; padding:0; display:flex; flex-direction:column; gap:.6rem;
+  max-width:62ch; }
+.pv-sec li{ position:relative; padding-left:1.25rem; color:var(--tekst-2); line-height:1.55; }
+.pv-sec li::before{ content:''; position:absolute; left:0; top:.55em; width:.45em; height:.45em;
+  background:var(--pink); }
+.pv-sec a{ color:var(--pink-tekst); }
+
+/* De korte versie bovenaan. Wie alleen dit leest, weet genoeg. */
+.pv-kort{ background:var(--kaart-a); border:1px solid var(--lijn-kaart); border-radius:var(--r-kaart);
+  padding:1.15rem 1.25rem; max-width:62ch; box-shadow:var(--schaduw-kaart); }
+.pv-kort p:last-child{ margin-bottom:0; }
+.pv-kort .pv-punt{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--pink-tekst); margin:0 0 .6rem; }
+
+.pv-datum{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.7rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--stil); }
+/* De wie-uitklap erft zijn stijl uit de gedeelde head; hier alleen het ritme binnen de sectie. */
+.pv-sec details.wie{ margin:0 0 .9rem; }
+</style>
+
 <nav class="nav"><div class="shell nav-in">
   <a class="brand" href="/" aria-label="As Gau Paust, naar de startpagina">
-    <span class="mk">__MARK__</span>
+    <span class="mk"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></span>
     <span>As Gau <em>Paust</em></span>
   </a>
-  <!-- Geen nav-links meer rechtsboven: die herhaalden enkel de grote ingangs-kaarten
-       hieronder (Denk mee / Lees mee / Reken mee). Op de startpagina blijft de balk rustig. -->
 </div></nav>
 
-<!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-baan">
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-  </div>
-</div>
-
-<!-- De vier ingangen zijn de hoofdinhoud van deze pagina, dus horen ze in <main>.
-     Stond dit in <header> (rol banner), dan sloeg "spring naar de hoofdinhoud" ze over. -->
 <main>
-<section class="hero" id="top">
+<section class="hero hero-sub">
   <div class="shell">
-    <div class="hub-intro">
-      <div class="hub-copy">
-        <span class="eyebrow"><span class="pulse"></span>Hyperlokaal</span>
-        <h1 class="hero-title">As Gau <em>Paust</em></h1>
-        <!-- De naam draagt het hele merk, dus staat de betekenis hier en niet pas achter een klik.
-             Bewust geen "experimenteel platform" meer: dat woord stond drie keer op dit scherm en
-             relativeerde de belofte. De eerlijke nuance blijft op /en-meer/ en de techniekpagina. -->
-        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Wij laten je zien wat de stad in jouw naam beslist, in mensentaal en met de bron erbij. Kies hieronder je ingang.</p>
-      </div>
-      <div class="hero-mark" aria-hidden="true">
-        <div class="ring"></div>
-        <div class="ring r2"></div>
-        __MARK__
-      </div>
-    </div>
-
-    <div class="portals" id="ingangen">
-
-      <a class="pcard live" id="blok-denkmee" href="https://denkmee.asgaupaust.be">
-        <div class="pcard-top"><span class="pcard-ic">__IC_DENK__</span><span class="badge live"><span class="dotje"></span>Live</span></div>
-        <span class="k">de besluitvorming in mensentaal</span>
-        <h3>Denk <em>mee</em></h3>
-        <div class="fam">met Mechelen</div>
-        <p>Volg wat Mechelen beslist. Op maat van wat jij belangrijk vindt. Van agenda tot besluit. En van de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau tot de burgemeester zelf.</p>
-        <span class="go">denkmee.asgaupaust.be <span class="ar">&#8594;</span></span>
-      </a>
-
-      <a class="pcard live" id="blok-leesmee" href="https://leesmee.asgaupaust.be">
-        <div class="pcard-top"><span class="pcard-ic">__IC_LEES__</span><span class="badge live"><span class="dotje"></span>Live</span></div>
-        <span class="k">zeven jaar in het archief</span>
-        <h3>Lees <em>mee</em></h3>
-        <div class="fam">met Mechelen</div>
-        <p>As Gau Paust was ook zeven jaar lang een uniek hyperlokaal onafhankelijk stadsmagazine. Ontdek verrassende inzichten en leer bij over de manier waarop je een stad transparanter kunt maken.</p>
-        <span class="go">leesmee.asgaupaust.be <span class="ar">&#8594;</span></span>
-      </a>
-
-      <a class="pcard info" href="/en-meer/">
-        <div class="pcard-top"><span class="pcard-ic">__IC_MEER__</span></div>
-        <span class="k">dit portaal groeit</span>
-        <h3>En <em>meer</em></h3>
-        <div class="fam">met Mechelen</div>
-        <p>We bouwen door: nieuwe bouwblokken volgen. Lees waar dit platform heen groeit.</p>
-        <span class="go">Onze filosofie <span class="ar">&#8594;</span></span>
-      </a>
-
-    </div>
-
-    <p class="soon-strook">
-      <span class="ss-badge">Binnenkort</span>
-      <span>Daar komt <strong>Reken mee met Mechelen</strong> bij: de cijfers achter het bestuur, in heldere dashboards.</span>
-    </p>
+    <span class="eyebrow"><span class="pulse"></span>Privacy</span>
+    <h1 class="hero-title met-kader"><span class="box">Privacy</span> op As Gau Paust</h1>
+    <p class="hero-lede">Wat er met je gegevens gebeurt als je asgaupaust.be of een van zijn deelsites bezoekt. Kort gezegd: bijna niets.</p>
   </div>
 </section>
 
-<section class="over" id="jouwstad"><div class="shell">
-  <!-- Eén vraag in plaats van twee halve. Hiervoor stonden hier een sectie "Ook iets voor jouw
-       stad?" met een knop én een oproep-banner zonder knop, die elkaar beconcurreerden. Nu draagt
-       de banner de hele vraag, met de enige uitgang die er echt is: een bericht sturen. -->
-  <aside class="hb-banner">
-    <div class="hbb-geo" aria-hidden="true">__MARK__</div>
-    <div class="hbb-txt">
-      <div class="hbb-kicker">Oproep</div>
-      <h2 class="hbb-title">Structurele steun voor <span class="hou-samen">hyperlokale, onafhankelijke</span> journalistiek.</h2>
-      <p class="hbb-sub">Ken je een fonds, een redactie of een stad die dit wil dragen? Of wil je het voor je eigen stad bouwen? Wat hier voor Mechelen draait, is niet aan Mechelen gebonden: de bouwblokken liggen klaar, voor journalisten en <em>burgerjournalisten</em>.</p>
-      <button type="button" class="hbb-cta" onclick="openContactModal()">Laat het ons weten <span class="ar">&#8594;</span></button>
-    </div>
-  </aside>
-</div></section>
+<section class="over"><div class="shell">
 
-<!-- Het colofon. Geen link op het teken: dit is asgaupaust.be zelf. -->
+  <div class="pv-sec">
+    <div class="pv-kort">
+      <p class="pv-punt">De korte versie</p>
+      <p>Deze sites zetten <strong>geen cookies</strong> en gebruiken <strong>geen trackers</strong>. Er is geen bezoekersteller, geen advertentienetwerk en geen enkel script van een ander bedrijf. Ook de lettertypes zitten bij de site zelf, dus je browser hoeft nergens anders aan te kloppen.</p>
+      <p>Wat je op de site instelt, blijft in je eigen browser en verlaat je toestel nooit. Alleen de bedrijven die de site voor ons online houden, zien je IP-adres, zoals bij elke website.</p>
+    </div>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wie is <em>verantwoordelijk</em></h2>
+    <p>As Gau Paust is een onafhankelijk <strong>burgerjournalistiek initiatief</strong>: hyperlokale journalistiek over Mechelen. Er zit geen bedrijf achter en geen redactie: het is het werk van één persoon.</p>
+    <details class="wie">
+      <summary>Wie zit hierachter?</summary>
+      <div class="wie-in">
+        <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+          <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
+          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
+        </button>
+        <div class="wie-tekst">
+          <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+        </div>
+      </div>
+    </details>
+    <p>Vragen over je gegevens, of een verzoek om iets te wissen: gebruik het <a href="/#contact">contactformulier</a>. We antwoorden zo snel als we kunnen.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wat er gebeurt als je deze site <em>opent</em></h2>
+    <p>De sites staan op GitHub Pages; GitHub levert ze uit via het netwerk van Fastly. Om een pagina bij je te krijgen, moet die server weten waar hij ze naartoe stuurt, en daarom ziet hij je IP-adres. Dat geldt voor elke website.</p>
+    <p>GitHub bewaart die gegevens in zijn eigen serverlogboeken, om de dienst te leveren en om aanvallen af te weren. <strong>Wij zien die logboeken niet</strong> en krijgen er geen kopie van. We hebben ook niets ingesteld om je te volgen: geen statistiekenpakket, geen pixel, geen profiel. GitHub is een Amerikaans bedrijf, onderdeel van Microsoft.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Wat er in je <em>eigen browser</em> blijft</h2>
+    <p>Denk mee met Mechelen laat je een profiel instellen: je trefwoorden (je straat, bijvoorbeeld), je thema's, de dossiers die je volgt. Dat blijft allemaal op je eigen toestel staan, in de opslag van je browser. Het gaat nooit naar ons of naar iemand anders: de site stuurt niets van jou door, en een eigen server hebben we niet.</p>
+    <p>Verder onthoudt je browser alleen kleine praktische dingen: wat je al wegklikte of doorliep, welke stukken je al zag, standen die je zelf aanzet, en wat je invult zodat je het een volgende keer niet opnieuw hoeft te typen. Installeer je het portaal als app, dan bewaart je browser ook een offline-kopie van de pagina's. Alles daarvan staat alleen op jouw toestel.</p>
+    <p>Wil je dat weg? Wis de sitegegevens in je browser, of gebruik een privévenster. Je verliest dan enkel je eigen instellingen. Vandaar dat de melding bij je eerste bezoek alleen iets meldt en niets vraagt: deze opslag dient alleen om de site te laten werken en volgt je niet, dus er valt niets toe te staan of te weigeren.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Als je ons <em>schrijft</em></h2>
+    <p>Het contactformulier op deze site verstuurt zelf niets. Het opent je eigen e-mailprogramma met een vooraf ingevuld bericht, dat jij verstuurt. Je mail komt dan aan in een Gmail-postbus die we voor het project gebruiken. Je adres gebruiken we verder alleen als we ooit iets nieuws lanceren: dan laten we je dat misschien weten. Wil je dat niet, zeg het gerust.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Over de <em>documenten</em> op deze sites</h2>
+    <p>Denk mee met Mechelen vat beslissingen samen die de stad wettelijk verplicht is te publiceren. Daarin staan soms namen. Die van mandatarissen en van wie in functie optreedt laten we staan: hun handelen is waar deze site over gaat. Namen van gewone burgers <strong>maskeren we</strong>, ook in de zoekfunctie. Sta je er toch in en wil je dat niet? Laat het weten via het <a href="/#contact">contactformulier</a>; we passen het aan als dat terecht is.</p>
+  </div>
+
+  <div class="pv-sec">
+    <h2 class="pv-kop">Deze <em>tekst</em></h2>
+    <p>Verandert er iets aan de sites waardoor deze uitleg niet meer klopt, dan passen we hem aan. De code van het platform staat publiek, dus je kunt altijd zelf nakijken of het klopt wat hier staat.</p>
+    <p class="pv-datum">Laatst nagekeken op 28 juli 2026</p>
+  </div>
+
+</div></section>
 </main>
 
 <footer class="colofon"><div class="co-shell">
-  <span class="co-mark" aria-hidden="true">__MARK__</span>
+  <span class="co-mark" aria-hidden="true"><img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512"></span>
   <div class="co-body">
-    <!-- co-zin is een div en geen p: een <details> mag niet in een <p> staan, en de uitklap
-         hoort hier binnen de zin te lezen. De naam zelf staat NIET in git; die komt bij het
-         publiceren uit de secret (zie .github/inject_over.py, dat dit bestand daarom ook
-         moet verwerken). Schrijf de plaatshouder nergens in commentaar: het injectiescript
-         vervangt elk voorkomen, ook daar. -->
-    <div class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.
-      <details class="wie wie-inline">
-        <summary>Wie zit hierachter?</summary>
-        <div class="wie-in">
-          <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
-            <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
-            <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
-          </button>
-          <div class="wie-tekst">
-            <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
-          </div>
-        </div>
-      </details>
-    </div>
-    <p class="co-fam"><a href="/privacy/">Privacy</a> &middot; <a href="/pers/">Persmap</a></p>
+    <p class="co-zin"><strong class="co-naam">As Gau <em>Paust</em></strong>, onafhankelijke hyperlokale journalistiek.</p>
   </div>
 </div></footer>
 
-<!-- Contactformulier-modal (zelfde patroon als op Denk mee met Mechelen): de bezoeker
-     verstuurt zelf via de eigen mailclient, er is geen server en er wordt niets bewaard. -->
-<div class="ov-modal" id="contactModal" hidden>
-  <div class="ov-modal-overlay" onclick="closeContactModal()"></div>
-  <div class="ov-modal-card" role="dialog" aria-modal="true" aria-labelledby="ctTitel">
-    <button class="ov-modal-close" onclick="closeContactModal()" aria-label="Sluit">&#215;</button>
-    <div class="eyebrow">Contact &#183; via e-mail</div>
-    <h3 id="ctTitel">Stuur ons een bericht</h3>
-    <p class="ov-modal-context">Een vraag, een tip, of zin om zelf aan de slag te gaan met de bouwblokken? We horen het graag.</p>
-
-    <form id="ctForm" novalidate>
-    <div class="ov-fields-row">
-      <div class="field">
-        <label class="field-lbl" for="ctNaam">Naam</label>
-        <input type="text" id="ctNaam" class="field-input" placeholder="Voornaam Naam" autocomplete="name" required>
-      </div>
-      <div class="field">
-        <label class="field-lbl" for="ctEmail">E-mailadres</label>
-        <input type="email" id="ctEmail" class="field-input" placeholder="jij@voorbeeld.be" autocomplete="email" required>
-      </div>
-    </div>
-    <div class="field">
-      <label class="field-lbl" for="ctOnderwerp">Onderwerp</label>
-      <input type="text" id="ctOnderwerp" class="field-input" placeholder="Waarover gaat het?" required>
-    </div>
-    <div class="field">
-      <label class="field-lbl" for="ctBericht">Bericht</label>
-      <textarea id="ctBericht" class="field-input" rows="3" placeholder="Je bericht&#8230;"></textarea>
-    </div>
-
-    <div class="ov-error" id="ctError" role="alert" hidden></div>
-
-    <button type="submit" class="ov-mail-btn">Open mail-template <span class="ar">&#8594;</span></button>
-    </form>
-    <div class="ov-modal-foot">Je eigen mailclient opent met je bericht. Jij verstuurt zelf, wij bewaren niets.</div>
-  </div>
-</div>
-
-<!-- Eerlijke privacymelding (geen toestemmingsbanner). De site zet geen cookies en geen
-     trackers; het enige dat we bewaren is dat je deze melding al zag (in je eigen browser). -->
-<div id="cookieNote" class="cookie-note" hidden role="note" aria-label="Privacy">
-  <p class="cn-text"><strong>Geen cookies, geen trackers.</strong> Alleen onze host (GitHub) ziet je IP-adres, zoals bij elke webserver, om de site te tonen en te beveiligen.</p>
-  <button type="button" class="cn-ok" id="cnOk">Begrepen</button>
-</div>
-
-<!-- App-achtige onderbalk op smartphone: de experimenten met hun eigen icoon (Denk mee, Lees mee,
-     En meer), 'Jouw stad', en de contactknop die de mailtemplate opent. Op groter scherm bestaat
-     de balk niet (de pagina is kort genoeg om te scrollen). Spiegelt de tabbalk van de deelsites. -->
 <button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
-  <a href="https://asgaupaust.be/" aria-current="page"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Start</span></a>
-  <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
-  <a href="https://leesmee.asgaupaust.be/">__IC_LEES__<span>Lees mee</span></a>
-  <a href="https://asgaupaust.be/en-meer/">__IC_MEER__<span>En meer</span></a>
+  <a href="https://asgaupaust.be/" aria-current="true"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Start</span></a>
+  <a href="https://denkmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg><span>Denk mee</span></a>
+  <a href="https://leesmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg><span>Lees mee</span></a>
+  <a href="https://asgaupaust.be/en-meer/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg><span>En meer</span></a>
   <a href="https://asgaupaust.be/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
 </nav>
 
 <script>
 (function(){
-  var el = document.getElementById('cookieNote');
-  var ok = document.getElementById('cnOk');
-  // Veerkrachtig over lagen: een in-app-browser (Facebook/Instagram) of de privémodus kan
-  // localStorage blokkeren. Dan bleef de vlag onbewaard en kwam de melding op elke load terug,
-  // niet meer weg te klikken. sessionStorage overleeft een reload binnen hetzelfde tabblad.
-  function gezien(){
-    try{ if(localStorage.getItem('asgaupaust.privacyok') === '1') return true; }catch(e){}
-    try{ if(sessionStorage.getItem('asgaupaust.privacyok') === '1') return true; }catch(e){}
-    return false;
-  }
-  if(!gezien()) el.hidden = false;
-  ok.addEventListener('click', function(){
-    /* Sleutel staat in de privacyverklaring (asgaupaust.be/privacy). Nieuwe of gewijzigde opslag: die pagina mee bijwerken. */
-    try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
-    try{ sessionStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
-    el.hidden = true;
-    if(window.__toonInstall) setTimeout(window.__toonInstall, 500);   // dan pas de installeer-melding
-  });
-})();
-
-// Contactformulier: opent de mailclient van de bezoeker naar een adres dat base64-gecodeerd
-// in de code staat, niet als platte tekst — zo is het niet zomaar uit de broncode te grepen
-// of te scrapen. Geen server, geen opslag: de bezoeker verstuurt zelf.
-var CONTACT_TO = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=';
-// Wat er ACHTER de modal ligt, moet buiten bereik: aria-modal="true" verbergt de achtergrond
-// enkel voor de bladermodus van een schermlezer, maar niet voor de Tab-toets. Nagemeten stonden
-// er 13 focusbare elementen open terwijl de modal aan stond, en de eerste zes lagen erachter.
-// inert regelt allebei in een keer, en zet de focus terug wanneer we het weghalen.
-var CT_ACHTERGROND = ['nav', 'main', 'header', 'footer', '#cookieNote', '.tabbar'];
-var ct_opener = null;
-
-function ctAchtergrond(uit){
-  CT_ACHTERGROND.forEach(function(sel){
-    document.querySelectorAll(sel).forEach(function(e){ e.inert = uit; });
-  });
-}
-
-function openContactModal(){
-  ct_opener = document.activeElement;      // om de focus later terug te geven
-  document.getElementById('ctError').hidden = true;
-  document.getElementById('contactModal').hidden = false;
-  document.body.style.overflow = 'hidden';
-  ctAchtergrond(true);
-  setTimeout(function(){ document.getElementById('ctNaam').focus(); }, 50);
-}
-function closeContactModal(){
-  document.getElementById('contactModal').hidden = true;
-  document.body.style.overflow = '';
-  ctAchtergrond(false);
-  // Focus terug naar de knop waarmee je opende. Zonder dit valt hij op een verborgen element
-  // en begint een toetsenbordgebruiker weer bovenaan de pagina.
-  if(ct_opener && ct_opener.focus) ct_opener.focus();
-  ct_opener = null;
-}
-function contactVerstuur(){
-  var v = function(id){ return document.getElementById(id).value.trim(); };
-  var naam = v('ctNaam'), email = v('ctEmail'), onderwerp = v('ctOnderwerp'), bericht = v('ctBericht');
-  // De melding was alleen te ZIEN. Met role="alert" wordt ze voorgelezen zodra ze verschijnt,
-  // en aria-describedby plakt ze aan het veld zelf, zodat je ook daar hoort wat er scheelt.
-  var wisFout = function(){
-    ['ctNaam','ctEmail','ctOnderwerp'].forEach(function(id){
-      var f = document.getElementById(id);
-      f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby');
-    });
-  };
-  var fout = function(msg, id){
-    var e = document.getElementById('ctError');
-    wisFout();
-    e.textContent = msg; e.hidden = false;
-    if(id){
-      var f = document.getElementById(id);
-      f.setAttribute('aria-invalid', 'true');
-      f.setAttribute('aria-describedby', 'ctError');
-      f.focus();
-    }
-  };
-  wisFout();
-  if(!naam) return fout('Vul je naam in.', 'ctNaam');
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fout('Vul een geldig e-mailadres in.', 'ctEmail');
-  if(!onderwerp) return fout('Vul een onderwerp in.', 'ctOnderwerp');
-  var naar = atob(CONTACT_TO);
-  var body = 'Naam: ' + naam + '\nE-mail: ' + email + '\n\n' + bericht;
-  window.location.href = 'mailto:' + naar
-    + '?subject=' + encodeURIComponent('[As Gau Paust] ' + onderwerp)
-    + '&body=' + encodeURIComponent(body);
-  closeContactModal();
-}
-window.addEventListener('keydown', function(e){
-  if(e.key === 'Escape' && !document.getElementById('contactModal').hidden) closeContactModal();
-});
-// Een echt <form>, zodat Enter in een veld verstuurt. preventDefault houdt de mailto-route
-// in eigen hand in plaats van een echte formulierpost.
-document.getElementById('ctForm').addEventListener('submit', function(e){ e.preventDefault(); contactVerstuur(); });
-
-// Onderbalk (smartphone): de experiment-tabs scrollen naar het overeenkomstige blok op deze
-// pagina (Denk mee, Lees mee, Jouw stad), met een offset voor de plakkende bovenbalk. Zo verlaat
-// je de portaal niet onverwacht; het blok zelf linkt door naar de deelsite. En meer gaat naar de
-// eigen portaal-pagina, Contact opent de mailmodal.
-(function(){
-  var bar = document.getElementById('tabbar');
-  if(!bar) return;
-  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-  [].forEach.call(bar.querySelectorAll('a[href^="#"]'), function(a){
-    a.addEventListener('click', function(e){
-      var s = document.getElementById(a.getAttribute('href').slice(1));
-      if(!s) return;                     // op andere pagina's: laat de link gewoon zijn werk doen
-      e.preventDefault();
-      var y = s.getBoundingClientRect().top + window.scrollY - 60;   // 60px: hoogte plakkende balk
-      window.scrollTo({top: Math.max(0, y), behavior: stil.matches ? 'auto' : 'smooth'});
-    });
-  });
-})();
-// De contactmodal ook openen via #contact in de URL, zodat de Contact-tab op de En meer-pagina
-// (die naar /#contact wijst) hier op het portaal de mailmodal opent.
-(function(){
-  function checkContact(){
-    if(location.hash === '#contact'){
-      history.replaceState(null, '', location.pathname + location.search);
-      openContactModal();
-    }
-  }
-  window.addEventListener('hashchange', checkContact);
-  checkContact();
-})();
-// Terug-naar-boven: verschijnt na wat scrollen, scrollt zacht naar boven.
-(function(){
   var t = document.getElementById('toTop');
   if(!t) return;
-  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
-  window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
-})();
-// PWA: service worker registreren, zodat de site installeerbaar is (op je beginscherm) en offline werkt.
-if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
-// Installeer-melding bij het eerste bezoek: zet As Gau Paust als app op je beginscherm. Verschijnt
-// NA de privacymelding (geen twee tegelijk) en maar één keer.
-(function(){
-  /* Sleutel staat in de privacyverklaring (asgaupaust.be/privacy). Nieuwe of gewijzigde opslag: die pagina mee bijwerken. */
-  var KEY = 'asgaupaust.installgezien';
-  function seen(){ try{ return localStorage.getItem(KEY) === '1'; }catch(e){ return true; } }
-  function remember(){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
-  function standalone(){ return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
-  function privacyWeg(){ try{ return localStorage.getItem('asgaupaust.privacyok')==='1' || sessionStorage.getItem('asgaupaust.privacyok')==='1'; }catch(e){ return false; } }
-  // iOS/iPadOS: alle Apple-aanraaktoestellen. iPadOS 13+ meldt zich in de UA als "Macintosh",
-  // vandaar de extra MacIntel+touch-test. Safari kent geen beforeinstallprompt, dus daar tonen
-  // we handmatige uitleg ("deel-icoon -> Zet op beginscherm") i.p.v. een Installeren-knop.
-  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
-            || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints||0) > 1);
-  // Alleen op mobiele toestellen (telefoon/tablet): "op je beginscherm zetten" slaat op een
-  // desktop nergens op. Primaire aanwijzer 'coarse' = aanraakscherm; een desktop met muis is
-  // 'fine'. (beforeinstallprompt vuurt óók op desktop-Chrome, vandaar deze extra poort.)
-  function mobiel(){
-    var coarse = window.matchMedia ? window.matchMedia('(pointer:coarse)').matches : false;
-    return coarse || iOS;
-  }
-  var deferred = null, shown = false;
-  function toon(){
-    if(shown || seen() || standalone()) return;
-    if(!mobiel()) return;                         // alleen telefoon/tablet, niet op desktop
-    if(!deferred && !iOS) return;                 // geen installpad op dit toestel
-    shown = true;
-    var b = document.createElement('div'); b.className = 'install-note'; b.setAttribute('role','note');
-    b.innerHTML = '<img class="in-mug" src="/beelden/mug-192.png" alt="" aria-hidden="true">'
-      + '<p class="in-txt">' + (iOS
-          ? 'Zet <strong>As Gau Paust</strong> op je beginscherm: tik op het deel-icoon en kies “Zet op beginscherm”.'
-          : 'Zet <strong>As Gau Paust</strong> als app op je beginscherm.') + '</p>'
-      + (iOS ? '' : '<button type="button" class="in-ok">Installeren</button>')
-      + '<button type="button" class="in-close" aria-label="Sluiten">×</button>';
-    document.body.appendChild(b);
-    b.querySelector('.in-close').addEventListener('click', function(){ b.remove(); remember(); });
-    var ok = b.querySelector('.in-ok');
-    if(ok) ok.addEventListener('click', function(){
-      remember();
-      if(deferred){ deferred.prompt(); if(deferred.userChoice){ deferred.userChoice.then(function(){}).catch(function(){}); } deferred = null; }
-      b.remove();
-    });
-  }
-  window.__toonInstall = toon;                     // de privacy-OK-knop roept dit aan
-  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; if(privacyWeg()) toon(); });
-  if(privacyWeg()) setTimeout(toon, 900);          // privacy al weg (terugkerend bezoek): toon meteen
+  var toon = function(){ t.classList.toggle('aan', window.scrollY > 500); };
+  window.addEventListener('scroll', toon, {passive:true}); toon();
+  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 })();
 
-// De cartoon-bol in de colofon-uitklap wisselt bij een tik met de mug. Zelfde knipoog als op
-// de persmap; die pagina heeft haar eigen kopie omdat ze dit script niet erft.
+// De cartoonbol in de uitklap: klik wisselt tussen figuur en mug (zelfde knipoog als op /pers/).
 (function(){
   var wf = document.querySelector('.wie-fig');
   if(wf) wf.addEventListener('click', function(e){ e.preventDefault(); this.classList.toggle('toon-mug'); });

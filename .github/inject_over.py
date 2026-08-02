@@ -19,7 +19,7 @@ import re
 #        de voordeur een gezicht heeft zonder het pontificaal te tonen). Het vangnet onderaan
 #        pakt een vergeten placeholder sowieso op. ---
 naam = os.environ.get("OVER_NAAM", "").strip()
-for PAD in ("dist/pers/index.html", "dist/index.html"):
+for PAD in ("dist/pers/index.html", "dist/index.html", "dist/privacy/index.html"):
     if not os.path.exists(PAD):
         print("initiatiefnemer: %s ontbreekt, overgeslagen" % PAD)
         continue

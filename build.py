@@ -136,6 +136,26 @@ if pers_tpl.exists():
     (out_dir / "pers" / "index.html").write_text(pers_html, encoding="utf-8")
     print("       pers-pagina gebouwd: dist/pers/index.html")
 
+# 2c-bis) Aparte pagina /privacy/ : de privacyverklaring. Nodig omdat een bezoeker sowieso zijn
+#     IP-adres bij de host achterlaat, ook op een site zonder cookies en zonder trackers; de
+#     informatieplicht geldt dan. Draagt wél de naam van de verantwoordelijke (via de secret,
+#     zoals /en-meer/), want een privacyverklaring hoort te zeggen wie erachter zit.
+privacy_tpl = BASE / "template-privacy.html"
+if privacy_tpl.exists():
+    head = subpagina_head(
+        html,
+        "Privacy op As Gau Paust",
+        "Wat er met je gegevens gebeurt op de sites van As Gau Paust: geen cookies, geen "
+        "trackers, geen statistieken. Wat je instelt blijft in je eigen browser.",
+        "https://asgaupaust.be/privacy/")
+    privacy_html = privacy_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    for _k, _svg in IC.items():
+        privacy_html = privacy_html.replace(_k, _svg)
+    privacy_html = strip_html_commentaar(privacy_html)  # dev-notities niet mee naar de publieke bron
+    (out_dir / "privacy").mkdir(exist_ok=True)
+    (out_dir / "privacy" / "index.html").write_text(privacy_html, encoding="utf-8")
+    print("       privacy-pagina gebouwd: dist/privacy/index.html")
+
 # 2d) Eigen 404-pagina. GitHub Pages toont zonder dit bestand zijn eigen Engelstalige
 #     "Page not found"-scherm: geen merk, geen Nederlands, geen weg terug. Eén typfout in een
 #     gedeelde link volstaat om daar te belanden, dus dit hoort bij de schil van de site.
