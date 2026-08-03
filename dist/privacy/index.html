@@ -153,11 +153,13 @@ img,svg{max-width:100%}
 .nav-links .soon{color:var(--stil);padding:.2rem 0;white-space:nowrap;cursor:default}
 @media(max-width:720px){.nav-links{display:none}}
 
-/* ticker onder de nav */
-.ticker{overflow:hidden;border-bottom:1px solid var(--lijn);background:var(--ticker-band)}
+/* De telex in inkt: de kernzinnen als donkere band onder de nav. Dit is het enige
+   inktvlak boven de vouw en ankert het affiche, zoals het inktkader dat op de
+   deelsites doet. Roze op donker = --eiland-pink (5,74:1, zie de tokens). */
+.ticker{overflow:hidden;border-bottom:1px solid var(--lijn);background:var(--bg-diep)}
 .ticker-baan{display:flex;gap:0;width:max-content;animation:agpTicker 28s linear infinite;padding:.45rem 0}
 .ticker-groep{display:flex;gap:2.6rem;padding:0 1.3rem;font-family:'JetBrains Mono',monospace;
-  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink-deep);white-space:nowrap}
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--eiland-pink);white-space:nowrap}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
