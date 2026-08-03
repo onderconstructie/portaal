@@ -168,7 +168,10 @@ img,svg{max-width:100%}
 .ticker{overflow:hidden;border-bottom:1px solid var(--lijn);background:var(--bg-diep)}
 .ticker-baan{display:flex;gap:0;width:max-content;animation:agpTicker 28s linear infinite;padding:.45rem 0}
 .ticker-groep{display:flex;gap:2.6rem;padding:0 1.3rem;font-family:'JetBrains Mono',monospace;
-  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--eiland-pink);white-space:nowrap}
+  /* Vetjes (600): licht mono op inkt oogt dunner dan hetzelfde corps op papier, en op
+     .62rem met brede spatiëring werd dat te iel. Het gewicht draagt de leesbaarheid. */
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  color:var(--eiland-pink);white-space:nowrap}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
