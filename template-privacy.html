@@ -157,7 +157,11 @@ __PORTAAL_HEAD__
 (function(){
   var t = document.getElementById('toTop');
   if(!t) return;
-  var toon = function(){ t.classList.toggle('aan', window.scrollY > 500); };
+  var nv = document.querySelector('.nav');
+  var toon = function(){
+    t.classList.toggle('aan', window.scrollY > 500);
+    if(nv) nv.classList.toggle('krant', window.scrollY > 4);   // masthead-regel aan zodra je scrolt
+  };
   window.addEventListener('scroll', toon, {passive:true}); toon();
   t.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 })();

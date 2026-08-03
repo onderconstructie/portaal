@@ -105,8 +105,12 @@ __PORTAAL_HEAD__
   var t = document.getElementById('toTop');
   if(!t) return;
   var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
+  var nv = document.querySelector('.nav');
   t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
-  window.addEventListener('scroll', function(){ t.classList.toggle('show', window.scrollY > 350); }, {passive:true});
+  window.addEventListener('scroll', function(){
+    t.classList.toggle('show', window.scrollY > 350);
+    if(nv) nv.classList.toggle('krant', window.scrollY > 4);   // masthead-regel aan zodra je scrolt
+  }, {passive:true});
 })();
 
 // De omdraaikaart met het Mechelse rijmpje. aria-pressed volgt de stand, en de weggedraaide
