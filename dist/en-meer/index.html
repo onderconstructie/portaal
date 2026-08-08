@@ -684,6 +684,13 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 </head>
 <body>
 
+<style>
+/* Zelfde ondertitel als op Denk mee ("Volg wat Mechelen beslist") en Lees mee ("Laat je
+   inspireren"): een korte regel in het tekstroze, direct onder de hoofdtitel, zonder punt. */
+.hero-tagline{margin:1.15rem 0 0;font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.3;
+  font-weight:500;letter-spacing:-.01em;color:var(--pink-tekst)}
+</style>
+
 <!-- LET OP: de echte filosofie-tekst staat bewust NIET in git. Ze komt uit de GitHub-secret
      ENMEER_FILOSOFIE en wordt pas bij het publiceren ingevuld (zie .github/inject_over.py).
      Zonder secret blijft het plaatshouder-blok hieronder staan. -->
@@ -710,6 +717,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
          Lees mee. De sitenaam zit in de hoofdtitel, met hetzelfde kader als daar. -->
     <span class="eyebrow"><span class="pulse"></span>Onze filosofie</span>
     <h1 class="hero-title met-kader"><span class="box">En meer</span> van As Gau Paust</h1>
+    <p class="hero-tagline">Dat de paus oep au paust</p>
     <p class="hero-lede">Waar dit experimentele platform voor staat en waar het heen groeit.</p>
   </div>
 </section>
