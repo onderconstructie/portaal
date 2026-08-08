@@ -91,6 +91,7 @@
   --max:1180px; --pad-x:clamp(1.1rem,4vw,3rem);
   /* Papierkorrel, hetzelfde recept als Denk mee en Lees mee: één vel voor de familie. */
   --grain-ruis:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  --grain-stip:radial-gradient(rgba(26,23,18,.04) 1px, transparent 1px);
 }
 *{box-sizing:border-box}
 *::selection{background:var(--pink-vlak);color:#fff}
@@ -665,6 +666,11 @@ textarea.field-input{resize:vertical}
 .install-note .in-close{flex:none;background:none;border:0;color:var(--stil);font-size:1.3rem;line-height:1;cursor:pointer;padding:.1rem .35rem}
 @media(min-width:701px){ .install-note{ bottom:1.5rem } }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Huidlaag-pariteit met Denk mee (za 08/08/2026): hetzelfde puntjesraster over het vel en op
+   de nav, bovenop de bestaande ruislaag. De deelsite had dit al; nu draagt de hele familie het. */
+body{ background-image:var(--grain-stip); background-size:3px 3px; }
+.nav{ background-image:var(--grain-stip); background-size:3px 3px; }
 </style>
 </head>
 <body>
