@@ -218,6 +218,7 @@ button.hero-mark:hover>img,button.hero-mark:focus-visible>img{transform:scale(1.
 button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;border-radius:50%}
 
 /* De wegwijzer achter de mug: een scherm, vier taken. Rijen als grote tikdoelen. */
+#kompasModal .ov-modal-card:focus{outline:none}
 .kp-lijst{list-style:none;margin:.9rem 0 0;padding:0;display:flex;flex-direction:column;gap:.55rem}
 .kp-lijst a,.kp-lijst button{display:flex;align-items:center;gap:.9rem;width:100%;text-align:left;
   padding:.85rem 1rem;background:var(--kaart-a);border:1px solid var(--lijn-kaart);
@@ -816,7 +817,10 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
      sluitknop, ESC, focus terug naar de opener. -->
 <div class="ov-modal" id="kompasModal" role="dialog" aria-modal="true" aria-labelledby="kompasTitel" hidden>
   <div class="ov-modal-overlay" onclick="closeKompas()"></div>
-  <div class="ov-modal-card">
+  <!-- tabindex=-1: de focus landt bij het openen op de KAART, niet op de eerste rij. Op een
+       aanraakscherm (iPad) tekende die programmatische focus als een voorgeselecteerd kaartje.
+       Toetsenbordgebruikers tabben vanaf hier naar de eerste rij en krijgen dan wel hun ring. -->
+  <div class="ov-modal-card" tabindex="-1">
     <button type="button" class="ov-modal-close" onclick="closeKompas()" aria-label="Sluit de wegwijzer">&#10005;</button>
     <span class="eyebrow"><span class="pulse"></span>As Gau Paust</span>
     <h3 id="kompasTitel">Wat wil je doen?</h3>
@@ -947,7 +951,7 @@ function openKompas(){
   document.getElementById('kompasModal').hidden = false;
   document.body.style.overflow = 'hidden';
   ctAchtergrond(true);
-  setTimeout(function(){ var f = document.querySelector('#kompasModal .kp-lijst a'); if(f) f.focus(); }, 50);
+  setTimeout(function(){ var k = document.querySelector('#kompasModal .ov-modal-card'); if(k) k.focus(); }, 50);
 }
 function closeKompas(){
   document.getElementById('kompasModal').hidden = true;
