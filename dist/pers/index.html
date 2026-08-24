@@ -299,10 +299,13 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    roze, maar elke app kondigt op zijn eigen kaart al zijn basiskleur aan, zodat je
    visueel overschakelt vóór je de app binnenstapt. Denk mee draagt petrol; volgende
    apps krijgen hier hun eigen paar (accent + leestint) bij hun verzelfstandiging. */
-#blok-denkmee .pcard-ic{color:#00796b}
+#blok-denkmee .pcard-ic{color:#00796b;background:rgba(0,121,107,.09);border-color:rgba(0,121,107,.28)}
 #blok-denkmee h3 em{color:#00796b}
 #blok-denkmee.live .go{color:#005f51}
 #blok-denkmee.live:hover{border-color:#00796b}
+/* Ook de binnenkadertjes schakelen mee: het Live-chipje wordt een licht petrolvlakje met
+   petrol leestekst (#005f51 haalt daar ruim AA, zoals --pink-tekst dat op roze deed). */
+#blok-denkmee .badge.live{background:rgba(0,121,107,.09);color:#005f51;border-color:rgba(0,121,107,.22)}
 #blok-denkmee .badge.live .dotje{background:#00796b}
 
 /* over-blok */
