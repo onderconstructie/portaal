@@ -237,6 +237,13 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
   letter-spacing:.08em;text-transform:uppercase;color:var(--pink-tekst);margin-top:.15rem}
 .kp-pijl{margin-left:auto;color:var(--stil);transition:transform .15s,color .15s}
 .kp-lijst a:hover .kp-pijl,.kp-lijst button:hover .kp-pijl{transform:translateX(3px);color:var(--pink-tekst)}
+/* Elke rij draagt de kleur van zijn app, zodat de wegwijzer dezelfde overgang maakt als de
+   kaarten eronder: je ziet waar je terechtkomt vóór je tikt. Denk mee = petrol; de apps die
+   nog geen eigen kleur dragen (Lees mee, En meer, Contact) houden het familieroze. */
+.kp-lijst li[data-app="denkmee"] .kp-ic{background:rgba(0,121,107,.09);color:#005f51}
+.kp-lijst li[data-app="denkmee"] .kp-waar{color:#005f51}
+.kp-lijst li[data-app="denkmee"] a:hover,.kp-lijst li[data-app="denkmee"] a:focus-visible{border-color:#00796b}
+.kp-lijst li[data-app="denkmee"] a:hover .kp-pijl{color:#005f51}
 
 /* de grote blokken */
 .portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
@@ -730,9 +737,11 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
         <!-- De naam draagt het hele merk, dus staat de betekenis hier en niet pas achter een klik.
              Bewust geen "experimenteel platform" meer: dat woord stond drie keer op dit scherm en
              relativeerde de belofte. De eerlijke nuance blijft op /en-meer/ en de techniekpagina. -->
-        <!-- De vier werkwoorden spiegelen de ingangen: volgen (Denk mee), lezen (Lees mee),
-             narekenen (Reken mee, de strook eronder) en meedenken (het doel, en de naam). -->
-        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Precies daarvoor bestaat deze site: zelf volgen wat het stadsbestuur beslist, de verhalen erachter lezen, de cijfers narekenen, en meedenken over je stad. In mensentaal, altijd met de bron erbij. Kies hieronder je ingang.</p>
+        <!-- Sinds 19/08/2026 zegt de lede ook wát deze site is: de thuisbasis van een reeks
+             experimenten, zodat de kaarten eronder als apps lezen en niet als losse links. De drie
+             werkwoorden spiegelen de ingangen: volgen (Denk mee), lezen (Lees mee), narekenen
+             (Reken mee, de strook eronder). -->
+        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Precies daarvoor bestaat deze site. Ze is de thuisbasis van een groeiende reeks experimenten die de stad leesbaar maken: zelf volgen wat het stadsbestuur beslist, de verhalen erachter lezen, de cijfers narekenen. In mensentaal, altijd met de bron erbij. Kies hieronder je ingang.</p>
       </div>
       <!-- Sinds 02/08/2026 een echte knop: bezoekers tikten op de pulserende mug alsof het
            er een was, zeker op een smartphone. Klik opent de wegwijzer (zie #kompasModal). -->
@@ -841,7 +850,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
     <span class="eyebrow"><span class="pulse"></span>As Gau Paust</span>
     <h3 id="kompasTitel">Wat wil je doen?</h3>
     <ul class="kp-lijst">
-      <li><a href="https://denkmee.asgaupaust.be/">
+      <li data-app="denkmee"><a href="https://denkmee.asgaupaust.be/">
         <span class="kp-ic">__IC_DENK__</span>
         <span class="kp-tekst"><span class="kp-doe">Volgen wat de stad beslist</span><span class="kp-waar">Denk mee</span></span>
         <span class="kp-pijl" aria-hidden="true">&#8594;</span></a></li>
