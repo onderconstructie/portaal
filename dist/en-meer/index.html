@@ -238,12 +238,16 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .kp-pijl{margin-left:auto;color:var(--stil);transition:transform .15s,color .15s}
 .kp-lijst a:hover .kp-pijl,.kp-lijst button:hover .kp-pijl{transform:translateX(3px);color:var(--pink-tekst)}
 /* Elke rij draagt de kleur van zijn app, zodat de wegwijzer dezelfde overgang maakt als de
-   kaarten eronder: je ziet waar je terechtkomt vóór je tikt. Denk mee = petrol; de apps die
-   nog geen eigen kleur dragen (Lees mee, En meer, Contact) houden het familieroze. */
+   kaarten eronder: je ziet waar je terechtkomt vóór je tikt. Denk mee = petrol, Lees mee =
+   indigo; wat nog geen eigen kleur draagt (En meer, Contact) houdt het familieroze. */
 .kp-lijst li[data-app="denkmee"] .kp-ic{background:rgba(0,121,107,.09);color:#005f51}
 .kp-lijst li[data-app="denkmee"] .kp-waar{color:#005f51}
 .kp-lijst li[data-app="denkmee"] a:hover,.kp-lijst li[data-app="denkmee"] a:focus-visible{border-color:#00796b}
 .kp-lijst li[data-app="denkmee"] a:hover .kp-pijl{color:#005f51}
+.kp-lijst li[data-app="leesmee"] .kp-ic{background:rgba(88,82,176,.09);color:#3f3a86}
+.kp-lijst li[data-app="leesmee"] .kp-waar{color:#3f3a86}
+.kp-lijst li[data-app="leesmee"] a:hover,.kp-lijst li[data-app="leesmee"] a:focus-visible{border-color:#5852b0}
+.kp-lijst li[data-app="leesmee"] a:hover .kp-pijl{color:#3f3a86}
 
 /* de grote blokken */
 .portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
@@ -317,8 +321,8 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .pcard.live:hover .go .ar{transform:translateX(5px)}
 /* App-kleuren op de ingangen (sinds de verzelfstandiging, 08/2026): het portaal blijft
    roze, maar elke app kondigt op zijn eigen kaart al zijn basiskleur aan, zodat je
-   visueel overschakelt vóór je de app binnenstapt. Denk mee draagt petrol; volgende
-   apps krijgen hier hun eigen paar (accent + leestint) bij hun verzelfstandiging. */
+   visueel overschakelt vóór je de app binnenstapt. Denk mee draagt petrol, Lees mee
+   indigo; volgende apps krijgen hier hun eigen paar (accent + leestint). */
 #blok-denkmee .pcard-ic{color:#00796b;background:rgba(0,121,107,.09);border-color:rgba(0,121,107,.28)}
 #blok-denkmee h3 em{color:#00796b}
 #blok-denkmee.live .go{color:#005f51}
@@ -327,6 +331,14 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    petrol leestekst (#005f51 haalt daar ruim AA, zoals --pink-tekst dat op roze deed). */
 #blok-denkmee .badge.live{background:rgba(0,121,107,.09);color:#005f51;border-color:rgba(0,121,107,.22)}
 #blok-denkmee .badge.live .dotje{background:#00796b;--puls-aan:rgba(0,121,107,.45);--puls-uit:rgba(0,121,107,0)}
+/* Lees mee = zacht indigo (#5852b0, leestint #3f3a86: gemeten 9,64 op de kaart en 8,50
+   op het lichte chipvlak, accent zelf 6,41; alles ruim AA). Zelfde grammatica als petrol. */
+#blok-leesmee .pcard-ic{color:#5852b0;background:rgba(88,82,176,.09);border-color:rgba(88,82,176,.28)}
+#blok-leesmee h3 em{color:#5852b0}
+#blok-leesmee.live .go{color:#3f3a86}
+#blok-leesmee.live:hover{border-color:#5852b0}
+#blok-leesmee .badge.live{background:rgba(88,82,176,.09);color:#3f3a86;border-color:rgba(88,82,176,.22)}
+#blok-leesmee .badge.live .dotje{background:#5852b0;--puls-aan:rgba(88,82,176,.45);--puls-uit:rgba(88,82,176,0)}
 
 /* over-blok */
 .over{border-top:1px solid var(--lijn);background:var(--bg-band)}
