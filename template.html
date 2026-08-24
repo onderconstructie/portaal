@@ -304,6 +304,15 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .pcard.soon .go{color:var(--stil)}
 .pcard .go .ar{transition:transform .2s}
 .pcard.live:hover .go .ar{transform:translateX(5px)}
+/* App-kleuren op de ingangen (sinds de verzelfstandiging, 08/2026): het portaal blijft
+   roze, maar elke app kondigt op zijn eigen kaart al zijn basiskleur aan, zodat je
+   visueel overschakelt vóór je de app binnenstapt. Denk mee draagt petrol; volgende
+   apps krijgen hier hun eigen paar (accent + leestint) bij hun verzelfstandiging. */
+#blok-denkmee .pcard-ic{color:#00796b}
+#blok-denkmee h3 em{color:#00796b}
+#blok-denkmee.live .go{color:#005f51}
+#blok-denkmee.live:hover{border-color:#00796b}
+#blok-denkmee .badge.live .dotje{background:#00796b}
 
 /* over-blok */
 .over{border-top:1px solid var(--lijn);background:var(--bg-band)}
