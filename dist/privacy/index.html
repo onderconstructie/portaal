@@ -661,7 +661,6 @@ textarea.field-input{resize:vertical}
   /* Ruimte onder de pagina zodat niets achter de balk verdwijnt; de privacymelding erbovenop. */
   body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
   .cookie-note{bottom:calc(68px + env(safe-area-inset-bottom))}
-  .to-top{bottom:calc(74px + env(safe-area-inset-bottom))}   /* net boven de tabbalk */
 }
 /* Terug-naar-boven: overal beschikbaar, glazig en licht transparant (blur + lage dekking). */
 .to-top{
@@ -674,6 +673,10 @@ textarea.field-input{resize:vertical}
   transition:opacity .25s ease,transform .25s ease,border-color .18s,color .18s;
 }
 .to-top.show{opacity:.72;transform:none;pointer-events:auto}
+/* Boven de tabbalk op smartphone. Deze regel MOET na de basisregel van .to-top staan:
+   stond ze eerder (in het 700px-blok hierboven), dan won bottom:1.5rem en lag de knop
+   bovenop de laatste balkknop. Nagemeten: hij berekende 24px waar 74px bedoeld was. */
+@media(max-width:700px){.to-top{bottom:calc(74px + env(safe-area-inset-bottom))}}
 .to-top.show:hover,.to-top.show:focus-visible{opacity:1;border-color:var(--pink);color:var(--pink-tekst)}
 /* Installeer-melding (eerste bezoek): onderaan, boven de tabbalk; op groter scherm gewoon onderaan. */
 .install-note{

@@ -670,7 +670,6 @@ textarea.field-input{resize:vertical}
   /* Ruimte onder de pagina zodat niets achter de balk verdwijnt; de privacymelding erbovenop. */
   body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
   .cookie-note{bottom:calc(68px + env(safe-area-inset-bottom))}
-  .to-top{bottom:calc(74px + env(safe-area-inset-bottom))}   /* net boven de tabbalk */
 }
 /* Terug-naar-boven: overal beschikbaar, glazig en licht transparant (blur + lage dekking). */
 .to-top{
@@ -683,6 +682,10 @@ textarea.field-input{resize:vertical}
   transition:opacity .25s ease,transform .25s ease,border-color .18s,color .18s;
 }
 .to-top.show{opacity:.72;transform:none;pointer-events:auto}
+/* Boven de tabbalk op smartphone. Deze regel MOET na de basisregel van .to-top staan:
+   stond ze eerder (in het 700px-blok hierboven), dan won bottom:1.5rem en lag de knop
+   bovenop de laatste balkknop. Nagemeten: hij berekende 24px waar 74px bedoeld was. */
+@media(max-width:700px){.to-top{bottom:calc(74px + env(safe-area-inset-bottom))}}
 .to-top.show:hover,.to-top.show:focus-visible{opacity:1;border-color:var(--pink);color:var(--pink-tekst)}
 /* Installeer-melding (eerste bezoek): onderaan, boven de tabbalk; op groter scherm gewoon onderaan. */
 .install-note{
@@ -923,11 +926,14 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 <button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
-  <a href="https://asgaupaust.be/" aria-current="page"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Start</span></a>
   <a href="https://denkmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg><span>Denk mee</span></a>
   <a href="https://leesmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg><span>Lees mee</span></a>
   <a href="https://asgaupaust.be/en-meer/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg><span>En meer</span></a>
   <a href="https://asgaupaust.be/#contact"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.6 7l8.4 6.4L20.4 7"/></svg><span>Contact</span></a>
+  <!-- De mug staat rechts, net als de portaaltoets in de app-balken van Denk mee en Lees
+       mee: het merkteken zit overal in dezelfde hoek. Hier is het geen weg terug maar een
+       plaatsbepaling, dus blijft hij gemarkeerd als huidige pagina. -->
+  <a class="tab-portaal" href="https://asgaupaust.be/" aria-current="page"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Portaal</span></a>
 </nav>
 
 <script>
