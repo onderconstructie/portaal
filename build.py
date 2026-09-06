@@ -46,6 +46,11 @@ IC = {
     "__IC_REKEN__": _ic('<line x1="4" y1="20" x2="20" y2="20"/>'
                         '<rect x="6" y="12" width="3" height="8"/><rect x="11" y="7" width="3" height="13"/>'
                         '<rect x="16" y="15" width="3" height="5"/>'),
+    # GAS mee: een ANPR-camera op een paal (wat de slimme camera's zien)
+    "__IC_GAS__": _ic('<rect x="4" y="6" width="13" height="8" rx="1"/>'
+                      '<path d="M17 8.6l3-1.6v6l-3-1.6z"/>'
+                      '<line x1="10.5" y1="14" x2="10.5" y2="20"/>'
+                      '<line x1="7" y1="20" x2="14" y2="20"/>'),
     # En meer: een plusteken in een gestippeld kader (er komt nog bij)
     "__IC_MEER__": _ic('<rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/>'
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),

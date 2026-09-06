@@ -250,8 +250,8 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .kp-lijst li[data-app="leesmee"] a:hover .kp-pijl{color:#3f3a86}
 
 /* de grote blokken */
-.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
-@media(max-width:900px){.portals{grid-template-columns:repeat(2,1fr)}}
+.portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
+@media(max-width:1180px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
 /* Reken mee bestaat nog niet, dus krijgt het geen volwaardige kaart naast de drie werkende
    ingangen: een lege vierde kaart maakt de etalage voor een kwart leeg. Als smalle strook
@@ -329,6 +329,11 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 #blok-denkmee.live:hover{border-color:#00796b}
 /* Ook de binnenkadertjes schakelen mee: het Live-chipje wordt een licht petrolvlakje met
    petrol leestekst (#005f51 haalt daar ruim AA, zoals --pink-tekst dat op roze deed). */
+/* GAS mee draagt oker. De kaart is nog niet live, dus enkel het icoon en het accentwoord
+   kleuren mee; de leestint #856813 haalt 4,67:1 op papier (nagemeten). */
+#blok-gasmee .pcard-ic{color:#856813;background:rgba(210,162,19,.10);border:1px dashed rgba(210,162,19,.40)}
+#blok-gasmee h3 em{color:#856813}
+#blok-gasmee .badge{background:rgba(210,162,19,.10);color:#856813;border-color:rgba(210,162,19,.30)}
 #blok-denkmee .badge.live{background:rgba(0,121,107,.09);color:#005f51;border-color:rgba(0,121,107,.22)}
 #blok-denkmee .badge.live .dotje{background:#00796b;--puls-aan:rgba(0,121,107,.45);--puls-uit:rgba(0,121,107,0)}
 /* Lees mee = zacht indigo (#5852b0, leestint #3f3a86: gemeten 9,64 op de kaart en 8,50
@@ -797,17 +802,25 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
         <span class="go">Onze filosofie <span class="ar">&#8594;</span></span>
       </a>
 
-    </div>
+          <!-- GAS mee: vierde app, in het oker (#d2a213, leestint #856813 haalt 4,67:1 op papier).
+           Bewust een <div> en geen <a>: gasmee.asgaupaust.be bestaat nog niet, dus er valt niets
+           te openen. Zodra de site draait: div -> a met href, class soon -> live, en het
+           Binnenkort-chipje wordt het Live-chipje. -->
+      <div class="pcard soon" id="blok-gasmee">
+        <div class="pcard-top"><span class="pcard-ic">__IC_GAS__</span><span class="badge">Binnenkort</span></div>
+        <span class="k">de slimme camera&#8217;s van de stad</span>
+        <h3>GAS <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Mechelen ziet je rijden, en beboet je soms. Straks lees je hier wat de camera&#8217;s registreren, waar ze hangen en wat dat oplevert.</p>
+        <span class="go">In de maak</span>
+      </div>
+</div>
 
     <!-- Aangekondigde apps krijgen een strook en pas een volwaardige kaart zodra ze live staan:
          een kaart die naar niets leidt, is een dode link. Elke strook noemt de app en wat ze doet. -->
     <p class="soon-strook">
       <span class="ss-badge">Binnenkort</span>
       <span>Daar komt <strong>Reken mee met Mechelen</strong> bij: de cijfers achter het bestuur, in heldere dashboards.</span>
-    </p>
-    <p class="soon-strook">
-      <span class="ss-badge">Binnenkort</span>
-      <span>En <strong>GAS mee met Mechelen</strong>: wat de slimme camera&#8217;s van de stad zien, en wat dat oplevert aan boetes.</span>
     </p>
   </div>
 </section>
