@@ -10,3 +10,6 @@ __pycache__/
 .claude/
 _*.py
 *.bak
+
+# tijdelijke werkbestanden van live-controles (kunnen de geinjecteerde naam bevatten)
+*.tmp
