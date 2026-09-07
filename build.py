@@ -46,11 +46,20 @@ IC = {
     "__IC_REKEN__": _ic('<line x1="4" y1="20" x2="20" y2="20"/>'
                         '<rect x="6" y="12" width="3" height="8"/><rect x="11" y="7" width="3" height="13"/>'
                         '<rect x="16" y="15" width="3" height="5"/>'),
-    # GAS mee: een ANPR-camera op een paal (wat de slimme camera's zien)
-    "__IC_GAS__": _ic('<rect x="4" y="6" width="13" height="8" rx="1"/>'
-                      '<path d="M17 8.6l3-1.6v6l-3-1.6z"/>'
-                      '<line x1="10.5" y1="14" x2="10.5" y2="20"/>'
-                      '<line x1="7" y1="20" x2="14" y2="20"/>'),
+    # GAS mee: het vizier met de auto, hetzelfde merkteken als op de GAS-pagina zelf
+    # (favicon en heldknop daar), in één kleur: de rand en de details in currentColor,
+    # de carrosserie iets lichter, de wielnaven papierwit. Vlakkentekening, dus niet
+    # via _ic (dat is voor lijnwerk).
+    "__IC_GAS__": ('<svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true">'
+                   '<circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>'
+                   '<circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/>'
+                   '<path d="M20 2.4v3.4M20 34.2v3.4M2.4 20h3.4M34.2 20h3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+                   '<path d="M14.9 17.6l1.7-2.7a2 2 0 0 1 1.7-.95h3.4a2 2 0 0 1 1.7.95l1.7 2.7z" fill="currentColor" opacity=".72"/>'
+                   '<rect x="12" y="17.2" width="16" height="5.8" rx="2.6" fill="currentColor" opacity=".72"/>'
+                   '<path d="M16.7 16.8l1.05-1.7a1.3 1.3 0 0 1 1.1-.6h2.3a1.3 1.3 0 0 1 1.1.6l1.05 1.7z" fill="currentColor"/>'
+                   '<circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/>'
+                   '<circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/>'
+                   '</svg>'),
     # En meer: een plusteken in een gestippeld kader (er komt nog bij)
     "__IC_MEER__": _ic('<rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/>'
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),
