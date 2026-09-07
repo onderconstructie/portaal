@@ -180,6 +180,22 @@ img,svg{max-width:100%}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
+/* Statusstrook, weg te halen na de lancering (dezelfde strook staat op /pers/).
+   Bewust dezelfde inkt als de ticker die er meteen onder loopt, met een haarlijn ertussen:
+   zonder die lijn lezen de twee donkere banden als een blok in plaats van als twee rijen.
+   Het badge-roze is --eiland-pink en niet --pink: op inkt haalt dat 5,74:1 tegenover 4,63:1,
+   allebei geslaagd, maar de badge staat op .68rem en mag de ruimste marge hebben. */
+.status-strook{background:var(--bg-diep);color:var(--paper);
+  border-bottom:1px solid rgba(245,241,232,.14)}
+.status-strook .shell{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;
+  padding-top:.8rem;padding-bottom:.8rem}
+.status-strook b{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.68rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--eiland-pink);flex:none}
+.status-strook span{font-size:.9rem;line-height:1.5;color:rgba(245,241,232,.82)}
+.status-strook .ss-cta{font:inherit;color:#fff;background:none;border:0;padding:0;cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,.6)}
+.status-strook .ss-cta:hover{border-bottom-color:#fff}
+
 /* hero */
 /* De gloed stond op .10 en legde daarmee een roze waas (#f6d9db) onder je eigen roze tekst:
    roze op roze. Nagemeten zakten de eyebrow (4,42 bij drempel 4,5) en de 38px "Paust" (2,91

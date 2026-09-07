@@ -180,6 +180,22 @@ img,svg{max-width:100%}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
+/* Statusstrook, weg te halen na de lancering (dezelfde strook staat op /pers/).
+   Bewust dezelfde inkt als de ticker die er meteen onder loopt, met een haarlijn ertussen:
+   zonder die lijn lezen de twee donkere banden als een blok in plaats van als twee rijen.
+   Het badge-roze is --eiland-pink en niet --pink: op inkt haalt dat 5,74:1 tegenover 4,63:1,
+   allebei geslaagd, maar de badge staat op .68rem en mag de ruimste marge hebben. */
+.status-strook{background:var(--bg-diep);color:var(--paper);
+  border-bottom:1px solid rgba(245,241,232,.14)}
+.status-strook .shell{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;
+  padding-top:.8rem;padding-bottom:.8rem}
+.status-strook b{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.68rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--eiland-pink);flex:none}
+.status-strook span{font-size:.9rem;line-height:1.5;color:rgba(245,241,232,.82)}
+.status-strook .ss-cta{font:inherit;color:#fff;background:none;border:0;padding:0;cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,.6)}
+.status-strook .ss-cta:hover{border-bottom-color:#fff}
+
 /* hero */
 /* De gloed stond op .10 en legde daarmee een roze waas (#f6d9db) onder je eigen roze tekst:
    roze op roze. Nagemeten zakten de eyebrow (4,42 bij drempel 4,5) en de 38px "Paust" (2,91
@@ -737,6 +753,15 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
        hieronder (Denk mee / Lees mee / Reken mee). Op de startpagina blijft de balk rustig. -->
 </div></nav>
 
+<!-- Statusstrook, weg te halen na de lancering. Dezelfde strook en hetzelfde badge-woord
+     staan op /pers/, zodat de bezoeker en de journalist hetzelfde signaal krijgen. -->
+<div class="status-strook"><div class="shell">
+  <b>Nog niet gelanceerd</b>
+  <span>Dit portaal is nog in volle voorbereiding: we testen nog of alle data kloppen.
+    Kom je hier toevallig terecht, dan is je feedback nu al welkom.
+    <button type="button" class="ss-cta" onclick="openContactModal()">Laat het ons weten</button></span>
+</div></div>
+
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-baan">
@@ -780,7 +805,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
         <span class="k">de besluitvorming in mensentaal</span>
         <h3>Denk <em>mee</em></h3>
         <div class="fam">met Mechelen</div>
-        <p>Volg wat Mechelen beslist. Op maat van wat jij belangrijk vindt. Van agenda tot besluit. En van de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau tot de burgemeester zelf.</p>
+        <p>Volg wat Mechelen beslist, van agenda tot besluit. Je kiest zelf de thema&#8217;s die je wil volgen, in de raden, het college en het vast bureau.</p>
         <span class="go">denkmee.asgaupaust.be <span class="ar">&#8594;</span></span>
       </a>
 
@@ -789,7 +814,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
         <span class="k">zeven jaar in het archief</span>
         <h3>Lees <em>mee</em></h3>
         <div class="fam">met Mechelen</div>
-        <p>As Gau Paust was ook zeven jaar lang een uniek hyperlokaal onafhankelijk stadsmagazine. Ontdek verrassende inzichten en leer bij over de manier waarop je een stad transparanter kunt maken.</p>
+        <p>Lees zeven jaargangen hyperlokale journalistiek terug. Je ontdekt verrassende verhalen en leert hoe je een stad transparanter maakt.</p>
         <span class="go">leesmee.asgaupaust.be <span class="ar">&#8594;</span></span>
       </a>
 
@@ -802,15 +827,15 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
         <span class="k">de slimme camera&#8217;s van de stad</span>
         <h3>GAS <em>mee</em></h3>
         <div class="fam">met Mechelen</div>
-        <p>Mechelen ziet je rijden, en beboet je soms. Straks lees je hier wat de camera&#8217;s registreren, waar ze hangen en wat dat oplevert.</p>
+        <p>Mechelen ziet je rijden, en beboet je soms. Straks zie je hier waar de camera&#8217;s hangen, wat ze registreren en hoe het met de dossiers afloopt.</p>
         <span class="go">In de maak</span>
       </div>
       <a class="pcard info" href="/en-meer/">
         <div class="pcard-top"><span class="pcard-ic"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg></span></div>
-        <span class="k">dit portaal groeit</span>
+        <span class="k">waar dit portaal heen groeit</span>
         <h3>En <em>meer</em></h3>
         <div class="fam">met Mechelen</div>
-        <p>We bouwen door: nieuwe bouwblokken volgen. Lees waar dit platform heen groeit.</p>
+        <p>Dit portaal blijft groeien, app na app. Lees waar we met deze experimenten heen willen, en waarom we een stad zo leesbaar proberen te maken.</p>
         <span class="go">Onze filosofie <span class="ar">&#8594;</span></span>
       </a>
 </div>
