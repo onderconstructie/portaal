@@ -14,10 +14,21 @@ Die secret wordt niet meer gelezen en mag in GitHub verwijderd worden.
 import os
 import re
 
+# Deze injectie hoort ALLEEN in GitHub Actions te draaien. Lokaal zou ze de naam schrijven in
+# dist/index.html, dist/pers/index.html en dist/privacy/index.html, en die drie staan onder
+# versiebeheer: een volgende "git add -A" neemt de naam dan gewoon mee. Gemeten aanleiding:
+# op 07/09/2026 belandde de naam op precies die manier in een commit, via een andere kopie van
+# een gepubliceerde pagina. GitHub Actions zet GITHUB_ACTIONS zelf, dus in de workflow verandert
+# er niets; wie het script hier probeert, krijgt een stop in plaats van een lek.
+if not os.environ.get("GITHUB_ACTIONS"):
+    raise SystemExit("inject_over.py draait alleen in GitHub Actions, niet lokaal.")
+
 # --- 1. De initiatiefnemer-naam, in de "Wie zit hierachter"-uitklap. Die staat op /pers/ en
-#        sinds 25/07/2026 ook in het colofon van de startpagina (als uitklap in de zin, zodat
-#        de voordeur een gezicht heeft zonder het pontificaal te tonen). Het vangnet onderaan
-#        pakt een vergeten placeholder sowieso op. ---
+#        /privacy/. De startpagina droeg hem tot 07/09/2026 ook in het colofon; daar is hij weg
+#        omdat hij dan drie keer op het portaal stond. dist/index.html blijft toch in de lijst:
+#        keert het blok ooit terug, dan wordt het meteen weer bediend, en zonder placeholder is
+#        de vervanging gewoon een lege bewerking. Het vangnet onderaan pakt een vergeten
+#        placeholder sowieso op. ---
 naam = os.environ.get("OVER_NAAM", "").strip()
 for PAD in ("dist/pers/index.html", "dist/index.html", "dist/privacy/index.html"):
     if not os.path.exists(PAD):

@@ -456,15 +456,17 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
 /* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
-   wel een vindbare tekstlink naar de persmap. Staat helemaal onderaan, na "Wie zit hierachter". */
+   wel een vindbare tekstlink naar de persmap, helemaal onderaan. */
 /* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
    de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
 @media(max-width:520px){
   .over-cta{display:flex;width:100%;justify-content:center;margin-top:1.4rem}
 }
 
-/* Wie zit hierachter: een terughoudende uitklap, net onder de banner. De naam staat niet
-   in git; pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
+/* Wie zit hierachter: een terughoudende uitklap. Deze stijlen staan hier omdat de persmap en
+   de privacypagina de head van deze pagina erven; de startpagina zelf draagt het blok sinds
+   07/09/2026 niet meer (het stond drie keer op het portaal). De naam staat niet in git;
+   pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
 .wie{margin-top:1.8rem}
 .wie summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;
   letter-spacing:.08em;text-transform:uppercase;color:var(--pink-tekst);cursor:pointer;
@@ -590,15 +592,6 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    en die hoort cursief. Hier zit "Paust" in de em, en dat is geen ondertitel maar een stuk van
    de merknaam zelf. Zelfde behandeling als de accentwoorden op Lees mee: roze, rechtop. */
 .co-zin .co-naam em{ font-style:normal; color:var(--c-pink-tekst); }
-/* "Wie zit hierachter?" leest in het colofon als een zin, niet als een widget: geen plus-teken,
-   geen kapitalen, gewoon een klikbare vraag achter de merkregel. Dezelfde uitklap als op de
-   persmap, zodat de naam op de voordeur staat zonder er pontificaal te hangen. */
-.co-zin .wie-inline{ display:inline; margin:0; }
-.co-zin .wie-inline summary{ display:inline; font-family:inherit; font-size:inherit;
-  letter-spacing:normal; text-transform:none; color:var(--c-pink-tekst); cursor:pointer; }
-.co-zin .wie-inline summary::before{ content:none; }
-.co-zin .wie-inline summary:hover{ text-decoration:underline; }
-.co-zin .wie-inline .wie-in{ margin-top:.9rem; }
 .co-fam{
   margin:var(--co-r) 0 0;
   font-family:'JetBrains Mono',ui-monospace,monospace;

@@ -456,15 +456,17 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .over-cta .ar{transition:transform .16s}
 .over-cta:hover .ar{transform:translateX(4px)}
 /* Discrete slotregel op /en-meer/ voor journalisten: geen tweede knop naast de contact-CTA,
-   wel een vindbare tekstlink naar de persmap. Staat helemaal onderaan, na "Wie zit hierachter". */
+   wel een vindbare tekstlink naar de persmap, helemaal onderaan. */
 /* Op smartphone neemt de knop de volle breedte: een sterke, nette CTA die netjes uitlijnt met
    de tekst eronder en erboven, in plaats van een halfbrede pil die links zweeft. */
 @media(max-width:520px){
   .over-cta{display:flex;width:100%;justify-content:center;margin-top:1.4rem}
 }
 
-/* Wie zit hierachter: een terughoudende uitklap, net onder de banner. De naam staat niet
-   in git; pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
+/* Wie zit hierachter: een terughoudende uitklap. Deze stijlen staan hier omdat de persmap en
+   de privacypagina de head van deze pagina erven; de startpagina zelf draagt het blok sinds
+   07/09/2026 niet meer (het stond drie keer op het portaal). De naam staat niet in git;
+   pages.yml stikt hem bij het publiceren uit een secret in de placeholder. */
 .wie{margin-top:1.8rem}
 .wie summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;
   letter-spacing:.08em;text-transform:uppercase;color:var(--pink-tekst);cursor:pointer;
@@ -590,15 +592,6 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    en die hoort cursief. Hier zit "Paust" in de em, en dat is geen ondertitel maar een stuk van
    de merknaam zelf. Zelfde behandeling als de accentwoorden op Lees mee: roze, rechtop. */
 .co-zin .co-naam em{ font-style:normal; color:var(--c-pink-tekst); }
-/* "Wie zit hierachter?" leest in het colofon als een zin, niet als een widget: geen plus-teken,
-   geen kapitalen, gewoon een klikbare vraag achter de merkregel. Dezelfde uitklap als op de
-   persmap, zodat de naam op de voordeur staat zonder er pontificaal te hangen. */
-.co-zin .wie-inline{ display:inline; margin:0; }
-.co-zin .wie-inline summary{ display:inline; font-family:inherit; font-size:inherit;
-  letter-spacing:normal; text-transform:none; color:var(--c-pink-tekst); cursor:pointer; }
-.co-zin .wie-inline summary::before{ content:none; }
-.co-zin .wie-inline summary:hover{ text-decoration:underline; }
-.co-zin .wie-inline .wie-in{ margin-top:.9rem; }
 .co-fam{
   margin:var(--co-r) 0 0;
   font-family:'JetBrains Mono',ui-monospace,monospace;
@@ -827,7 +820,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
   <div class="shell">
     <span class="eyebrow"><span class="pulse"></span>Persmap</span>
     <h1 class="hero-title met-kader"><span class="box">Pers</span> As Gau Paust</h1>
-    <p class="hero-lede">Alles wat je nodig hebt om over het platform te schrijven: de feiten, een kant-en-klare omschrijving, de juiste schrijfwijze en het logo. Persvragen? We horen het graag.</p>
+    <p class="hero-lede">De feiten, een omschrijving om over te nemen, de schrijfwijze en het logo. Persvragen stel je onderaan deze pagina.</p>
   </div>
 </section>
 
@@ -836,20 +829,21 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
   <div class="pers-sec">
     <h2 class="pers-kop">In het <em>kort</em></h2>
     <dl class="pers-dl">
-      <dt>Wat</dt><dd>Een experimenteel platform voor hyperlokale journalistiek over Mechelen. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, en wil zo ook andere (burger)journalisten en de stad zelf inspireren om lokale data toegankelijker te maken.</dd>
+      <dt>Wat</dt><dd>Een experimenteel platform voor hyperlokale journalistiek over Mechelen. We bouwen tools die tonen wat de stad in jouw naam beslist, in mensentaal en met de bron erbij.</dd>
       <dt>Sinds</dt><dd>Van 2016 tot 2023 een onafhankelijk stadsmagazine, sinds 2026 een platform.</dd>
-      <dt>Denk mee</dt><dd>Volg wat Mechelen beslist, op maat van wat jij belangrijk vindt. Op gezette tijdstippen lees je in mensentaal wat de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester beslissen, van agenda tot besluit. Meer dan 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 1.200 dossiers om te volgen. De methode en een kritische zelfevaluatie staan op de technische pagina, denkmee.asgaupaust.be/techniek/. <b>denkmee.asgaupaust.be</b></dd>
-      <dt>Lees mee</dt><dd>Zeven jaar hyperlokale journalistiek over Mechelen (2016 tot 2023): het leesarchief van het magazine, 269 artikels gebundeld per thema en dossier, met de formule van zeven technieken om een stad transparant te maken. <b>leesmee.asgaupaust.be</b></dd>
-      <dt>Reken mee</dt><dd>De cijfers achter het bestuur van Mechelen, in heldere dashboards. In de maak.</dd>
-      <dt>Hergebruik</dt><dd>De code is open en herbruikbaar. Veel Vlaamse gemeenten publiceren hun besluiten op hetzelfde soort platform, dus andere (burger)journalisten kunnen dit met beperkte aanpassing voor hun eigen stad of gemeente bouwen. Zin om ermee aan de slag te gaan? Neem contact op.</dd>
-      <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Elk profiel blijft in de eigen browser.</dd>
-      <dt>Contact</dt><dd>Zie onderaan deze pagina.</dd>
+      <dt>Denk mee</dt><dd>Wat de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester beslissen, van agenda tot besluit. Ruim 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 2.000 dossiers. <b>denkmee.asgaupaust.be</b></dd>
+      <dt>Lees mee</dt><dd>Zeven jaargangen hyperlokale journalistiek (2016 tot 2023): 269 artikels, gebundeld per thema en dossier, met de formule van zeven technieken. <b>leesmee.asgaupaust.be</b></dd>
+      <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. Nog niet online.</dd>
+      <dt>Reken mee</dt><dd>De cijfers achter het bestuur, in dashboards. In opbouw.</dd>
+      <dt>Methode</dt><dd>De werkwijze en de eigen blinde vlekken staan op <b>denkmee.asgaupaust.be/techniek/</b>.</dd>
+      <dt>Code</dt><dd>Staat publiek op GitHub, onder <b>github.com/onderconstructie</b>.</dd>
+      <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Wat je volgt, blijft in je eigen browser.</dd>
     </dl>
   </div>
 
   <div class="pers-sec">
     <h2 class="pers-kop">Zo omschrijf je <em>ons</em></h2>
-    <p class="pers-lead">Een vaste omschrijving van het platform, klaar om over te nemen. Kopieer ze gerust letterlijk.</p>
+    <p class="pers-lead">Klaar om letterlijk over te nemen.</p>
     <div class="kopieerblok">
       <p id="boiler">As Gau Paust, Mechels voor &#8220;als jij denkt&#8221;, is een experimenteel platform voor hyperlokale journalistiek over Mechelen. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, in mensentaal en met de bron erbij. Het wil ook inspireren: andere (burger)journalisten om zoiets voor hun eigen stad te bouwen, en de stad zelf om haar data toegankelijker voor de burger te ontsluiten. Het platform werkt onafhankelijk. AI is daarbij een hulpmiddel: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
       <button type="button" class="kopieer-knop" id="kopieerBoiler" data-doel="boiler">Kopieer de tekst</button>
@@ -858,20 +852,18 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 
   <div class="pers-sec">
     <h2 class="pers-kop">Namen en <em>schrijfwijze</em></h2>
-    <p class="pers-lead">Zo staat het correct in een artikel.</p>
     <ul class="pers-termen">
-      <li><b>As Gau Paust</b> is Mechels voor &#8220;als jij denkt&#8221;. De naam is een eerbetoon aan het officieuze Mechelse volkslied, een klassieker van G&#252;nther Neefs met tekst van Mark Uytterhoeven.</li>
-      <li>De onderdelen heten voluit <b>Denk mee met Mechelen</b>, <b>Lees mee met Mechelen</b> en <b>Reken mee met Mechelen</b>. Dat laatste is nog in de maak.</li>
+      <li><b>As Gau Paust</b> is Mechels voor &#8220;als jij denkt&#8221;. De naam verwijst naar de Mechelse klassieker van G&#252;nther Neefs, met tekst van Mark Uytterhoeven.</li>
+      <li>De onderdelen heten voluit <b>Denk mee met Mechelen</b>, <b>Lees mee met Mechelen</b>, <b>GAS mee met Mechelen</b> en <b>Reken mee met Mechelen</b>. De laatste twee staan nog niet online.</li>
       <li>De vijf bestuursorganen: de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester.</li>
       <li>De aanpak op Lees mee heet <b>de formule</b> (met zeven technieken).</li>
       <li>Over de rol van AI: een <b>hulpmiddel</b>. Vandaag is dat Claude van Anthropic.</li>
-      <li>Het platform draait op <b>asgaupaust.be</b>.</li>
     </ul>
   </div>
 
   <div class="pers-sec">
     <h2 class="pers-kop">Beeld<em>materiaal</em></h2>
-    <p class="pers-lead">Het logo van As Gau Paust: de mug in de kamer. Klein, wakker en moeilijk te negeren. Daarnaast een knipogende AGP voor wie een gezicht bij het platform zoekt.</p>
+    <p class="pers-lead">Het logo: de mug in de kamer. Klein, wakker en moeilijk te negeren.</p>
     <div class="pers-downloads">
       <div class="dl-kaart">
         <img src="/beelden/mug.png" alt="Het logo van As Gau Paust: een mug." width="512" height="512">
@@ -883,27 +875,35 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
           </div>
         </div>
       </div>
-      <div class="dl-kaart">
-        <img class="dl-kuifje" src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
-        <div class="dl-body">
-          <p class="dl-naam">As Gau Paust</p>
-          <p class="dl-meta">Merci Herg&eacute;!</p>
-          <div class="dl-links">
-            <a href="/beelden/AGP.png" download="as-gau-paust-cartoon.png">PNG (1024px)</a>
-          </div>
-        </div>
-      </div>
     </div>
-    <p class="pers-note">Wat online staat is openbaar. Schermbeelden zijn vrij te gebruiken met bronvermelding (As Gau Paust). Bezoek <a href="https://denkmee.asgaupaust.be/">Denk mee</a>, <a href="https://leesmee.asgaupaust.be/">Lees mee</a> of de <a href="/">startpagina</a>.</p>
+    <p class="pers-note">Schermbeelden van de sites zijn vrij te gebruiken met bronvermelding (As Gau Paust).</p>
   </div>
 
   <div class="pers-sec" id="perscontact">
     <h2 class="pers-kop">Pers<em>contact</em></h2>
-    <p class="pers-lead">Voor persvragen, een demonstratie of concrete Mechelse voorbeelden uit de dossiers.</p>
-    <div class="kopieerblok">
-      <p><b>E-mail:</b> <a id="persMail" href="#">het adres verschijnt hier</a></p>
-      <p style="margin-top:.5rem;color:var(--tekst-2);font-size:.9rem">Of via het contactformulier op de <a href="/#contact" style="color:var(--pink-tekst);border-bottom:1px solid var(--pink)">startpagina</a>.</p>
-    </div>
+    <p class="pers-lead">Voor persvragen, een demonstratie of een concreet Mechels voorbeeld uit de dossiers.</p>
+    <form id="persForm" class="kopieerblok" novalidate>
+      <div class="ov-fields-row">
+        <div class="field">
+          <label class="field-lbl" for="pfNaam">Naam</label>
+          <input type="text" id="pfNaam" class="field-input" placeholder="Voornaam Naam" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label class="field-lbl" for="pfEmail">E-mail</label>
+          <input type="email" id="pfEmail" class="field-input" placeholder="jij@voorbeeld.be" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-lbl" for="pfMedium">Medium</label>
+        <input type="text" id="pfMedium" class="field-input" placeholder="Voor welke redactie schrijf je?" required>
+      </div>
+      <div class="field">
+        <label class="field-lbl" for="pfBericht">Je vraag</label>
+        <textarea id="pfBericht" class="field-input" rows="3" placeholder="Waarover gaat het?"></textarea>
+      </div>
+      <div class="ov-error" id="pfError" role="alert" hidden></div>
+      <button type="submit" class="kopieer-knop">Stuur je persvraag</button>
+    </form>
 
     <details class="wie">
       <summary>Wie zit hierachter?</summary>
@@ -952,14 +952,38 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
   }
 })();
 
-// Perscontact: het adres staat base64-gecodeerd (anti-scraping, geen geheim) en wordt hier tot
-// een mailto-link gemaakt. Zelfde adres en patroon als de contactmodal van het portaal.
+// Perscontact: het formulier stelt de mail op en geeft hem door aan de mailclient van de
+// journalist. Het adres staat base64 (anti-scraping, geen geheim) en komt nooit in de pagina
+// te staan. Geen server, dus hier wordt niets bewaard.
 (function(){
-  var a = document.getElementById('persMail');
-  if(!a) return;
-  var adres = atob('YXNnYXVwYXVzdEBnbWFpbC5jb20=');
-  a.textContent = adres;
-  a.href = 'mailto:' + adres + '?subject=' + encodeURIComponent('[Pers] As Gau Paust');
+  var f = document.getElementById('persForm');
+  if(!f) return;
+  var fout = document.getElementById('pfError');
+  var w = function(id){ return document.getElementById(id).value.trim(); };
+  var meld = function(tekst, id){
+    fout.textContent = tekst; fout.hidden = false;
+    var veld = document.getElementById(id);
+    veld.setAttribute('aria-invalid','true'); veld.setAttribute('aria-describedby','pfError'); veld.focus();
+  };
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    fout.hidden = true;
+    ['pfNaam','pfEmail','pfMedium'].forEach(function(id){
+      document.getElementById(id).removeAttribute('aria-invalid');
+    });
+    var naam = w('pfNaam'), email = w('pfEmail'), medium = w('pfMedium'), bericht = w('pfBericht');
+    if(!naam) return meld('Vul je naam in.', 'pfNaam');
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return meld('Vul een geldig e-mailadres in.', 'pfEmail');
+    if(!medium) return meld('Vul in voor welke redactie je schrijft.', 'pfMedium');
+    var naar = atob('YXNnYXVwYXVzdEBnbWFpbC5jb20=');
+    // De regelovergangen komen uit String.fromCharCode(10) en niet uit een escape-teken:
+    // zo staat er in deze bron geen enkele backslash die bij het bouwen kan sneuvelen.
+    var nl = String.fromCharCode(10);
+    var body = ['Naam: ' + naam, 'E-mail: ' + email, 'Medium: ' + medium, '', bericht].join(nl);
+    window.location.href = 'mailto:' + naar
+      + '?subject=' + encodeURIComponent('[Pers] As Gau Paust')
+      + '&body=' + encodeURIComponent(body);
+  });
 })();
 
 // De cartoon-bol in "Wie zit hierachter" wisselt bij een tik met de mug (op desktop doet hover
