@@ -336,9 +336,9 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 #blok-denkmee.live:hover{border-color:#00796b}
 /* Ook de binnenkadertjes schakelen mee: het Live-chipje wordt een licht petrolvlakje met
    petrol leestekst (#005f51 haalt daar ruim AA, zoals --pink-tekst dat op roze deed). */
-/* GAS mee draagt oker. De kaart is nog niet live, dus enkel het icoon en het accentwoord
+/* GAS mee draagt oker, net als de app zelf. Het icoon, het accentwoord
    kleuren mee; de leestint #856813 haalt 4,67:1 op papier (nagemeten). */
-#blok-gasmee .pcard-ic{color:#856813;background:rgba(210,162,19,.10);border:1px dashed rgba(210,162,19,.40)}
+#blok-gasmee .pcard-ic{color:#856813;background:rgba(210,162,19,.10);border-color:rgba(210,162,19,.28)}
 #blok-gasmee h3 em{color:#856813}
 #blok-gasmee .badge{background:rgba(210,162,19,.10);color:#856813;border-color:rgba(210,162,19,.30)}
 #blok-denkmee .badge.live{background:rgba(0,121,107,.09);color:#005f51;border-color:rgba(0,121,107,.22)}
@@ -844,7 +844,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
       <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Wat je volgt, blijft in je eigen browser.</dd>
       <dt>Denk mee</dt><dd>Wat de vijf bestuursorganen beslissen, van agenda tot besluit. Ruim 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 2.000 dossiers. <b><a href="https://denkmee.asgaupaust.be/">denkmee.asgaupaust.be</a></b></dd>
       <dt>Lees mee</dt><dd>Zeven jaargangen hyperlokale journalistiek (2016 tot 2023): 269 artikels, gebundeld per thema en dossier, met de formule van zeven technieken. <b><a href="https://leesmee.asgaupaust.be/">leesmee.asgaupaust.be</a></b></dd>
-      <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. Nog niet online.</dd>
+      <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. <b><a href="https://gasmee.asgaupaust.be/">gasmee.asgaupaust.be</a></b></dd>
       <dt>Reken mee</dt><dd>De cijfers achter de beslissingen, in dashboards. Nog niet online.</dd>
     </dl>
   </div>
@@ -965,7 +965,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
   <a href="https://denkmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><g transform="translate(2.4 -1.5) scale(0.8)"><path stroke-width="2" d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></g><circle cx="7.6" cy="17.2" r="1.3"/><circle cx="5.1" cy="20.9" r=".75"/></svg><span>Denk mee</span></a>
   <a href="https://leesmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg><span>Lees mee</span></a>
-  <a href="https://asgaupaust.be/#blok-gasmee"><svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/><circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/><path d="M20 2.4v3.4M20 34.2v3.4M2.4 20h3.4M34.2 20h3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M14.9 17.6l1.7-2.7a2 2 0 0 1 1.7-.95h3.4a2 2 0 0 1 1.7.95l1.7 2.7z" fill="currentColor" opacity=".72"/><rect x="12" y="17.2" width="16" height="5.8" rx="2.6" fill="currentColor" opacity=".72"/><path d="M16.7 16.8l1.05-1.7a1.3 1.3 0 0 1 1.1-.6h2.3a1.3 1.3 0 0 1 1.1.6l1.05 1.7z" fill="currentColor"/><circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/><circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/></svg><span>GAS mee</span></a>
+  <a href="https://gasmee.asgaupaust.be/"><svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/><circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/><path d="M20 2.4v3.4M20 34.2v3.4M2.4 20h3.4M34.2 20h3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M14.9 17.6l1.7-2.7a2 2 0 0 1 1.7-.95h3.4a2 2 0 0 1 1.7.95l1.7 2.7z" fill="currentColor" opacity=".72"/><rect x="12" y="17.2" width="16" height="5.8" rx="2.6" fill="currentColor" opacity=".72"/><path d="M16.7 16.8l1.05-1.7a1.3 1.3 0 0 1 1.1-.6h2.3a1.3 1.3 0 0 1 1.1.6l1.05 1.7z" fill="currentColor"/><circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/><circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/></svg><span>GAS mee</span></a>
   <a href="https://asgaupaust.be/en-meer/"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg><span>En meer</span></a>
   <a class="tab-portaal" href="https://asgaupaust.be/" ><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Portaal</span></a>
 </nav>
