@@ -32,6 +32,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: "Poort (derde laag) - geen prive-waarde in de repo"
+        run: python3 .github/poort_ci.py
       # De naam van de initiatiefnemer en de filosofietekst staan NIET in git. Ze komen uit
       # de secrets OVER_NAAM en ENMEER_FILOSOFIE en worden hier pas bij het publiceren in
       # dist/ gestikt (zie inject_over.py).

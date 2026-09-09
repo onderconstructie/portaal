@@ -8,6 +8,24 @@ gedeelde toren-logo en de vier blok-iconen, zodat er maar één bron van waarhei
 is voor het merk. Zelf-gehoste fonts gaan mee naar dist/. Geen internet nodig.
 """
 from pathlib import Path
+
+# --- De poort scherp zetten. Hooks reizen niet mee met een kloon en git config is per kloon,
+#     dus zonder deze regels staat de bescherming na een verse kloon uit zonder dat iets het
+#     meldt. Elke build zet ze opnieuw goed. Zie .githooks/poort.py voor wat ze weigert. ---
+def _poort_scherpzetten():
+    import subprocess
+    hier = Path(__file__).resolve().parent
+    if not (hier / ".githooks" / "poort.py").exists():
+        return
+    huidig = subprocess.run(["git", "config", "core.hooksPath"], capture_output=True,
+                            cwd=str(hier)).stdout.decode("utf-8", "replace").strip()
+    if huidig != ".githooks":
+        subprocess.run(["git", "config", "core.hooksPath", ".githooks"], cwd=str(hier))
+        print("       poort scherpgezet: core.hooksPath -> .githooks")
+
+
+_poort_scherpzetten()
+
 import sys
 import shutil
 
@@ -283,6 +301,43 @@ for _naam in ("manifest.json", "sw.js"):
     if _src.exists():
         shutil.copy2(_src, out_dir / _naam)
         print("       PWA-bestand gekopieerd: dist/%s" % _naam)
+
+# 5) De poort op de gebouwde site. De zusterprojecten weigeren al een live build bij
+#    e-mailadressen, geboortedatums en verkeerde bronverwijzingen; het portaal had als enige
+#    niets, en juist hier ging het op 07/09/2026 mis. Twee weigeringen, allebei op dist/:
+#
+#      a) een INGEVULDE naam op de plek van de plaatshouder. Het vangnet in inject_over.py
+#         bewaakt de andere richting (of de plaatshouder verdwenen is); deze kijkt of er een
+#         echte waarde in de repo-build staat. Die hoort er pas bij het publiceren in te komen.
+#      b) een e-mailadres in platte tekst. Het publieke adres hoort base64 in de code.
+#
+#    deploy.bat stopt op de foutcode, en build.py is de enige weg naar dist/, dus een weigering
+#    hier houdt de publicatie echt tegen.
+import sys as _sys
+
+_MERK = "%%OVER" + "_NAAM%%"
+_WIE = re.compile(r'class="wie-init">([^<]*)<')
+_MAIL = re.compile(r"\b[A-Za-z0-9._%+-]+@(?!voorbeeld\.|example\.|domein\.)[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+
+
+def _weiger_bij_prive_waarden(map_):
+    klachten = []
+    for pad in sorted(map_.rglob("*.html")):
+        tekst = pad.read_text(encoding="utf-8", errors="replace")
+        for m in _WIE.finditer(tekst):
+            if _MERK not in m.group(1):
+                klachten.append("%s: een ingevulde naam op de plek van de plaatshouder" % pad.name)
+                break
+        m = _MAIL.search(tekst)
+        if m:
+            klachten.append("%s: e-mailadres in platte tekst (%s...)" % (pad.name, m.group(0)[:3]))
+    if klachten:
+        _sys.exit("[STOP] Build geweigerd, prive-waarde in dist/:" + "".join(
+            chr(10) + "  - " + k for k in klachten))
+
+
+_weiger_bij_prive_waarden(out_dir)
+print("       poort op dist/: geen ingevulde naam, geen e-mailadres in platte tekst")
 
 print("Klaar! dist/index.html gebouwd: %s tekens" % format(len(html), ","))
 print("       fonts gekopieerd naar dist/fonts/: %d bestanden" % n)
