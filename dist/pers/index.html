@@ -738,27 +738,43 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 
 <style>
 /* Persmap-eigen onderdelen, met de tokens van het portaal (dag-editie). */
-.pers-sec{ padding-top:clamp(1.6rem,3.5vw,2.6rem); padding-bottom:clamp(1.6rem,3.5vw,2.6rem); border-top:1px solid var(--lijn); }
-/* Een maat voor alles wat in een sectie staat. Gemeten op 1440px eindigden de blokken hiervoor
-   op vijf verschillende rechterranden (693, 764, 832, 842 en 1254 px): de twee lijsten liepen
-   door tot de volle shell, de tekstlagen stopten elk op hun eigen ch-maat. Dat is wat "niet in
-   lijn" liet aanvoelen. 42rem is de maat die het kopieerblok al droeg. */
-.pers-sec > *{ max-width:42rem; }
-/* Zwaardere selector nodig: de gedeelde head zet .over p op 56ch, en dat weegt zwaarder
-   (klasse plus element) dan een losse klasse. Zonder deze regel eindigden de lede en de
-   noot alsnog op hun eigen rand, 764 en 693 tegenover 842 voor de rest. */
-.over .pers-sec > p{ max-width:42rem; }
+/* Twee sporen: links de kantlijn met nummer, kop en bijschrift, rechts de inhoud op leesmaat.
+   Hiervoor stopte alles op 42rem en bleef er 518px geliniëerde leegte naast staan, met de
+   scheidingslijn die er wel langs doorliep. Nu eindigt de inhoud waar de lijn eindigt.
+   scroll-margin-top:84px = de plakkende nav (67px) plus lucht, anders landt een sprong naar
+   #schrijfwijze of #perscontact met kop en lijn achter de balk. */
+.pers-sec{ padding-top:clamp(1.6rem,3.5vw,2.6rem); padding-bottom:clamp(1.6rem,3.5vw,2.6rem);
+  border-top:1px solid var(--lijn); scroll-margin-top:84px;
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,42rem);
+  column-gap:clamp(1.5rem,3.2vw,3rem); align-items:start; }
+/* De leesmaat zit nu in het rechterspoor zelf, dus de kinderen hoeven hem niet meer te dragen.
+   De p-regel blijft wel nodig: .over p zet elke alinea op 56ch en dan zou de noot 69px korter
+   eindigen dan de kaarten erboven, precies de rafelrand die hier weggewerkt is. */
+.over .pers-hoofd > p, .over .pers-body > p{ max-width:none; }
 .pers-sec:first-of-type{ border-top:0; }
-.pers-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600; letter-spacing:-.01em;
-  font-size:clamp(1.15rem,2.2vw,1.5rem); margin:0 0 1rem; }
+/* Twee klassen (0-2-0), want een losse .pers-kop (0-1-0) verliest van .over h2 (0-1-1) uit de
+   gedeelde head. Gemeten voor deze ingreep: 32px in gewicht 500, terwijl hier 24px in 600 staat.
+   De hele trap van deze pagina was dus ontworpen en nooit uitgevoerd. */
+.pers-sec .pers-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600;
+  letter-spacing:-.01em; font-size:clamp(1.15rem,2.2vw,1.5rem); line-height:1.2; margin:0 0 .5rem; }
 .pers-kop em{ color:var(--pink-tekst); font-style:normal; }
-.pers-lead{ color:var(--tekst-2); margin:0 0 1.2rem; }
+/* De kantlijn: een volgnummer in de maat en kleur van de dt-labels een spoor verderop, een kop
+   die meereist terwijl je door de sectie scrollt, en de lede als bijschrift eronder. Zo is de
+   lege marge een kolom met een reden geworden. */
+.over .shell{ counter-reset:persblok; }
+.pers-hoofd{ position:sticky; top:calc(67px + 1.4rem); counter-increment:persblok; }
+.pers-hoofd::before{ content:counter(persblok,decimal-leading-zero); display:block;
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem; letter-spacing:.14em;
+  color:var(--stil); margin-bottom:.5rem; }
+.pers-hoofd .pers-lead{ font-size:.92rem; line-height:1.5; color:var(--tekst-2); margin:0; }
 
 /* Feitenlijst als een strakke definitielijst. */
-.pers-dl{ margin:0; display:grid; grid-template-columns:max-content 1fr; gap:.55rem 1.4rem; align-items:baseline; }
+/* 1rem tussen de rijen: hiervoor was de ruimte TUSSEN twee feiten (8,8px) kleiner dan de
+   regelafstand BINNEN een feit (24,8px), waardoor de drieregelige rijen uit elkaar vielen. */
+.pers-dl{ margin:0; display:grid; grid-template-columns:max-content 1fr; gap:1rem 1.4rem; align-items:baseline; }
 @media(max-width:560px){ .pers-dl{ grid-template-columns:1fr; gap:.15rem 0; } .pers-dl dd{ margin-bottom:.7rem; } }
-.pers-dl dt{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--stil); padding-top:.15rem; }
+.pers-dl dt{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.7rem; font-weight:500;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--stil); }
 .pers-dl dd{ margin:0; color:var(--tekst); }
 .pers-dl dd b{ color:var(--tekst); }
 
@@ -784,7 +800,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 .pers-termen{ list-style:none; margin:0; padding:0; }
 /* Geen haarlijn per item: de feitenlijst hiernaast is een raster zonder lijnen, en twee lijsten
    die hetzelfde doen horen er hetzelfde uit te zien. Dezelfde rij-afstand als de dl (.55rem). */
-.pers-termen li{ padding:0 0 .55rem; color:var(--tekst-2); }
+.pers-termen li{ padding:0 0 1rem; color:var(--tekst-2); }
 .pers-termen li:last-child{ padding-bottom:0; }
 .pers-termen b{ color:var(--tekst); }
 
@@ -804,6 +820,34 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 .dl-links a:hover{ color:var(--pink-deep); border-bottom-color:var(--pink-deep); }
 .pers-note{ font-size:.88rem; color:var(--tekst-2); margin:1rem 0 0; line-height:1.6; }
 .pers-note a{ color:var(--pink-tekst); border-bottom:1px solid var(--pink); }
+
+/* Het perscontact als inkt-eiland: de pagina begint met de zwarte statusstrook en eindigt nu ook
+   in inkt, in plaats van na 2500px beige uit te doven. Het enige wat een journalist echt moet
+   vinden is meteen het enige donkere vlak op het vel. Alle waarden komen van .hb-banner uit de
+   gedeelde head, dus er komt geen nieuwe taal bij. Kop en lede blijven in de kantlijn op papier. */
+#perscontact .pers-body{ background:var(--bg-diep); color:var(--paper);
+  border:1px solid rgba(26,23,18,.1); border-radius:var(--r-kaart);
+  padding:clamp(1.4rem,3vw,1.9rem) clamp(1.25rem,3vw,2rem) clamp(1.5rem,3.2vw,2rem);
+  box-shadow:0 10px 34px -14px rgba(72,56,38,.3); }
+#perscontact .over-cta{ margin-top:0; }
+#perscontact .wie summary{ color:var(--eiland-pink); }
+#perscontact .wie summary:hover{ color:#fff; }
+#perscontact .wie-in{ background:rgba(245,241,232,.06); border-color:rgba(245,241,232,.18); box-shadow:none; }
+#perscontact .wie .wie-init{ color:rgba(245,241,232,.82); }
+
+/* 8. De merknaam mag niet doormidden. De titel staat op max-width:16ch met text-wrap:balance, en
+   bij 21 tekens koos balance "Pers van As" boven "Gau Paust": het merk in tweeen gesneden, en
+   uitgerekend op de perspagina. */
+.hero-title .nb{ white-space:nowrap; }
+
+/* Onder 1024px is een kolom beter dan twee sporen. De knik ligt bewust daar: de kantlijn is er
+   nog 237px en "Beeldmateriaal", het langste onbreekbare woord in een kop, is 186px. */
+@media(max-width:1023px){
+  .pers-sec{ display:block; }
+  .pers-hoofd{ position:static; }
+  .pers-hoofd, .pers-body{ max-width:42rem; }
+  .pers-hoofd .pers-lead{ margin-bottom:1.2rem; }
+}
 
 /* Statusstrook: de site staat online maar is nog niet publiek gelanceerd. Bewust GEEN pop-up:
    de persmap draagt al de privacybalk, en een venster dat je kan wegklikken bereikt net de
@@ -834,7 +878,7 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 <section class="hero hero-sub">
   <div class="shell">
     <span class="eyebrow"><span class="pulse"></span>Persmap</span>
-    <h1 class="hero-title met-kader"><span class="box">Pers</span> van As Gau Paust</h1>
+    <h1 class="hero-title met-kader"><span class="box">Pers</span> van <span class="nb">As Gau Paust</span></h1>
     <p class="hero-lede">De feiten, een omschrijving om over te nemen, de schrijfwijze en het logo. Persvragen stel je onderaan deze pagina.</p>
   </div>
 </section>
@@ -842,88 +886,113 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 <section class="over"><div class="shell">
 
   <div class="pers-sec" id="in-het-kort">
-    <h2 class="pers-kop">In het <em>kort</em></h2>
-    <p class="pers-lead">De feiten die je in een kader kwijt kan.</p>
-    <dl class="pers-dl">
-      <dt>Wat</dt><dd>Een experimenteel platform voor hyperlokale journalistiek over Mechelen.</dd>
-      <dt>Sinds</dt><dd>Van 2016 tot 2023 een onafhankelijk stadsmagazine, sinds 2026 een platform.</dd>
-      <dt>Wie</dt><dd>Geen bedrijf en geen redactie: het werk van &#233;&#233;n persoon, met AI als hulpmiddel.</dd>
-      <dt>Code</dt><dd>Open en vrij te hergebruiken met bronvermelding, onder de MIT-licentie.</dd>
-      <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Wat je volgt, blijft in je eigen browser.</dd>
-      <dt>Denk mee</dt><dd>Wat de vijf bestuursorganen beslissen, van agenda tot besluit. Ruim 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 2.000 dossiers. <b><a href="https://denkmee.asgaupaust.be/">denkmee.asgaupaust.be</a></b></dd>
-      <dt>Lees mee</dt><dd>Zeven jaargangen hyperlokale journalistiek (2016 tot 2023): 269 artikels, gebundeld per thema en dossier, met de formule van zeven technieken. <b><a href="https://leesmee.asgaupaust.be/">leesmee.asgaupaust.be</a></b></dd>
-      <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. <b><a href="https://gasmee.asgaupaust.be/">gasmee.asgaupaust.be</a></b></dd>
-      <dt>Reken mee</dt><dd>De cijfers achter de beslissingen, in dashboards. Nog niet online.</dd>
-    </dl>
-  </div>
+    <div class="pers-hoofd">
+      <h2 class="pers-kop">In het <em>kort</em></h2>
+      <p class="pers-lead">De feiten die je in een kader kwijt kan.</p>
+    </div>
+    <div class="pers-body">
+      <dl class="pers-dl">
+        <dt>Wat</dt><dd>Een experimenteel platform voor hyperlokale journalistiek over Mechelen.</dd>
+        <dt>Sinds</dt><dd>Van 2016 tot 2023 een onafhankelijk stadsmagazine, sinds 2026 een platform.</dd>
+        <dt>Wie</dt><dd>Geen bedrijf en geen redactie: het werk van &#233;&#233;n persoon, met AI als hulpmiddel.</dd>
+        <dt>Code</dt><dd>Open en vrij te hergebruiken met bronvermelding, onder de MIT-licentie.</dd>
+        <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Wat je volgt, blijft in je eigen browser.</dd>
+        <dt>Denk mee</dt><dd>Wat de vijf bestuursorganen beslissen, van agenda tot besluit. Ruim 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 2.000 dossiers. <b><a href="https://denkmee.asgaupaust.be/">denkmee.asgaupaust.be</a></b></dd>
+        <dt>Lees mee</dt><dd>Zeven jaargangen hyperlokale journalistiek (2016 tot 2023): 269 artikels, gebundeld per thema en dossier, met de formule van zeven technieken. <b><a href="https://leesmee.asgaupaust.be/">leesmee.asgaupaust.be</a></b></dd>
+        <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. <b><a href="https://gasmee.asgaupaust.be/">gasmee.asgaupaust.be</a></b></dd>
+        <dt>Reken mee</dt><dd>De cijfers achter de beslissingen, in dashboards. Nog niet online.</dd>
+      </dl>
+  
+    </div>
+</div>
 
   <div class="pers-sec" id="omschrijving">
-    <h2 class="pers-kop">Zo omschrijf je <em>ons</em></h2>
-    <p class="pers-lead">Klaar om letterlijk over te nemen.</p>
-    <div class="kopieerblok">
-      <p id="boiler">As Gau Paust, Mechels voor &#8220;als jij denkt&#8221;, is een experimenteel platform voor hyperlokale journalistiek over Mechelen. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, in mensentaal en met de bron erbij. Het wil ook inspireren: andere (burger)journalisten om zoiets voor hun eigen stad te bouwen, en de stad zelf om haar data toegankelijker voor de burger te ontsluiten. Het platform werkt onafhankelijk. AI is daarbij een hulpmiddel: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
-      <button type="button" class="kopieer-knop" id="kopieerBoiler" data-doel="boiler">Kopieer de tekst</button>
+    <div class="pers-hoofd">
+      <h2 class="pers-kop">Zo omschrijf je <em>ons</em></h2>
+      <p class="pers-lead">Klaar om letterlijk over te nemen.</p>
     </div>
-  </div>
+    <div class="pers-body">
+      <div class="kopieerblok">
+        <p id="boiler">As Gau Paust, Mechels voor &#8220;als jij denkt&#8221;, is een experimenteel platform voor hyperlokale journalistiek over Mechelen. Van 2016 tot 2023 was het een onafhankelijk stadsmagazine. Het bouwt tools die burgers laten zien wat de stad in hun naam beslist, in mensentaal en met de bron erbij. Het wil ook inspireren: andere (burger)journalisten om zoiets voor hun eigen stad te bouwen, en de stad zelf om haar data toegankelijker voor de burger te ontsluiten. Het platform werkt onafhankelijk. AI is daarbij een hulpmiddel: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
+        <button type="button" class="kopieer-knop" id="kopieerBoiler" data-doel="boiler">Kopieer de tekst</button>
+      </div>
+  
+    </div>
+</div>
 
   <div class="pers-sec" id="schrijfwijze">
-    <h2 class="pers-kop">Namen en <em>schrijfwijze</em></h2>
-    <p class="pers-lead">Zo schrijf je de namen correct over.</p>
-    <ul class="pers-termen">
-      <li><b>As Gau Paust</b> is Mechels voor &#8220;als jij denkt&#8221;. De naam komt uit de klassieker van G&#252;nther Neefs, met tekst van Mark Uytterhoeven.</li>
-      <li>De onderdelen heten voluit <b>Denk mee met Mechelen</b>, <b>Lees mee met Mechelen</b>, <b>GAS mee met Mechelen</b> en <b>Reken mee met Mechelen</b>.</li>
-      <li>De vijf bestuursorganen: de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester.</li>
-      <li>De aanpak op Lees mee heet <b>de formule</b>.</li>
-      <li>AI is een <b>hulpmiddel</b>. Vandaag is dat Claude van Anthropic.</li>
-    </ul>
-  </div>
+    <div class="pers-hoofd">
+      <h2 class="pers-kop">Namen en <em>schrijfwijze</em></h2>
+      <p class="pers-lead">Zo schrijf je de namen correct over.</p>
+    </div>
+    <div class="pers-body">
+      <ul class="pers-termen">
+        <li><b>As Gau Paust</b> is Mechels voor &#8220;als jij denkt&#8221;. De naam komt uit de klassieker van G&#252;nther Neefs, met tekst van Mark Uytterhoeven.</li>
+        <li>De onderdelen heten voluit <b>Denk mee met Mechelen</b>, <b>Lees mee met Mechelen</b>, <b>GAS mee met Mechelen</b> en <b>Reken mee met Mechelen</b>.</li>
+        <li>De vijf bestuursorganen: de gemeenteraad, de raad voor maatschappelijk welzijn, het college, het vast bureau en de burgemeester.</li>
+        <li>De aanpak op Lees mee heet <b>de formule</b>.</li>
+        <li>AI is een <b>hulpmiddel</b>. Vandaag is dat Claude van Anthropic.</li>
+      </ul>
+  
+    </div>
+</div>
 
   <div class="pers-sec" id="beeld">
-    <h2 class="pers-kop">Beeld<em>materiaal</em></h2>
-    <p class="pers-lead">Het logo en de cartoon, klaar om bij je artikel te zetten.</p>
-    <div class="pers-downloads">
-      <div class="dl-kaart">
-        <img src="/beelden/mug.png" alt="Het logo van As Gau Paust: een mug." width="512" height="512">
-        <div class="dl-body">
-          <p class="dl-naam">Logo (de mug)</p>
-          <p class="dl-meta">PNG, 512 bij 512, de mug op een roze schijf (transparante hoeken)</p>
-          <div class="dl-links">
-            <a href="/beelden/mug.png" download="as-gau-paust-logo.png">Download het logo</a>
-          </div>
-        </div>
-      </div>
-      <div class="dl-kaart">
-        <img class="dl-kuifje" src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
-        <div class="dl-body">
-          <p class="dl-naam">Cartoon (het mannetje)</p>
-          <p class="dl-meta">PNG, 1024 bij 768, zwarte achtergrond. Eigen tekening, met een knipoog naar Herg&eacute;.</p>
-          <div class="dl-links">
-            <a href="/beelden/AGP.png" download="as-gau-paust-cartoon.png">Download de cartoon</a>
-          </div>
-        </div>
-      </div>
+    <div class="pers-hoofd">
+      <h2 class="pers-kop">Beeld<em>materiaal</em></h2>
+      <p class="pers-lead">Het logo en de cartoon, klaar om bij je artikel te zetten.</p>
     </div>
-    <p class="pers-note">Het logo en de cartoon mag je vrij gebruiken bij een artikel over As Gau Paust, met bronvermelding. Schermbeelden van de sites maak je zelf.</p>
-  </div>
+    <div class="pers-body">
+      <div class="pers-downloads">
+        <div class="dl-kaart">
+          <img src="/beelden/mug.png" alt="Het logo van As Gau Paust: een mug." width="512" height="512">
+          <div class="dl-body">
+            <p class="dl-naam">Logo (de mug)</p>
+            <p class="dl-meta">PNG, 512 bij 512, de mug op een roze schijf (transparante hoeken)</p>
+            <div class="dl-links">
+              <a href="/beelden/mug.png" download="as-gau-paust-logo.png">Download het logo</a>
+            </div>
+          </div>
+        </div>
+        <div class="dl-kaart">
+          <img class="dl-kuifje" src="/beelden/AGP.png" alt="De cartoonfiguur van As Gau Paust: een knipogend mannetje." width="1024" height="768">
+          <div class="dl-body">
+            <p class="dl-naam">Cartoon (het mannetje)</p>
+            <p class="dl-meta">PNG, 1024 bij 768, zwarte achtergrond. Eigen tekening, met een knipoog naar Herg&eacute;.</p>
+            <div class="dl-links">
+              <a href="/beelden/AGP.png" download="as-gau-paust-cartoon.png">Download de cartoon</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pers-note">Het logo en de cartoon mag je vrij gebruiken bij een artikel over As Gau Paust, met bronvermelding. Schermbeelden van de sites maak je zelf.</p>
+  
+    </div>
+</div>
 
   <div class="pers-sec" id="perscontact">
-    <h2 class="pers-kop">Pers<em>contact</em></h2>
-    <p class="pers-lead">Voor persvragen, een demonstratie of een concreet Mechels voorbeeld uit de dossiers.</p>
-    <button type="button" class="over-cta" onclick="openPersModal()">Stel je persvraag <span class="ar">&#8594;</span></button>
+    <div class="pers-hoofd">
+      <h2 class="pers-kop">Pers<em>contact</em></h2>
+      <p class="pers-lead">Voor persvragen, een demonstratie of een concreet Mechels voorbeeld uit de dossiers.</p>
+    </div>
+    <div class="pers-body">
+      <button type="button" class="over-cta" onclick="openPersModal()">Stel je persvraag <span class="ar">&#8594;</span></button>
 
-    <details class="wie">
-      <summary>Wie zit hierachter?</summary>
-      <div class="wie-in">
-        <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
-          <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
-          <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
-        </button>
-        <div class="wie-tekst">
-          <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+      <details class="wie">
+        <summary>Wie zit hierachter?</summary>
+        <div class="wie-in">
+          <button type="button" class="wie-fig" aria-label="Cartoonfiguur van As Gau Paust">
+            <img class="wf-cartoon" src="/beelden/AGP.png" alt="">
+            <img class="wf-mug" src="/beelden/mug.png" alt="" aria-hidden="true">
+          </button>
+          <div class="wie-tekst">
+            <p class="wie-init">Initiatiefnemer van dit experimentele (burger)journalistieke platform is %%OVER_NAAM%%.</p>
+          </div>
         </div>
-      </div>
-    </details>
-  </div>
+      </details>
+  
+    </div>
+</div>
 </div></section>
 </main>
 

@@ -740,7 +740,9 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 .pv-sec{ padding-top:clamp(1.5rem,3.2vw,2.4rem); padding-bottom:clamp(1.5rem,3.2vw,2.4rem);
   border-top:1px solid var(--lijn); }
 .pv-sec:first-of-type{ border-top:0; }
-.pv-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600; letter-spacing:-.01em;
+/* Twee klassen, want een losse .pv-kop verliest van .over h2 uit de gedeelde head: dezelfde
+   dode regel als op de persmap, daar gemeten op 32px in gewicht 500. */
+.pv-sec .pv-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600; letter-spacing:-.01em;
   font-size:clamp(1.1rem,2.1vw,1.4rem); margin:0 0 .9rem; }
 .pv-kop em{ color:var(--pink-tekst); font-style:normal; }
 .pv-sec p{ color:var(--tekst-2); max-width:62ch; margin:0 0 .9rem; line-height:1.62; }
