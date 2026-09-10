@@ -350,6 +350,10 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 #blok-gasmee .pcard-ic{color:#856813;background:rgba(210,162,19,.10);border-color:rgba(210,162,19,.28)}
 #blok-gasmee h3 em{color:#856813}
 #blok-gasmee .badge{background:rgba(210,162,19,.10);color:#856813;border-color:rgba(210,162,19,.30)}
+#blok-gasmee.live .go{color:#856813}
+#blok-gasmee.live:hover{border-color:#d2a213}
+#blok-gasmee .badge.live{background:rgba(210,162,19,.10);color:#856813;border-color:rgba(210,162,19,.22)}
+#blok-gasmee .badge.live .dotje{background:#d2a213;--puls-aan:rgba(210,162,19,.45);--puls-uit:rgba(210,162,19,0)}
 #blok-denkmee .badge.live{background:rgba(0,121,107,.09);color:#005f51;border-color:rgba(0,121,107,.22)}
 #blok-denkmee .badge.live .dotje{background:#00796b;--puls-aan:rgba(0,121,107,.45);--puls-uit:rgba(0,121,107,0)}
 /* Lees mee = zacht indigo (#5852b0, leestint #3f3a86: gemeten 9,64 op de kaart en 8,50
@@ -666,7 +670,7 @@ textarea.field-input{resize:vertical}
 
 /* Offset voor de plakkende bovenbalk wanneer een tab naar een blok scrollt (ook bij aankomst
    vanuit de En meer-pagina via /#blok-...). */
-#blok-denkmee,#blok-leesmee,#jouwstad{scroll-margin-top:72px}
+#blok-denkmee,#blok-leesmee,#blok-gasmee,#jouwstad{scroll-margin-top:72px}
 
 /* App-achtige onderbalk op smartphone (bestaat niet op groter scherm; de pagina is kort genoeg
    om te scrollen). Spiegelt de tabbalk van Denk mee en Lees mee: vaste balk onderaan, per functie
