@@ -98,9 +98,18 @@ __PORTAAL_HEAD__
    gedeelde head, dus er komt geen nieuwe taal bij. Kop en lede blijven in de kantlijn op papier. */
 #perscontact .pers-body{ background:var(--bg-diep); color:var(--paper);
   border:1px solid rgba(26,23,18,.1); border-radius:var(--r-kaart);
-  padding:clamp(1.4rem,3vw,1.9rem) clamp(1.25rem,3vw,2rem) clamp(1.5rem,3.2vw,2rem);
+  padding:clamp(1.1rem,2.4vw,1.4rem) clamp(1.25rem,3vw,2rem);
   box-shadow:0 10px 34px -14px rgba(72,56,38,.3); }
+/* Knop links, uitklap rechts, op een rij. Gestapeld werd dit een doos van 672 bij 163 pixels met
+   70 pixels inhoud in de linkerhoek: een zwart vlak dat vooral leeg was. Als band gebruikt hij
+   zijn breedte en zakt de hoogte met een derde. De uitklap zelf mag onder de rij openvouwen,
+   vandaar flex-wrap en de volle breedte voor .wie-in. */
+#perscontact .pers-body{ display:flex; flex-wrap:wrap; align-items:center;
+  justify-content:space-between; gap:.9rem clamp(1rem,2.5vw,2rem); }
 #perscontact .over-cta{ margin-top:0; }
+#perscontact .wie{ margin-top:0; }
+#perscontact .wie-in{ flex-basis:100%; }
+#perscontact details.wie[open]{ flex-basis:100%; }
 #perscontact .wie summary{ color:var(--eiland-pink); }
 #perscontact .wie summary:hover{ color:#fff; }
 #perscontact .wie-in{ background:rgba(245,241,232,.06); border-color:rgba(245,241,232,.18); box-shadow:none; }
