@@ -26,6 +26,7 @@ def _poort_scherpzetten():
 
 _poort_scherpzetten()
 
+import re
 import sys
 import shutil
 
@@ -196,7 +197,7 @@ PAGINA_404 = """<!doctype html>
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FF0066">
 <title>Pagina niet gevonden, As Gau Paust</title>
 <meta name="robots" content="noindex">
@@ -205,6 +206,7 @@ PAGINA_404 = """<!doctype html>
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/geist-var.woff2') format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jbmono-var.woff2') format('woff2')}
 *{box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent}
 body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
   background:#f5f1e8;background-image:radial-gradient(rgba(26,23,18,.04) 1px, transparent 1px);background-size:3px 3px;color:#2b2621;font-family:'Geist',system-ui,sans-serif;line-height:1.6;padding:1.5rem}
 .doos{max-width:34rem;text-align:center}
@@ -217,7 +219,7 @@ p{color:#514a40;margin:0 0 1.8rem}
 .wegen{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
 .wegen a{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.06em;
   text-transform:uppercase;text-decoration:none;padding:.7rem 1.1rem;border-radius:999px;
-  border:1px solid rgba(0,0,0,.18);color:#2b2621;transition:.15s}
+  border:1px solid rgba(0,0,0,.18);color:#2b2621;transition:.15s;touch-action:manipulation}
 .wegen a:hover{border-color:#FF0066;color:#c80054}
 .wegen a.prim{background:#FF0066;border-color:#FF0066;color:#fff}
 .wegen a.prim:hover{background:#b3004a;border-color:#b3004a;color:#fff}
@@ -294,8 +296,8 @@ if beelden_src.exists():
         if f.is_file():
             shutil.copy2(f, beelden_dst / f.name)
 
-# 4c) PWA-bestanden: manifest en service worker meekopieren (installeerbaar op het beginscherm
-#     + offline). Geen tracking, enkel een lokale cache op het toestel van de bezoeker.
+# 4c) PWA-bestanden: manifest en service worker meekopieren (offline cache). Geen tracking,
+#     enkel een lokale cache op het toestel van de bezoeker.
 for _naam in ("manifest.json", "sw.js"):
     _src = BASE / _naam
     if _src.exists():
