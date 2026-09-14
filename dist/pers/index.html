@@ -758,14 +758,10 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
 .pers-sec .pers-kop{ font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:600;
   letter-spacing:-.01em; font-size:clamp(1.15rem,2.2vw,1.5rem); line-height:1.2; margin:0 0 .5rem; }
 .pers-kop em{ color:var(--pink-tekst); font-style:normal; }
-/* De kantlijn: een volgnummer in de maat en kleur van de dt-labels een spoor verderop, een kop
-   die meereist terwijl je door de sectie scrollt, en de lede als bijschrift eronder. Zo is de
-   lege marge een kolom met een reden geworden. */
-.over .shell{ counter-reset:persblok; }
-.pers-hoofd{ position:sticky; top:calc(67px + 1.4rem); counter-increment:persblok; }
-.pers-hoofd::before{ content:counter(persblok,decimal-leading-zero); display:block;
-  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.68rem; letter-spacing:.14em;
-  color:var(--stil); margin-bottom:.5rem; }
+/* De kantlijn: een kop die meereist terwijl je door de sectie scrollt, met de lede als
+   bijschrift eronder. Zo is de lege marge een kolom met een reden geworden. Hier stond ook een
+   volgnummer (01 tot 05); dat is op vraag weggehaald (14/09/2026). */
+.pers-hoofd{ position:sticky; top:calc(67px + 1.4rem); }
 .pers-hoofd .pers-lead{ font-size:.92rem; line-height:1.5; color:var(--tekst-2); margin:0; }
 
 /* Feitenlijst als een strakke definitielijst. */
