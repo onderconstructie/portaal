@@ -171,7 +171,8 @@ img,svg{max-width:100%}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
-/* Statusstrook, weg te halen na de lancering (dezelfde strook staat op /pers/).
+/* Statusstrook BETA (dezelfde strook staat op /pers/). Ze blijft staan: de badge zegt BETA en
+   de knop opent meteen het mailprogramma, met het onderwerp en de pagina al ingevuld.
    Bewust dezelfde inkt als de ticker die er meteen onder loopt, met een haarlijn ertussen:
    zonder die lijn lezen de twee donkere banden als een blok in plaats van als twee rijen.
    Het badge-roze is --eiland-pink en niet --pink: op inkt haalt dat 5,74:1 tegenover 4,63:1,
@@ -877,13 +878,12 @@ a, button, summary, input, label{ touch-action:manipulation; }
   .pers-hoofd .pers-lead{ margin-bottom:1.2rem; }
 }
 
-/* Statusstrook: de site staat online maar is nog niet publiek gelanceerd. Bewust GEEN pop-up:
-   de persmap draagt al de privacybalk, en een venster dat je kan wegklikken bereikt net de
-   journalist niet die het wegklikt en dan schrijft. Een vaste strook staat er altijd, kost geen
-   handeling en valt niet over de tekst. Bewust ook GEEN maand: schuift de lancering, dan staat
-   er anders een verouderde datum op een perspagina. De concrete datum hoort in het persbericht
-   en in rechtstreeks contact, waar de afzender kiest wie hem krijgt.
-   NA DE LANCERING: dit hele blok en zijn markup verwijderen. */
+/* Statusstrook BETA: de site staat online en vraagt om reacties. De strook blijft staan, met een
+   knop die meteen het mailprogramma opent. Bewust GEEN pop-up: de persmap draagt al de
+   privacybalk, en een venster dat je kan wegklikken bereikt net de journalist niet die het
+   wegklikt en dan schrijft. Een vaste strook staat er altijd, kost geen handeling en valt niet
+   over de tekst. Bewust ook geen lanceer- of einddatum in de strook: die hoort in het persbericht
+   en in rechtstreeks contact, waar de afzender kiest wie hem krijgt. */
 /* De statusstrook erft haar stijl uit de portaal-head; hier stond een tweede, afwijkende
    kopie die de haarlijn en de eilandtint van het badge-roze wegdrukte. */
 </style>
@@ -896,10 +896,9 @@ a, button, summary, input, label{ touch-action:manipulation; }
 </div></nav>
 
 <div class="status-strook"><div class="shell">
-  <b>Nog niet gelanceerd</b>
-  <span>Dit portaal is nog in volle voorbereiding: we testen nog of alle data kloppen.
-    Kom je hier toevallig terecht, dan is je feedback nu al welkom.
-    <a class="ss-cta" href="#perscontact">Laat het ons weten</a></span>
+  <b>BETA</b>
+  <span>Deze site is nog in opbouw. Zie je een fout of iets dat beter kan?
+    <a class="ss-cta" href="#perscontact">Mail het ons</a></span>
 </div></div>
 
 <main>
@@ -925,7 +924,7 @@ a, button, summary, input, label{ touch-action:manipulation; }
         <dt>Wie</dt><dd>Geen bedrijf en geen redactie: het werk van &#233;&#233;n persoon, met AI als hulpmiddel.</dd>
         <dt>Code</dt><dd>Open en vrij te hergebruiken met bronvermelding, onder de MIT-licentie.</dd>
         <dt>Privacy</dt><dd>Geen account, geen cookies, geen trackers. Wat je volgt, blijft in je eigen browser.</dd>
-        <dt>Denk mee</dt><dd>Wat de vijf bestuursorganen beslissen, van agenda tot besluit. Ruim 5.000 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 2.000 dossiers. <b><a href="https://denkmee.asgaupaust.be/">denkmee.asgaupaust.be</a></b></dd>
+        <dt>Denk mee</dt><dd>Wat de vijf bestuursorganen beslissen, van agenda tot besluit. Ruim 5.500 besluiten en agendapunten sinds december 2024, gebundeld tot ruim 1.300 dossiers. <b><a href="https://denkmee.asgaupaust.be/">denkmee.asgaupaust.be</a></b></dd>
         <dt>Lees mee</dt><dd>Zeven jaargangen hyperlokale journalistiek (2016 tot 2023): 269 artikels, gebundeld per thema en dossier, met de formule van zeven technieken. <b><a href="https://leesmee.asgaupaust.be/">leesmee.asgaupaust.be</a></b></dd>
         <dt>GAS mee</dt><dd>De slimme camera&#8217;s van de stad: waar ze hangen, wat ze registreren en hoe het met de dossiers afloopt. <b><a href="https://gasmee.asgaupaust.be/">gasmee.asgaupaust.be</a></b></dd>
         <dt>Reken mee</dt><dd>De cijfers achter de beslissingen, in dashboards. Nog niet online.</dd>
@@ -1089,8 +1088,27 @@ a, button, summary, input, label{ touch-action:manipulation; }
 })();
 
 // Perscontact: het formulier stelt de mail op en geeft hem door aan de mailclient van de
-// journalist. Het adres staat base64 (anti-scraping, geen geheim) en komt nooit in de pagina
-// te staan. Geen server, dus hier wordt niets bewaard.
+// journalist. Het adres staat base64 (anti-scraping, geen geheim) en nooit voluit in de bron: het
+// formulier en de strookknop ontsleutelen het pas in de browser. Geen server, dus hier wordt niets
+// bewaard.
+var CONTACT_TO = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=';
+
+// De knop in de BETA-strook is een link naar #perscontact en wordt hier een mailto met een vast
+// onderwerp en de pagina waarop je staat. Bij de klik zet hij het pagina-adres opnieuw, zodat een
+// gewijzigde hash mee in de mail staat.
+(function(){
+  var a = document.querySelector('.status-strook .ss-cta');
+  if(!a) return;
+  var nl = String.fromCharCode(10);
+  var zet = function(){
+    a.href = 'mailto:' + atob(CONTACT_TO)
+      + '?subject=' + encodeURIComponent('Reactie op As Gau Paust (BETA)')
+      + '&body=' + encodeURIComponent('Pagina: ' + location.href + nl + nl);
+  };
+  zet();
+  a.addEventListener('click', zet);
+})();
+
 // Het persvenster openen en sluiten. Zelfde gedrag als de contactmodal van de startpagina:
 // focus naar het eerste veld, focus terug naar de knop bij het sluiten, en Escape sluit.
 var pf_opener = null;
@@ -1132,7 +1150,7 @@ window.addEventListener('keydown', function(e){
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return meld('Vul een geldig e-mailadres in.', 'pfEmail');
     if(!medium) return meld('Vul je medium in.', 'pfMedium');
     if(!bericht) return meld('Schrijf je vraag erbij.', 'pfBericht');
-    var naar = atob('YXNnYXVwYXVzdEBnbWFpbC5jb20=');
+    var naar = atob(CONTACT_TO);
     // De regelovergangen komen uit String.fromCharCode(10) en niet uit een escape-teken:
     // zo staat er in deze bron geen enkele backslash die bij het bouwen kan sneuvelen.
     var nl = String.fromCharCode(10);

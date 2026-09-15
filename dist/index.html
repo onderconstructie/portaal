@@ -181,7 +181,8 @@ img,svg{max-width:100%}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
-/* Statusstrook, weg te halen na de lancering (dezelfde strook staat op /pers/).
+/* Statusstrook BETA (dezelfde strook staat op /pers/). Ze blijft staan: de badge zegt BETA en
+   de knop opent meteen het mailprogramma, met het onderwerp en de pagina al ingevuld.
    Bewust dezelfde inkt als de ticker die er meteen onder loopt, met een haarlijn ertussen:
    zonder die lijn lezen de twee donkere banden als een blok in plaats van als twee rijen.
    Het badge-roze is --eiland-pink en niet --pink: op inkt haalt dat 5,74:1 tegenover 4,63:1,
@@ -778,13 +779,14 @@ a, button, summary, input, label{ touch-action:manipulation; }
        hieronder (Denk mee / Lees mee / Reken mee). Op de startpagina blijft de balk rustig. -->
 </div></nav>
 
-<!-- Statusstrook, weg te halen na de lancering. Dezelfde strook en hetzelfde badge-woord
-     staan op /pers/, zodat de bezoeker en de journalist hetzelfde signaal krijgen. -->
+<!-- Statusstrook BETA. Dezelfde strook en hetzelfde badge-woord staan op /pers/, zodat de
+     bezoeker en de journalist hetzelfde signaal krijgen. De knop is een gewone link: het script
+     onderaan zet de href op een mailto met onderwerp en pagina, zodat hij meteen het
+     mailprogramma opent. Zonder JavaScript wijst hij naar /#contact, de vaste contactingang. -->
 <div class="status-strook"><div class="shell">
-  <b>Nog niet gelanceerd</b>
-  <span>Dit portaal is nog in volle voorbereiding: we testen nog of alle data kloppen.
-    Kom je hier toevallig terecht, dan is je feedback nu al welkom.
-    <button type="button" class="ss-cta" onclick="openContactModal()">Laat het ons weten</button></span>
+  <b>BETA</b>
+  <span>Deze site is nog in opbouw. Zie je een fout of iets dat beter kan?
+    <a class="ss-cta" href="/#contact">Mail het ons</a></span>
 </div></div>
 
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
@@ -1034,6 +1036,20 @@ a, button, summary, input, label{ touch-action:manipulation; }
 // in de code staat, niet als platte tekst — zo is het niet zomaar uit de broncode te grepen
 // of te scrapen. Geen server, geen opslag: de bezoeker verstuurt zelf.
 var CONTACT_TO = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=';
+// De knop in de BETA-strook is een link naar /#contact en wordt hier een mailto met een vast
+// onderwerp en de pagina waarop je staat. Bij de klik zet hij het pagina-adres opnieuw, zodat een
+// gewijzigde hash mee in de mail staat.
+(function(){
+  var a = document.querySelector('.status-strook .ss-cta');
+  if(!a) return;
+  var zet = function(){
+    a.href = 'mailto:' + atob(CONTACT_TO)
+      + '?subject=' + encodeURIComponent('Reactie op As Gau Paust (BETA)')
+      + '&body=' + encodeURIComponent('Pagina: ' + location.href + '\n\n');
+  };
+  zet();
+  a.addEventListener('click', zet);
+})();
 // Wat er ACHTER de modal ligt, moet buiten bereik: aria-modal="true" verbergt de achtergrond
 // enkel voor de bladermodus van een schermlezer, maar niet voor de Tab-toets. Nagemeten stonden
 // er 13 focusbare elementen open terwijl de modal aan stond, en de eerste zes lagen erachter.
