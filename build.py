@@ -113,17 +113,30 @@ def strip_html_commentaar(s):
     import re
     return re.sub(r"[ \t]*<!--.*?-->[ \t]*\n?", "", s, flags=re.DOTALL)
 
+STROOK = (BASE / "snippet-statusstrook.html").read_text(encoding="utf-8")
+
+
+def strook(href):
+    """De BETA-strook uit snippet-statusstrook.html, met de terugvallink van deze pagina
+    (zonder JavaScript): /#contact, of #perscontact op de persmap."""
+    return STROOK.replace("__SS_HREF__", href)
+
+
+def weiger_plaatshouders(naam, s):
+    """Stopt de build als een gebouwde pagina nog een plaatshouder __ZO__ draagt."""
+    import re, sys
+    rest = sorted(set(re.findall(r"__[A-Z_]+__", s)))
+    if rest:
+        sys.exit("       STOP: niet-ingevulde plaatshouders in %s: %s" % (naam, ", ".join(rest)))
+
 # 1) Schil lezen en de placeholders invullen.
 html = (BASE / "template.html").read_text(encoding="utf-8")
+html = html.replace("__STATUSSTROOK__", strook("/#contact"))
 html = html.replace("__MARK__", MARK)
 for key, svg in IC.items():
     html = html.replace(key, svg)
 
-if "__" in html.replace("__PROJECTS", ""):  # ruwe waarschuwing bij een vergeten placeholder
-    import re
-    rest = re.findall(r"__[A-Z_]+__", html)
-    if rest:
-        print("       LET OP: niet-ingevulde placeholders:", ", ".join(sorted(set(rest))))
+weiger_plaatshouders("index", html)
 
 # 2) Eindproduct schrijven.
 out_dir = BASE / "dist"
@@ -143,9 +156,10 @@ if enmeer_tpl.exists():
         "En meer: de filosofie van As Gau Paust. Waar het experimentele platform voor staat "
         "en waar het heen groeit.",
         "https://asgaupaust.be/en-meer/")
-    enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__STATUSSTROOK__", strook("/#contact")).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         enmeer_html = enmeer_html.replace(_k, _svg)
+    weiger_plaatshouders("en-meer", enmeer_html)
     (out_dir / "en-meer").mkdir(exist_ok=True)
     (out_dir / "en-meer" / "index.html").write_text(enmeer_html, encoding="utf-8")
     print("       en-meer-pagina gebouwd: dist/en-meer/index.html")
@@ -161,10 +175,11 @@ if pers_tpl.exists():
         "Persmap van As Gau Paust: de feiten, een kant-en-klare omschrijving, de juiste "
         "schrijfwijze, het logo en het perscontact van het platform voor hyperlokale journalistiek.",
         "https://asgaupaust.be/pers/")
-    pers_html = pers_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    pers_html = pers_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__STATUSSTROOK__", strook("#perscontact")).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         pers_html = pers_html.replace(_k, _svg)
     pers_html = strip_html_commentaar(pers_html)  # dev-notities weg uit de publieke view-source (blijven in de template)
+    weiger_plaatshouders("pers", pers_html)
     (out_dir / "pers").mkdir(exist_ok=True)
     (out_dir / "pers" / "index.html").write_text(pers_html, encoding="utf-8")
     print("       pers-pagina gebouwd: dist/pers/index.html")
@@ -181,10 +196,11 @@ if privacy_tpl.exists():
         "Wat er met je gegevens gebeurt op de sites van As Gau Paust: geen cookies, geen "
         "trackers, geen statistieken. Wat je instelt blijft in je eigen browser.",
         "https://asgaupaust.be/privacy/")
-    privacy_html = privacy_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__MARK__", MARK)
+    privacy_html = privacy_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__STATUSSTROOK__", strook("/#contact")).replace("__MARK__", MARK)
     for _k, _svg in IC.items():
         privacy_html = privacy_html.replace(_k, _svg)
     privacy_html = strip_html_commentaar(privacy_html)  # dev-notities niet mee naar de publieke bron
+    weiger_plaatshouders("privacy", privacy_html)
     (out_dir / "privacy").mkdir(exist_ok=True)
     (out_dir / "privacy" / "index.html").write_text(privacy_html, encoding="utf-8")
     print("       privacy-pagina gebouwd: dist/privacy/index.html")
@@ -198,7 +214,7 @@ PAGINA_404 = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FF0066">
+<meta name="theme-color" content="#f5f1e8">
 <title>Pagina niet gevonden, As Gau Paust</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="/beelden/mug.png">

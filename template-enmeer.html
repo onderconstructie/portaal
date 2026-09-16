@@ -20,14 +20,7 @@ __PORTAAL_HEAD__
   </a>
 </div></nav>
 
-<!-- Dezelfde tickerstrook als op de startpagina: die hoort bij de schil van het portaal,
-     niet bij één pagina. Identieke inhoud en volgorde, zodat het één band blijft. -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-baan">
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
-  </div>
-</div>
+__STATUSSTROOK__
 
 <main>
 <section class="hero hero-sub">
@@ -98,7 +91,7 @@ __PORTAAL_HEAD__
 
 <!-- Dezelfde app-onderbalk als op het portaal en de deelsites: één familie-switcher. 'En meer'
      is hier de huidige pagina; de andere tabs springen naar de betreffende site. -->
-<button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
+<button class="to-top" id="toTop" type="button" aria-label="Terug naar boven"><svg class="tt-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span class="tt-teken" aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
   <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
@@ -114,18 +107,6 @@ __PORTAAL_HEAD__
 </nav>
 
 <script>
-(function(){
-  var t = document.getElementById('toTop');
-  if(!t) return;
-  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-  var nv = document.querySelector('.nav');
-  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
-  window.addEventListener('scroll', function(){
-    t.classList.toggle('show', window.scrollY > 350);
-    if(nv) nv.classList.toggle('krant', window.scrollY > 4);   // masthead-regel aan zodra je scrolt
-  }, {passive:true});
-})();
-
 // De omdraaikaart met het Mechelse rijmpje. aria-pressed volgt de stand, en de weggedraaide
 // zijde krijgt inert zodat een schermlezer niet voor- en achterkant na elkaar voorleest.
 (function(){

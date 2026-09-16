@@ -32,7 +32,7 @@ __PORTAAL_HEAD__
 /* De kantlijn: een kop die meereist terwijl je door de sectie scrollt, met de lede als
    bijschrift eronder. Zo is de lege marge een kolom met een reden geworden. Hier stond ook een
    volgnummer (01 tot 05); dat is op vraag weggehaald (14/09/2026). */
-.pers-hoofd{ position:sticky; top:calc(67px + 1.4rem); }
+.pers-hoofd{ position:sticky; top:calc(var(--nav-h) - 1px + 1.4rem); }
 .pers-hoofd .pers-lead{ font-size:.92rem; line-height:1.5; color:var(--tekst-2); margin:0; }
 
 /* Feitenlijst als een strakke definitielijst. */
@@ -133,6 +133,15 @@ __PORTAAL_HEAD__
    en in rechtstreeks contact, waar de afzender kiest wie hem krijgt. */
 /* De statusstrook erft haar stijl uit de portaal-head; hier stond een tweede, afwijkende
    kopie die de haarlijn en de eilandtint van het badge-roze wegdrukte. */
+
+/* Tikvlakken op de persmap: een onzichtbaar ::after vergroot de kleine doelen tot 44px. De
+   tekstlinks krijgen hun vlak enkel op een telefoon: op groter scherm tekent een gepositioneerde
+   tekstregel haar letters net anders. */
+.kopieer-knop{position:relative} .kopieer-knop::after{content:'';position:absolute;inset:-7px 0}
+@media (max-width:700px){
+  .dl-links a{position:relative;display:inline-block} .dl-links a::after{content:'';position:absolute;inset:-13px -4px}
+  .pers-dl dd a{position:relative} .pers-dl dd a::after{content:'';position:absolute;inset:-12px -2px}
+}
 </style>
 
 <nav class="nav"><div class="shell nav-in">
@@ -142,15 +151,7 @@ __PORTAAL_HEAD__
   </a>
 </div></nav>
 
-<!-- Statusstrook BETA, woordelijk dezelfde als op de startpagina, zodat de bezoeker en de
-     journalist hetzelfde signaal krijgen. De knop is een gewone link: het script onderaan zet de
-     href op een mailto met onderwerp en pagina. Zonder JavaScript wijst hij naar het perscontact
-     verderop, want het contactvenster van de startpagina staat hier niet. -->
-<div class="status-strook"><div class="shell">
-  <b>BETA</b>
-  <span>We lanceren in beta: je feedback is welkom.
-    <a class="ss-cta" href="#perscontact">Mail het ons</a></span>
-</div></div>
+__STATUSSTROOK__
 
 <main>
 <section class="hero hero-sub">
@@ -343,7 +344,7 @@ __PORTAAL_HEAD__
 
 <!-- Dezelfde app-onderbalk als op het portaal en de deelsites. Deze pagina hoort bij het portaal,
      dus de Start-tab draagt. -->
-<button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
+<button class="to-top" id="toTop" type="button" aria-label="Terug naar boven"><svg class="tt-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span class="tt-teken" aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
   <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
@@ -355,44 +356,15 @@ __PORTAAL_HEAD__
   <a href="https://asgaupaust.be/en-meer/">__IC_MEER__<span>En meer</span></a>
   <!-- De mug staat rechts, net als de portaaltoets in de app-balken van Denk mee en Lees
        mee: het merkteken zit overal in dezelfde hoek. -->
-  <a class="tab-portaal" href="https://asgaupaust.be/" ><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Portaal</span></a>
+  <a class="tab-portaal" href="https://asgaupaust.be/" aria-current="true"><img class="tab-mug" src="/beelden/mug.png" alt="" aria-hidden="true" width="512" height="512"><span>Portaal</span></a>
 </nav>
 
 <script>
-(function(){
-  var t = document.getElementById('toTop');
-  if(t){
-    var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-    var nv = document.querySelector('.nav');
-    t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
-    window.addEventListener('scroll', function(){
-      t.classList.toggle('show', window.scrollY > 350);
-      if(nv) nv.classList.toggle('krant', window.scrollY > 4);   // masthead-regel aan zodra je scrolt
-    }, {passive:true});
-  }
-})();
-
 // Perscontact: het formulier stelt de mail op en geeft hem door aan de mailclient van de
 // journalist. Het adres staat base64 (anti-scraping, geen geheim) en nooit voluit in de bron: het
 // formulier en de strookknop ontsleutelen het pas in de browser. Geen server, dus hier wordt niets
 // bewaard.
 var CONTACT_TO = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=';
-
-// De knop in de BETA-strook is een link naar #perscontact en wordt hier een mailto met een vast
-// onderwerp en de pagina waarop je staat. Bij de klik zet hij het pagina-adres opnieuw, zodat een
-// gewijzigde hash mee in de mail staat.
-(function(){
-  var a = document.querySelector('.status-strook .ss-cta');
-  if(!a) return;
-  var nl = String.fromCharCode(10);
-  var zet = function(){
-    a.href = 'mailto:' + atob(CONTACT_TO)
-      + '?subject=' + encodeURIComponent('Reactie op As Gau Paust (BETA)')
-      + '&body=' + encodeURIComponent('Pagina: ' + location.href + nl + nl);
-  };
-  zet();
-  a.addEventListener('click', zet);
-})();
 
 // Het persvenster openen en sluiten. Zelfde gedrag als de contactmodal van de startpagina:
 // focus naar het eerste veld, focus terug naar de knop bij het sluiten, en Escape sluit.

@@ -1,0 +1,15 @@
+<div class="status-strook"><div class="shell">
+  <b>BETA</b>
+  <span>We lanceren in beta: je feedback is welkom.
+    <a class="ss-cta" href="__SS_HREF__">Mail het ons</a></span>
+</div></div>
+<script>
+(function(){
+  var a = document.querySelector('.status-strook .ss-cta'); if(!a) return;
+  var naar = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=', nl = String.fromCharCode(10);
+  var zet = function(){ a.href = 'mailto:' + atob(naar)
+    + '?subject=' + encodeURIComponent('Reactie op As Gau Paust (BETA)')
+    + '&body=' + encodeURIComponent('Pagina: ' + location.href + nl + nl); };
+  zet(); a.addEventListener('click', zet);
+})();
+</script>

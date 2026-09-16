@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FF0066">
+<meta name="theme-color" content="#f5f1e8">
 <title>As Gau Paust: een experimenteel platform voor hyperlokale burgerjournalistiek</title>
 <meta name="description" content="Het portaal van As Gau Paust: onafhankelijke hyperlokale (burger)journalistiek over Mechelen. Denk mee met de besluitvorming, lees mee in het archief, reken mee met de cijfers.">
 
@@ -103,6 +103,28 @@
   --grain-ruis:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   --grain-stip:radial-gradient(rgba(26,23,18,.04) 1px, transparent 1px);
 }
+/* =====================================================================
+   SCHIL-TOKENS (fase 2). Woordelijk hetzelfde in de vier sites.
+   Nu gebruikt alleen de schil ze. Microlabels volgen bij hun volgende aanraking.
+   De --t-maten zijn telefoonmaten: een desktopregel schrijft haar waarde uit.
+   ===================================================================== */
+:root{
+  --s-1:.25rem; --s-2:.5rem; --s-3:.75rem; --s-4:1rem; --s-5:1.25rem; --s-6:1.5rem; --s-8:2rem; --s-12:3rem;
+  --t-label:.625rem; --t-meta:.72rem; --t-knop:.8125rem; --t-tekst:1rem; --t-lees:1.0625rem;
+  --t-h3:1.125rem; --t-h2:1.5rem; --t-h1:1.75rem; --t-kop-lh:1.15;
+  --r-kaart:18px; --r-klein:14px; --r-mini:10px; --r-pil:999px;
+  --schaduw:0 1px 2px rgba(72,56,38,.05), 0 10px 30px -12px rgba(72,56,38,.16);
+  --haarlijn:rgba(26,23,18,.10);
+  --dur-druk:80ms; --dur-kort:160ms; --dur-blad:220ms; --dur-blad-uit:180ms;
+  --ease-blad:cubic-bezier(.16,1,.3,1);
+  --z-nav:100; --z-terug:140; --z-balk:150; --z-privacy:155; --z-menu:200; --z-blad:300; --z-venster:400;
+  --nav-h:68px; --balk-h:58px;
+}
+@media (max-width:700px){ :root{ --nav-h:64px; } }
+/* portaal */
+:root{ --line:var(--lijn); --line-strong:var(--lijn-sterk); --app:var(--pink); --app-text:var(--pink-tekst);
+  --eiland-app:var(--eiland-pink); --portaal-roze:var(--pink); --portaal-roze-tekst:var(--pink-tekst);
+  --tab-actief-tekst:var(--pink-tekst); --tab-actief-streep:var(--pink); }
 *{box-sizing:border-box}
 *::selection{background:var(--pink-vlak);color:#fff}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -110,7 +132,7 @@ body{margin:0;background:var(--bg);color:var(--tekst);
   font-family:'Geist',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;
   -webkit-font-smoothing:antialiased;font-feature-settings:"kern","liga";overflow-x:hidden}
 /* De korrel over het hele vel (ook over de kaarten: alles is van hetzelfde papier).
-   Modals en menu's (z-index 200) liggen erboven en blijven strak. */
+   Modals en menu's (--z-venster) liggen erboven en blijven strak. */
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
   opacity:.05;background-image:var(--grain-ruis);mix-blend-mode:multiply}
 .shell{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}
@@ -140,19 +162,15 @@ img,svg{max-width:100%}
 /* nav */
 /* Krantlijn, geen matglas: dicht papier met eigen korrel (de balk ligt boven de
    ruislaag), en een 2px inkt-masthead-regel die aanzet zodra je scrolt. */
-.nav{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--lijn)}
+.nav{position:sticky;top:0;z-index:var(--z-nav);background:var(--bg);border-bottom:1px solid var(--lijn)}
 .nav::before{content:'';position:absolute;inset:0;pointer-events:none;
   opacity:.05;background-image:var(--grain-ruis);mix-blend-mode:multiply}
 .nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
   background:var(--ink);transform:scaleY(0);transform-origin:bottom;
   transition:transform .22s ease;pointer-events:none}
 .nav.krant::after{transform:scaleY(1)}
-/* 67px + de 1px onderrand = 68px, exact de balkhoogte van Denk mee en Lees mee. Onder 430px
-   zakken die twee naar 64px totaal (daar krimpt de hamburger van Denk mee), dus het portaal
-   volgt die sprong mee. Zonder dit stond de mug hier een halve pixel lager dan op de
-   deelsites, en dat zag je verspringen bij het wisselen van site. */
-.nav-in{display:flex;align-items:center;gap:1.2rem;height:67px}
-@media(max-width:430px){ .nav-in{height:63px} }
+/* --nav-h is de totale hoogte met haarlijn: 68 boven 700px, 64 eronder, gelijk op de vier sites. */
+.nav-in{display:flex;align-items:center;gap:1.2rem;height:calc(var(--nav-h) - 1px)}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:'JetBrains Mono',monospace;
   font-weight:600;font-size:1rem;letter-spacing:-.01em;color:var(--tekst)}
 .brand:hover{color:var(--tekst)}
@@ -161,12 +179,6 @@ img,svg{max-width:100%}
 /* --pink-tekst en niet --pink: 16px is geen display-tekst, en de roze-discipline hierboven
    schrijft dan --pink-tekst voor. Nagemeten haalde --pink hier 3,42. */
 .brand em{color:var(--pink-tekst);font-style:normal;font-weight:600}
-.nav-links{display:flex;gap:1.3rem;margin-left:auto;font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;flex-wrap:wrap}
-.nav-links a{color:var(--tekst-2);padding:.2rem 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
-.nav-links a:hover{color:var(--pink-tekst);border-bottom-color:var(--pink)}
-.nav-links .soon{color:var(--stil);padding:.2rem 0;white-space:nowrap;cursor:default}
-@media(max-width:720px){.nav-links{display:none}}
 
 /* De telex in inkt: de kernzinnen als donkere band onder de nav. Dit is het enige
    inktvlak boven de vouw en ankert het affiche, zoals het inktkader dat op de
@@ -181,10 +193,13 @@ img,svg{max-width:100%}
 .ticker-groep span{align-self:center}
 .ticker-groep img{width:16px;height:16px;border-radius:50%;align-self:center;flex:none}
 
-/* Statusstrook BETA (dezelfde strook staat op /pers/). Ze blijft staan: de badge zegt BETA en
-   de knop opent meteen het mailprogramma, met het onderwerp en de pagina al ingevuld.
-   Bewust dezelfde inkt als de ticker die er meteen onder loopt, met een haarlijn ertussen:
-   zonder die lijn lezen de twee donkere banden als een blok in plaats van als twee rijen.
+/* Statusstrook BETA (dezelfde strook staat op elke portaalpagina, uit snippet-statusstrook.html).
+   Ze blijft staan: de badge zegt BETA en de knop opent meteen het mailprogramma, met het
+   onderwerp en de pagina al ingevuld.
+   Bewust dezelfde inkt als de ticker. Enkel op de startpagina, en daar enkel op groter scherm,
+   loopt die meteen onder de strook; de haarlijn ertussen houdt de twee donkere banden uit elkaar,
+   want zonder die lijn lezen ze als één blok in plaats van als twee rijen. Op een telefoon staat
+   de ticker onder de kaarten, en de andere portaalpagina's dragen er geen.
    Het badge-roze is --eiland-pink en niet --pink: op inkt haalt dat 5,74:1 tegenover 4,63:1,
    allebei geslaagd, maar de badge staat op .68rem en mag de ruimste marge hebben. */
 .status-strook{background:var(--bg-diep);color:var(--paper);
@@ -220,13 +235,13 @@ img,svg{max-width:100%}
      komt mede door de roze gloed erachter: daar stond roze op roze. */
   font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pink-tekst);margin-bottom:1.1rem}
 .eyebrow .pulse{width:.55em;height:.55em;background:var(--pink);border-radius:50%;margin-right:.7em;flex:none;
-  animation:agpPulse 2.4s ease-out infinite}
+  animation:agpPulse 2.4s ease-out 3}
 .hero-title{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.04em;line-height:1.02;
   font-size:clamp(2.4rem,4.6vw,3.9rem);margin:0;max-width:16ch;text-wrap:balance}
 .hero-title em{color:var(--pink);font-style:normal}
 .hero-lede{font-size:clamp(1.02rem,1.4vw,1.2rem);line-height:1.55;max-width:52ch;margin:1.1rem 0 0;color:var(--tekst-2)}
 .hero-mark{position:relative;justify-self:end;width:clamp(120px,16vw,200px);aspect-ratio:1;display:grid;place-items:center}
-.hero-mark .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,0,102,.45);animation:agpRing 3.6s ease-out infinite}
+.hero-mark .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,0,102,.45);animation:agpRing 3.6s ease-out 3 forwards}
 .hero-mark .ring.r2{border-color:rgba(255,0,102,.35);animation-delay:1.8s}
 /* halo (leest als licht) + gerichte worp (leest als lift); warm getint, niet grijs */
 .hero-mark>img{width:100%;height:100%;border-radius:50%;animation:agpBol 5s ease-in-out infinite;
@@ -329,10 +344,12 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    dus AA, terwijl #FF0066 op 3,26 blijft steken. Het bolletje mag wel vol merkroze zijn, dat is
    decoratie en geen tekst. De haarlijn geeft het chipje definitie op de bijna-witte kaart. */
 .badge.live{background:var(--pink-zacht);color:var(--pink-tekst);border:1px solid rgba(255,0,102,.22)}
-/* Klein roze bolletje met een hele lichte puls (zie agpOnline hierboven).
-   De reduced-motion-regel onderaan zet het desgewenst helemaal stil. */
+/* Klein roze bolletje met een hele lichte puls (zie agpOnline hierboven). Na drie pulsen valt het
+   bolletje terug op zijn eigen rust: geen forwards, want de laatste stap van de puls staat op .8
+   dekking en die zou anders blijven hangen. Bij minder beweging houdt de algemene regel de puls
+   meteen stil, in diezelfde rust. */
 .badge.live .dotje{width:.45em;height:.45em;background:var(--pink);border-radius:50%;flex:none;
-  animation:agpOnline 3s ease-out infinite}
+  animation:agpOnline 3s ease-out 3}
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
@@ -632,7 +649,7 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 
 
 /* contact-modal (mailto, geen server) */
-.ov-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
+.ov-modal{position:fixed;inset:0;z-index:var(--z-venster);display:flex;align-items:center;justify-content:center;padding:1rem}
 .ov-modal[hidden]{display:none}
 .ov-modal-overlay{position:absolute;inset:0;background:rgba(26,23,18,.5);backdrop-filter:blur(4px)}
 .ov-modal-card{position:relative;background:var(--bg-modal);border:1px solid var(--lijn-kaart);
@@ -671,7 +688,7 @@ textarea.field-input{resize:vertical}
 
 /* Eerlijke privacymelding (geen consent-banner): omgekeerd, warme inkt op het lichte vel. */
 /* bottom wijkt voor de thuisbalk; op smalle schermen wint de 700px-regel verderop. */
-.cookie-note{position:fixed;left:1rem;right:1rem;bottom:max(1rem, env(safe-area-inset-bottom));z-index:150;max-width:540px;margin:0 auto;
+.cookie-note{position:fixed;left:1rem;right:1rem;bottom:max(1rem, env(safe-area-inset-bottom));z-index:var(--z-privacy);max-width:540px;margin:0 auto;
   display:flex;align-items:center;gap:1rem;padding:.95rem 1.15rem;
   background:var(--bg-diep);color:var(--paper);border-radius:14px;
   box-shadow:0 10px 34px -10px rgba(72,56,38,.45);
@@ -688,38 +705,9 @@ textarea.field-input{resize:vertical}
    vanuit de En meer-pagina via /#blok-...). */
 #blok-denkmee,#blok-leesmee,#blok-gasmee,#jouwstad{scroll-margin-top:72px}
 
-/* App-achtige onderbalk op smartphone (bestaat niet op groter scherm; de pagina is kort genoeg
-   om te scrollen). Spiegelt de tabbalk van Denk mee en Lees mee: vaste balk onderaan, per functie
-   een icoon met label. Op de En meer-pagina staat dezelfde balk, met de huidige pagina roze. */
-.tabbar{display:none}
-@media(max-width:700px){
-  .tabbar{
-    display:grid;grid-template-columns:repeat(5,1fr);
-    position:fixed;left:0;right:0;bottom:0;z-index:120;
-    background:rgba(245,241,232,.93);
-    backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
-    border-top:1px solid var(--lijn);
-    padding-bottom:env(safe-area-inset-bottom);
-  }
-  .tabbar a,.tabbar button{
-    position:relative;display:flex;flex-direction:column;align-items:center;gap:.26rem;
-    padding:.6rem .1rem .55rem;background:none;border:0;cursor:pointer;font:inherit;
-    color:var(--tekst-2);text-decoration:none;transition:color .15s;
-  }
-  .tabbar svg{width:22px;height:22px;display:block;flex:none}
-  .tabbar .tab-mug{width:22px;height:22px;display:block;flex:none;border-radius:50%}
-  .tabbar span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.55rem;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
-  @media(hover:hover){ .tabbar a:hover,.tabbar button:hover{color:var(--pink-tekst)} }
-  /* Huidige pagina (op de En meer-pagina): roze met een streepje bovenaan. */
-  .tabbar a[aria-current="page"]{color:var(--pink-tekst)}
-  .tabbar a[aria-current="page"]::before{content:'';position:absolute;top:0;left:24%;right:24%;height:2px;background:var(--pink)}
-  /* Ruimte onder de pagina zodat niets achter de balk verdwijnt; de privacymelding erbovenop. */
-  body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}
-  .cookie-note{bottom:calc(68px + env(safe-area-inset-bottom))}
-}
 /* Terug-naar-boven: overal beschikbaar, glazig en licht transparant (blur + lage dekking). */
 .to-top{
-  position:fixed;right:1rem;bottom:1.5rem;z-index:110;
+  position:fixed;right:1rem;bottom:1.5rem;z-index:var(--z-terug);
   width:40px;height:40px;display:flex;align-items:center;justify-content:center;
   background:rgba(245,241,232,.5);backdrop-filter:blur(9px) saturate(140%);-webkit-backdrop-filter:blur(9px) saturate(140%);
   color:var(--tekst);border:1px solid var(--lijn);border-radius:50%;
@@ -728,12 +716,14 @@ textarea.field-input{resize:vertical}
   transition:opacity .25s ease,transform .25s ease,border-color .18s,color .18s;
 }
 .to-top.show{opacity:.72;transform:none;pointer-events:auto}
-/* Boven de tabbalk op smartphone. Deze regel MOET na de basisregel van .to-top staan:
-   stond ze eerder (in het 700px-blok hierboven), dan won bottom:1.5rem en lag de knop
-   bovenop de laatste balkknop. Nagemeten: hij berekende 24px waar 74px bedoeld was. */
-@media(max-width:700px){.to-top{bottom:calc(74px + env(safe-area-inset-bottom))}}
 .to-top.show:hover,.to-top.show:focus-visible{opacity:1;border-color:var(--pink);color:var(--pink-tekst)}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Minder beweging: alles staat meteen in zijn eindstand. Een korte duur in plaats van none, zodat
+   animationend blijft vuren; ook de wachttijden vallen weg, zodat de omdraaikaart meteen wisselt. */
+@media (prefers-reduced-motion:reduce){
+  *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    animation-delay:0s !important; transition-duration:.001ms !important; transition-delay:0s !important; }
+  html{ scroll-behavior:auto; }
+}
 
 /* Huidlaag-pariteit met Denk mee (za 08/08/2026): hetzelfde puntjesraster over het vel en op
    de nav, bovenop de bestaande ruislaag. De deelsite had dit al; nu draagt de hele familie het. */
@@ -744,13 +734,14 @@ body{ background-image:var(--grain-stip); background-size:3px 3px; }
    bediening en een korte indruk bij het aanraken. Die indruk staat enkel onder (hover:none), dus
    een muis merkt ze niet. De kopieerknop staat op /pers/, die deze head erft. */
 html{ -webkit-tap-highlight-color:transparent; }
-a, button, summary, input, label{ touch-action:manipulation; }
+a, button, summary, input, select, label{ touch-action:manipulation; }
 @media (hover:none){
-  .tabbar a:active, .pcard:active, .kp-lijst a:active, .kp-lijst button:active,
-  .over-cta:active, .hbb-cta:active, .cn-ok:active, .ov-mail-btn:active, .kopieer-knop:active{
-    transform:scale(.97);
-    transition:transform .08s ease-out;
+  .pcard:active, .kp-lijst a:active, .kp-lijst button:active, .over-cta:active, .hbb-cta:active,
+  .cn-ok:active, .ov-mail-btn:active, .kopieer-knop:active, .to-top.show:active, .ov-modal-close:active,
+  .fil-flip:active, button.hero-mark:active, .wie summary:active{
+    transform:scale(.97); transition:transform var(--dur-druk) ease-out;
   }
+  .tabbar a:active, .tabbar button:active{ transform:scale(.93); transition:transform var(--dur-druk) ease-out; }
 }
 
 /* Veilige zones zijwaarts, zoals Denk mee. Met viewport-fit=cover letterboxt Safari een liggende
@@ -766,7 +757,128 @@ a, button, summary, input, label{ touch-action:manipulation; }
   /* Onderaan wijkt de modalkaart voor de thuisbalk. */
   .ov-modal{ padding-bottom:max(1rem, env(safe-area-inset-bottom)); }
 }
+
+/* =====================================================================
+   SCHIL (fase 2). De gedeelde schil van de vier apps. Staat als laatste,
+   zodat geen latere basisregel een telefoonregel ongemerkt overschrijft.
+   Volgorde: nav, burger, strook, app-balk, terug, privacystrook, menu, tikvlakken.
+   ===================================================================== */
+/* Nav: het merkwoord krijgt een tikvlak van 44px zonder positionering, zodat de korrel van de nav
+   erover blijft liggen. */
+@media (max-width:700px){ .brand{ padding-block:5px; margin-block:-5px; } }
+/* Strook: op een telefoon compacter, met de knop op één regel en een tikvlak van 44px. Het
+   tikvlak reikt verder onder de knop dan erboven: past de zin met de knop op één rij, dan ligt
+   de plakkende nav vlak boven de knop en dekt die het bovenste stuk af. Onderaan steekt het vlak
+   een eindje onder de strook uit; z-index:1 legt het boven de gepositioneerde inhoud die daar
+   begint. Het vlak zelf tekent niets, dus de korrel blijft erover. */
+@media (max-width:700px){
+  .status-strook .shell{ padding-top:.5rem; padding-bottom:.5rem; gap:.35rem; }
+  .status-strook span{ font-size:.78rem; line-height:1.4; }
+  .status-strook .ss-cta{ position:relative; white-space:nowrap; }
+  .status-strook .ss-cta::after{ content:''; position:absolute; inset:-13px -6px -20px; z-index:1; }
+}
+/* App-balk: enkel op een telefoon. Elke toets is exact --balk-h hoog, met de rand erbij 59px;
+   de ruimte onder de pagina, de privacymelding en de terugknop rekenen daarop. Hoogstens één
+   toets licht op, en enkel waar je echt in dat onderdeel zit. */
+.tabbar{ display:none; }
+@media (max-width:700px){
+  .tabbar{ display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:0; right:0; bottom:0;
+    z-index:var(--z-balk); background:rgba(245,241,232,.93);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4); backdrop-filter:blur(14px) saturate(1.4);
+    border-top:1px solid var(--line);
+    padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  .tabbar a, .tabbar button{ position:relative; box-sizing:border-box; height:var(--balk-h); margin:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:0 2px;
+    background:none; border:0; border-radius:0; font:inherit; color:var(--ink-2); text-decoration:none;
+    cursor:pointer; -webkit-user-select:none; user-select:none; transition:color var(--dur-kort); }
+  .tabbar svg, .tabbar .tab-mug{ width:22px; height:22px; display:block; flex:none; }
+  .tabbar .tab-mug{ border-radius:50%; }
+  .tabbar span{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:var(--t-label); font-weight:500;
+    line-height:12px; letter-spacing:.03em; text-transform:uppercase; white-space:nowrap; }
+  .tabbar .tab-portaal span{ color:var(--portaal-roze-tekst); }
+  .tabbar [aria-current], .tabbar [aria-selected="true"]{ color:var(--tab-actief-tekst); }
+  .tabbar [aria-current]::before, .tabbar [aria-selected="true"]::before{ content:''; position:absolute;
+    top:0; left:24%; right:24%; height:2px; background:var(--tab-actief-streep); }
+  body{ padding-bottom:calc(var(--balk-h) + 1px + env(safe-area-inset-bottom)); }
+}
+@media (hover:hover) and (max-width:700px){ .tabbar a:hover, .tabbar button:hover{ color:var(--tab-actief-tekst); } }
+/* Terug naar boven: op een telefoon 44px met een pijl in SVG, 12px boven de app-balk, en boven
+   de privacymelding zolang die open staat. Op groter scherm blijft het teken. */
+.to-top{ z-index:var(--z-terug); }
+.to-top .tt-svg{ display:none; }
+@media (max-width:700px){
+  .to-top{ width:44px; height:44px; right:max(1rem, env(safe-area-inset-right));
+    bottom:calc(var(--balk-h) + 12px + env(safe-area-inset-bottom)); border:1px solid var(--line-strong);
+    transform:translateY(8px); transition:opacity .25s ease, transform .25s ease, border-color .18s, color .18s; }
+  .to-top.show{ transform:none; }
+  .to-top .tt-svg{ display:block; width:20px; height:20px; }
+  .to-top .tt-teken{ display:none; }
+  body:has(.cookie-note:not([hidden])) .to-top{
+    bottom:calc(var(--balk-h) + 1px + var(--cookie-h, 60px) + 12px + env(safe-area-inset-bottom)); }
+}
+/* Privacymelding: op een telefoon een strook van rand tot rand die op de app-balk rust. De tweede
+   zin valt er weg; een link naar de privacyverklaring neemt zijn plaats in. De tekst staat een
+   paar pixels boven het midden, zodat het tikvlak van die link binnen de strook blijft en niet
+   over de toetsen van de app-balk valt. */
+.cookie-note{ z-index:var(--z-privacy); }
+.cookie-note .cn-privacy{ display:none; }
+@media (max-width:700px){
+  .cookie-note{ left:0; right:0; bottom:calc(var(--balk-h) + 1px + env(safe-area-inset-bottom));
+    max-width:none; margin:0; border:0; border-radius:0; min-height:60px; gap:.75rem;
+    padding:.5rem var(--pad-x); box-shadow:0 -8px 24px -16px rgba(72,56,38,.45); }
+  .cookie-note .cn-text{ margin-bottom:5px; }
+  .cookie-note .cn-meer{ display:none; }
+  .cookie-note .cn-privacy{ display:inline; position:relative; white-space:nowrap; color:#fff;
+    border-bottom:1px solid rgba(255,255,255,.6); }
+  /* Een absoluut ::after rekent vanaf de binnenkant van de rand, en de onderlijn van de link is zo'n
+     rand: onderaan moet het vlak dus verder reiken dan bovenaan om het midden van de link in een vak
+     van 44px te leggen. Het blijft binnen de strook, net boven de toetsen van de app-balk. */
+  .cookie-note .cn-privacy::after{ content:''; position:absolute; inset:-13px -6px -14px; }
+  .cn-ok{ position:relative; min-height:44px; }
+}
+/* Beweging: de ringen rond de mug dijen drie keer uit en blijven daarna weg. Die eindstand houden
+   ze met forwards vast, dus bij minder beweging moet de animatie hier echt uit: anders blijft de
+   uitgedoofde stand staan in plaats van de rustvorm. Op een telefoon is de ring dan een zachte,
+   stille ring. Het online-bolletje heeft deze regel niet nodig: het valt vanzelf op zijn rust terug. */
+@media (prefers-reduced-motion:reduce){ .hero-mark .ring{ animation:none; } }
+@media (prefers-reduced-motion:reduce) and (max-width:700px){ .hero-mark .ring{ opacity:.25; } }
+/* Ticker: op een telefoon onder de kaarten in plaats van onder de strook. */
+.ticker-gsm{ display:none; }
+@media (max-width:700px){ .ticker:not(.ticker-gsm){ display:none; } .ticker-gsm{ display:block; } }
+/* Tikvlakken: een onzichtbaar ::after vergroot kleine doelen tot 44px. Geen van deze doelen ligt
+   onder een korrel-laag van een voorouder, dus de positionering verandert niets aan het beeld.
+   De laatste twee gelden enkel op een telefoon: met een muis rekt zo'n laag de zweefzone op, en
+   bij de uitklap "Wie zit hierachter?" tekent een gepositioneerde tekstregel haar letters net
+   anders. */
+.ov-modal-close::after{content:'';position:absolute;inset:-4px}
+.cn-ok{position:relative} .cn-ok::after{content:'';position:absolute;inset:-4px 0}
+.hb-banner .hbb-cta{position:relative} .hb-banner .hbb-cta::after{content:'';position:absolute;inset:-1px 0}
+@media (max-width:700px){
+  .co-fam a{position:relative} .co-fam a::after{content:'';position:absolute;inset:-15px -4px}
+  .wie summary{position:relative} .wie summary::after{content:'';position:absolute;inset:-13px 0}
+}
 </style>
+<script>
+// Gedeelde schil van de vier portaalpagina's: de terugknop verschijnt na 600px, de nav krijgt
+// haar masthead-regel zodra je scrolt, en een tik op de toets van de pagina waar je al bent
+// brengt je naar boven in plaats van de pagina opnieuw te laden.
+document.addEventListener('DOMContentLoaded', function(){
+  var rustig = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var gedrag = function(){ return rustig.matches ? 'auto' : 'smooth'; };
+  var knop = document.getElementById('toTop'), nav = document.querySelector('.nav'), bezig = false;
+  var zet = function(){ bezig = false; var y = window.scrollY;
+    if(knop) knop.classList.toggle('show', y > 600); if(nav) nav.classList.toggle('krant', y > 4); };
+  window.addEventListener('scroll', function(){ if(!bezig){ bezig = true; requestAnimationFrame(zet); } }, {passive:true});
+  zet();
+  if(knop) knop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:gedrag()}); });
+  var balk = document.getElementById('tabbar');
+  if(balk) balk.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if(!a || a.host !== location.host || a.pathname !== location.pathname || a.hash) return;
+    e.preventDefault(); window.scrollTo({top:0, behavior:gedrag()});
+  });
+});
+</script>
 </head>
 <body>
 
@@ -779,15 +891,7 @@ a, button, summary, input, label{ touch-action:manipulation; }
        hieronder (Denk mee / Lees mee / Reken mee). Op de startpagina blijft de balk rustig. -->
 </div></nav>
 
-<!-- Statusstrook BETA. Dezelfde strook en hetzelfde badge-woord staan op /pers/, zodat de
-     bezoeker en de journalist hetzelfde signaal krijgen. De knop is een gewone link: het script
-     onderaan zet de href op een mailto met onderwerp en pagina, zodat hij meteen het
-     mailprogramma opent. Zonder JavaScript wijst hij naar /#contact, de vaste contactingang. -->
-<div class="status-strook"><div class="shell">
-  <b>BETA</b>
-  <span>We lanceren in beta: je feedback is welkom.
-    <a class="ss-cta" href="/#contact">Mail het ons</a></span>
-</div></div>
+__STATUSSTROOK__
 
 <!-- lopende ticker: de kernzinnen van het platform, gescheiden door de mug -->
 <div class="ticker" aria-hidden="true">
@@ -879,6 +983,15 @@ a, button, summary, input, label{ touch-action:manipulation; }
     </p>
   </div>
 </section>
+
+<!-- Op een telefoon loopt de ticker hier, van rand tot rand onder de kaarten; bovenaan staat hij
+     dan verborgen. Dezelfde inhoud als de band onder de strook. -->
+<div class="ticker ticker-gsm" aria-hidden="true">
+  <div class="ticker-baan">
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+    <div class="ticker-groep"><span>Geen cookies, geen trackers</span>__MARK__<span>Platform voor hyperlokale journalistiek</span>__MARK__<span>De mug in de kamer</span>__MARK__<span>Voor de meedenkende Mechelaar</span>__MARK__<span>Paust dan ma gau eet anders</span>__MARK__<span>Ook iets voor jouw stad?</span>__MARK__</div>
+  </div>
+</div>
 
 <section class="over" id="jouwstad"><div class="shell">
   <!-- Eén vraag in plaats van twee halve. Hiervoor stonden hier een sectie "Ook iets voor jouw
@@ -988,14 +1101,14 @@ a, button, summary, input, label{ touch-action:manipulation; }
 <!-- Eerlijke privacymelding (geen toestemmingsbanner). De site zet geen cookies en geen
      trackers; het enige dat we bewaren is dat je deze melding al zag (in je eigen browser). -->
 <div id="cookieNote" class="cookie-note" hidden role="note" aria-label="Privacy">
-  <p class="cn-text"><strong>Geen cookies, geen trackers.</strong> Alleen onze host (GitHub) ziet je IP-adres, zoals bij elke webserver, om de site te tonen en te beveiligen.</p>
+  <p class="cn-text"><strong>Geen cookies, geen trackers.</strong><span class="cn-meer"> Alleen onze host (GitHub) ziet je IP-adres, zoals bij elke webserver, om de site te tonen en te beveiligen.</span> <a class="cn-privacy" href="/privacy/">Privacyverklaring</a></p>
   <button type="button" class="cn-ok" id="cnOk">Begrepen</button>
 </div>
 
 <!-- App-achtige onderbalk op smartphone: de experimenten met hun eigen icoon (Denk mee, Lees mee,
      En meer), 'Jouw stad', en de contactknop die de mailtemplate opent. Op groter scherm bestaat
      de balk niet (de pagina is kort genoeg om te scrollen). Spiegelt de tabbalk van de deelsites. -->
-<button class="to-top" id="toTop" aria-label="Terug naar boven"><span aria-hidden="true">&#8593;</span></button>
+<button class="to-top" id="toTop" type="button" aria-label="Terug naar boven"><svg class="tt-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span class="tt-teken" aria-hidden="true">&#8593;</span></button>
 
 <nav class="tabbar" id="tabbar" aria-label="As Gau Paust, spring tussen de sites">
   <a href="https://denkmee.asgaupaust.be/">__IC_DENK__<span>Denk mee</span></a>
@@ -1024,6 +1137,9 @@ a, button, summary, input, label{ touch-action:manipulation; }
     return false;
   }
   if(!gezien()) el.hidden = false;
+  // De terugknop legt zich boven de melding; hij leest haar hoogte uit --cookie-h.
+  if(window.ResizeObserver) new ResizeObserver(function(){ var h = el.offsetHeight;
+    if(h > 0) document.documentElement.style.setProperty('--cookie-h', h + 'px'); }).observe(el);
   ok.addEventListener('click', function(){
     /* Sleutel staat in de privacyverklaring (asgaupaust.be/privacy). Nieuwe of gewijzigde opslag: die pagina mee bijwerken. */
     try{ localStorage.setItem('asgaupaust.privacyok','1'); }catch(e){}
@@ -1036,20 +1152,6 @@ a, button, summary, input, label{ touch-action:manipulation; }
 // in de code staat, niet als platte tekst — zo is het niet zomaar uit de broncode te grepen
 // of te scrapen. Geen server, geen opslag: de bezoeker verstuurt zelf.
 var CONTACT_TO = 'YXNnYXVwYXVzdEBnbWFpbC5jb20=';
-// De knop in de BETA-strook is een link naar /#contact en wordt hier een mailto met een vast
-// onderwerp en de pagina waarop je staat. Bij de klik zet hij het pagina-adres opnieuw, zodat een
-// gewijzigde hash mee in de mail staat.
-(function(){
-  var a = document.querySelector('.status-strook .ss-cta');
-  if(!a) return;
-  var zet = function(){
-    a.href = 'mailto:' + atob(CONTACT_TO)
-      + '?subject=' + encodeURIComponent('Reactie op As Gau Paust (BETA)')
-      + '&body=' + encodeURIComponent('Pagina: ' + location.href + '\n\n');
-  };
-  zet();
-  a.addEventListener('click', zet);
-})();
 // Wat er ACHTER de modal ligt, moet buiten bereik: aria-modal="true" verbergt de achtergrond
 // enkel voor de bladermodus van een schermlezer, maar niet voor de Tab-toets. Nagemeten stonden
 // er 13 focusbare elementen open terwijl de modal aan stond, en de eerste zes lagen erachter.
@@ -1139,24 +1241,6 @@ window.addEventListener('keydown', function(e){
 // in eigen hand in plaats van een echte formulierpost.
 document.getElementById('ctForm').addEventListener('submit', function(e){ e.preventDefault(); contactVerstuur(); });
 
-// Onderbalk (smartphone): de experiment-tabs scrollen naar het overeenkomstige blok op deze
-// pagina (Denk mee, Lees mee, Jouw stad), met een offset voor de plakkende bovenbalk. Zo verlaat
-// je de portaal niet onverwacht; het blok zelf linkt door naar de deelsite. En meer gaat naar de
-// eigen portaal-pagina, Contact opent de mailmodal.
-(function(){
-  var bar = document.getElementById('tabbar');
-  if(!bar) return;
-  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-  [].forEach.call(bar.querySelectorAll('a[href^="#"]'), function(a){
-    a.addEventListener('click', function(e){
-      var s = document.getElementById(a.getAttribute('href').slice(1));
-      if(!s) return;                     // op andere pagina's: laat de link gewoon zijn werk doen
-      e.preventDefault();
-      var y = s.getBoundingClientRect().top + window.scrollY - 60;   // 60px: hoogte plakkende balk
-      window.scrollTo({top: Math.max(0, y), behavior: stil.matches ? 'auto' : 'smooth'});
-    });
-  });
-})();
 // De contactmodal ook openen via #contact in de URL, zodat de Contact-tab op de En meer-pagina
 // (die naar /#contact wijst) hier op het portaal de mailmodal opent.
 (function(){
@@ -1168,18 +1252,6 @@ document.getElementById('ctForm').addEventListener('submit', function(e){ e.prev
   }
   window.addEventListener('hashchange', checkContact);
   checkContact();
-})();
-// Terug-naar-boven: verschijnt na wat scrollen, scrollt zacht naar boven.
-(function(){
-  var t = document.getElementById('toTop');
-  if(!t) return;
-  var stil = window.matchMedia('(prefers-reduced-motion:reduce)');
-  var nv = document.querySelector('.nav');
-  t.addEventListener('click', function(){ window.scrollTo({top:0, behavior: stil.matches ? 'auto' : 'smooth'}); });
-  window.addEventListener('scroll', function(){
-    t.classList.toggle('show', window.scrollY > 350);
-    if(nv) nv.classList.toggle('krant', window.scrollY > 4);   // masthead-regel aan zodra je in de krant zit
-  }, {passive:true});
 })();
 // Service worker registreren: een lokale cache op het toestel, zodat de site ook offline werkt.
 if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
