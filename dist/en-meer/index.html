@@ -496,6 +496,20 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .fil-flip:focus-visible .fc-hint{opacity:1;transform:rotate(-45deg)}
 @media(hover:hover){ .fil-flip:hover .fc-hint{opacity:1;transform:rotate(-45deg)} }
 .fil-flip:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+/* Brede schermen (/en-meer/): de leeskolom blijft 56ch links, het rijmpje staat als kaart in de
+   tweede kolom ernaast en de mug zakt eronder, zodat de volle breedte meedoet. Geen sticky: de
+   band knipt met overflow:hidden, en dan plakt een sticky kaart niet. Smaller blijft alles
+   onder elkaar, zoals de markup het zet. */
+@media(min-width:1100px){
+  .over-merk .shell{display:grid;grid-template-columns:minmax(0,56ch) minmax(0,1fr);
+    column-gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .over-merk .shell>*{grid-column:1}
+  .over-merk .over-cta{justify-self:start}
+  .over-merk .fil-flip{grid-column:2;grid-row:1 / span 8;justify-self:center;
+    margin:.35rem 0 0;max-width:28rem;height:260px}
+  .over-merk .fil-flip .fil-vers{font-size:clamp(1.2rem,1.9vw,1.6rem)}
+  .over-mug{top:auto;bottom:-7rem;right:-4rem;transform:none;width:min(26rem,34vw)}
+}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
   background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);border-radius:999px;transition:.16s}
@@ -904,7 +918,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <div class="status-strook"><div class="shell">
   <b>BETA</b>
-  <span>We lanceren in beta: wat je opmerkt, helpt ons verder.
+  <span>Deze tools zijn nooit af. Alleen jouw feedback maakt ze beter.
     <a class="ss-cta" href="/#contact">Mail het ons</a></span>
 </div></div>
 <script>
@@ -927,7 +941,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <span class="eyebrow"><span class="pulse"></span>Onze filosofie</span>
     <h1 class="hero-title met-kader"><span class="box">En meer</span> van As Gau Paust</h1>
     <p class="hero-tagline">Dat de paus oep au paust</p>
-    <p class="hero-lede">Waar dit experimentele platform voor staat en waar het heen groeit.</p>
+    <p class="hero-lede">Waarom we experimenteren, en waarom een machine ons daarbij helpt.</p>
   </div>
 </section>
 
@@ -941,9 +955,9 @@ document.addEventListener('DOMContentLoaded', function(){
        blijft wel uit git: die komt nog altijd uit een secret, zie de wie-sectie verderop.
        Schrijf de placeholder-tekst van die naam hier NIET voluit: het injectiescript vervangt
        elk voorkomen, ook in commentaar, en dan zou de naam mee in de paginabron belanden. -->
-  <p>As Gau Paust is een experimenteel platform voor hyperlokale journalistiek. De naam is een eerbetoon aan het officieuze Mechelse volkslied (een klassieker van Günther Neefs met tekst van Mark Uytterhoeven). De clou: denk niet dat de macht aan jou denkt, blijf vooral zelf kritisch nadenken.</p>
+  <p>As Gau Paust is een inspiratiebron van journalistieke, innovatieve en hyperlokale experimenten. De naam is een eerbetoon aan het officieuze Mechelse volkslied (een klassieker van Günther Neefs met tekst van Mark Uytterhoeven). De clou: denk niet dat de macht aan jou denkt, blijf vooral zelf kritisch nadenken.</p>
 
-  <p>Zo bouwen we innovatieve tools die burgers en (burger)journalisten helpen om <b>te weten wat de stad in hun naam beslist</b>. Altijd met de bron erbij, zodat iedereen het kan nakijken. Hoe werkt de stad echt, wie beslist er, waar gaat het geld naartoe, wat verandert er in jouw straat?</p>
+  <p>Zo bouwen we tools die burgers en (burger)journalisten helpen om <b>te weten wat de stad in hun naam beslist</b>. Altijd met de bron erbij, zodat iedereen het kan nakijken. Hoe werkt de stad echt, wie beslist er, waar gaat het geld naartoe, wat verandert er in jouw straat?</p>
 
   <!-- Het rijmpje achter de naam als omdraaikaart: voorkant het Mechels, achterkant de
        vertaling. Een echte <button>, dus toetsenbord werkt vanzelf; de weggedraaide zijde
@@ -964,9 +978,9 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
   </button>
 
-  <p>De naam is dus een uitnodiging. Doe gerust mee: volg de raad, stel een vraag, begin er zelf aan. <b>Iedereen is een meedenker!</b></p>
+  <p>De naam is dus een uitnodiging. Denk mee(r): volg de raad, stel een vraag, ga er zelf mee aan de slag. <b>Iedereen is een meedenker!</b></p>
 
-  <p>We doen dat onafhankelijk: aan niemand schatplichtig, hard op de documenten maar nooit op de mensen. En we doen het niet alleen. We leren graag van andere expertises, en ook AI werkt mee. Als meewerkend voorwerp, niet als leidend: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
+  <p>We doen dat onafhankelijk: aan niemand schatplichtig, hard op de documenten maar nooit op de mensen. En we doen het niet alleen. We leren graag van andere expertises. En paradoxaal genoeg werkt ook artifici&#235;le intelligentie mee: een machine die helpt om zelf te denken. Als meewerkend voorwerp, niet als leidend: vandaag is dat Claude van Anthropic, morgen misschien een ander model.</p>
 
   <p>Wat we bouwen en leren, delen we over de stads- en gemeentegrenzen heen. Goede verhalen mogen reizen, goede tools ook. Zin om dit voor jouw stad te proberen? De bouwblokken liggen klaar.</p>
 

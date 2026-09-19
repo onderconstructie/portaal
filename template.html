@@ -496,6 +496,20 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .fil-flip:focus-visible .fc-hint{opacity:1;transform:rotate(-45deg)}
 @media(hover:hover){ .fil-flip:hover .fc-hint{opacity:1;transform:rotate(-45deg)} }
 .fil-flip:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+/* Brede schermen (/en-meer/): de leeskolom blijft 56ch links, het rijmpje staat als kaart in de
+   tweede kolom ernaast en de mug zakt eronder, zodat de volle breedte meedoet. Geen sticky: de
+   band knipt met overflow:hidden, en dan plakt een sticky kaart niet. Smaller blijft alles
+   onder elkaar, zoals de markup het zet. */
+@media(min-width:1100px){
+  .over-merk .shell{display:grid;grid-template-columns:minmax(0,56ch) minmax(0,1fr);
+    column-gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .over-merk .shell>*{grid-column:1}
+  .over-merk .over-cta{justify-self:start}
+  .over-merk .fil-flip{grid-column:2;grid-row:1 / span 8;justify-self:center;
+    margin:.35rem 0 0;max-width:28rem;height:260px}
+  .over-merk .fil-flip .fil-vers{font-size:clamp(1.2rem,1.9vw,1.6rem)}
+  .over-mug{top:auto;bottom:-7rem;right:-4rem;transform:none;width:min(26rem,34vw)}
+}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
   background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);border-radius:999px;transition:.16s}
@@ -914,13 +928,8 @@ __STATUSSTROOK__
         <span class="eyebrow"><span class="pulse"></span>Hyperlokaal experiment</span>
         <h1 class="hero-title">As Gau <em>Paust</em></h1>
         <!-- De naam draagt het hele merk, dus staat de betekenis hier en niet pas achter een klik.
-             Bewust geen "experimenteel platform" meer: dat woord stond drie keer op dit scherm en
-             relativeerde de belofte. De eerlijke nuance blijft op /en-meer/ en de techniekpagina. -->
-        <!-- Sinds 19/08/2026 zegt de lede ook wát deze site is: de thuisbasis van een reeks
-             experimenten, zodat de kaarten eronder als apps lezen en niet als losse links. De drie
-             werkwoorden spiegelen de ingangen: volgen (Denk mee), lezen (Lees mee), narekenen
-             (Reken mee, de strook eronder). -->
-        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Precies daarvoor bestaat deze site. Ze is de thuisbasis van een groeiende reeks experimenten die de stad leesbaar maken: zelf volgen wat het stadsbestuur beslist, de verhalen erachter lezen, de cijfers narekenen. In mensentaal, altijd met de bron erbij. Kies hieronder je ingang.</p>
+             De lede zegt daarna wat het platform is, voor wie, en dat er AI aan meewerkt. -->
+        <p class="hero-lede">As Gau Paust is Mechels voor &#8220;als jij denkt&#8221;. Dit platform is een inspiratiebron: journalistieke, innovatieve en hyperlokale experimenten die burgers en journalisten willen aanzetten om mee(r) te denken en er zelf mee aan de slag te gaan. Paradoxaal genoeg gebruiken we daarbij artifici&#235;le intelligentie.</p>
       </div>
       <!-- Sinds 02/08/2026 een echte knop: bezoekers tikten op de pulserende mug alsof het
            er een was, zeker op een smartphone. Klik opent de wegwijzer (zie #kompasModal). -->
@@ -969,7 +978,7 @@ __STATUSSTROOK__
         <span class="k">waar dit portaal heen groeit</span>
         <h3>En <em>meer</em></h3>
         <div class="fam">met Mechelen</div>
-        <p>Dit portaal blijft groeien, app na app. Lees waar we met deze experimenten heen willen, en waarom we een stad zo leesbaar proberen te maken.</p>
+        <p>Dit portaal blijft groeien, app na app. Lees waar we met deze experimenten heen willen, en waarom er paradoxaal genoeg AI aan meewerkt.</p>
         <span class="go">Onze filosofie <span class="ar">&#8594;</span></span>
       </a>
 

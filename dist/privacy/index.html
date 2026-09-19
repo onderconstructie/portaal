@@ -486,6 +486,20 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .fil-flip:focus-visible .fc-hint{opacity:1;transform:rotate(-45deg)}
 @media(hover:hover){ .fil-flip:hover .fc-hint{opacity:1;transform:rotate(-45deg)} }
 .fil-flip:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+/* Brede schermen (/en-meer/): de leeskolom blijft 56ch links, het rijmpje staat als kaart in de
+   tweede kolom ernaast en de mug zakt eronder, zodat de volle breedte meedoet. Geen sticky: de
+   band knipt met overflow:hidden, en dan plakt een sticky kaart niet. Smaller blijft alles
+   onder elkaar, zoals de markup het zet. */
+@media(min-width:1100px){
+  .over-merk .shell{display:grid;grid-template-columns:minmax(0,56ch) minmax(0,1fr);
+    column-gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .over-merk .shell>*{grid-column:1}
+  .over-merk .over-cta{justify-self:start}
+  .over-merk .fil-flip{grid-column:2;grid-row:1 / span 8;justify-self:center;
+    margin:.35rem 0 0;max-width:28rem;height:260px}
+  .over-merk .fil-flip .fil-vers{font-size:clamp(1.2rem,1.9vw,1.6rem)}
+  .over-mug{top:auto;bottom:-7rem;right:-4rem;transform:none;width:min(26rem,34vw)}
+}
 .over-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.2rem;padding:.85rem 1.35rem;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
   background:var(--pink-vlak);color:#fff;border:1px solid var(--pink-vlak);border-radius:999px;transition:.16s}
@@ -915,7 +929,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <div class="status-strook"><div class="shell">
   <b>BETA</b>
-  <span>We lanceren in beta: wat je opmerkt, helpt ons verder.
+  <span>Deze tools zijn nooit af. Alleen jouw feedback maakt ze beter.
     <a class="ss-cta" href="/#contact">Mail het ons</a></span>
 </div></div>
 <script>

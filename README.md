@@ -1,22 +1,14 @@
-# As Gau Paust (portaal)
+# As Gau Paust
 
-De moedersite op [asgaupaust.be](https://asgaupaust.be), de voordeur van de
-"... mee met Mechelen"-familie:
+Mechels voor "als jij denkt". Dit is de voordeur van [asgaupaust.be](https://asgaupaust.be):
+hyperlokale experimenten om zelf mee te denken over Mechelen. Welke apps er zijn, zie je op de site.
 
-- **Denk mee** — [denkmee.asgaupaust.be](https://denkmee.asgaupaust.be): de besluitvorming in mensentaal
-- **Lees mee** — [leesmee.asgaupaust.be](https://leesmee.asgaupaust.be): zeven jaar archief, plus de formule
-- **Reken mee** — het bestuur in cijfers, nog in de maak
-- **En meer** — [asgaupaust.be/en-meer](https://asgaupaust.be/en-meer/): waarom dit platform bestaat
+[Waarom dit bestaat](https://asgaupaust.be/en-meer/) · [Pers](https://asgaupaust.be/pers/) · [Privacy](https://asgaupaust.be/privacy/)
 
-Het portaal draagt ook de [persmap](https://asgaupaust.be/pers/) en de
-[privacyverklaring](https://asgaupaust.be/privacy/) van de hele familie.
-
-## Bouwen en publiceren
+## Zelf bouwen
 
 ```
-python build.py     # template.html -> dist/ (logo en iconen worden ingevuld)
+python build.py
 ```
 
-`dist/` publiceert via de GitHub Pages-workflow (`.github/workflows/pages.yml`).
-Zelfde opzet als de deelsites: zelf-gehoste fonts, geen cookies, geen trackers,
-geen externe verzoeken.
+De site komt in `dist/`. Elke push naar `main` zet ze online.
