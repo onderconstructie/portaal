@@ -79,17 +79,16 @@ IC = {
                    '<circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/>'
                    '<circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/>'
                    '</svg>'),
-    # Vraag mee(r): het merkteken van het proefstuk (Transparantie-proef/beelden/merk.svg), een
-    # stuk met een vraagteken dat in een envelop schuift, in één kleur zoals het GAS-icoon.
+    # Vraag mee(r): het merkteken van het proefstuk (Transparantie-proef/beelden/merk.svg, stand
+    # 26/09/2026), het vizier met een stuk en een vraagteken, in één kleur zoals het GAS-icoon.
     "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true">'
                      '<circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>'
                      '<circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/>'
-                     '<path d="M14.6 9.6h7.6l3.2 3.2v9.6H14.6z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>'
-                     '<path d="M22.2 9.6v3.2h3.2" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>'
-                     '<path d="M18.3 13.7a1.75 1.75 0 1 1 2.6 1.55c-.6.33-.9.7-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>'
-                     '<circle cx="20" cy="18.35" r=".7" fill="currentColor"/>'
-                     '<rect x="11.6" y="19.6" width="16.8" height="9.2" rx="1.6" fill="currentColor" opacity=".72"/>'
-                     '<path d="M12.3 20.5l7.7 5.2 7.7-5.2" fill="none" stroke="#fffdf7" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '<path d="M20 2.4v3.4M20 34.2v3.4M2.4 20h3.4M34.2 20h3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+                     '<path d="M15.8 12h6.2l3.6 3.6v11a1.4 1.4 0 0 1-1.4 1.4h-8.4a1.4 1.4 0 0 1-1.4-1.4V13.4a1.4 1.4 0 0 1 1.4-1.4z" fill="#fffdf7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>'
+                     '<path d="M22 12v2.6a1 1 0 0 0 1 1h2.6z" fill="currentColor" opacity=".45"/>'
+                     '<path d="M18.3 18.6a1.75 1.75 0 1 1 2.6 1.5c-.6.33-.9.72-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>'
+                     '<circle cx="20" cy="23.9" r=".78" fill="currentColor"/>'
                      '</svg>'),
     # Tel mee: turfstreepjes, vier rechte en een schuine erdoor (het werk van de raad, geteld)
     "__IC_TEL__": _ic('<line x1="6" y1="6" x2="6" y2="18"/><line x1="10" y1="6" x2="10" y2="18"/>'

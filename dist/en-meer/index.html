@@ -295,8 +295,8 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 @media(hover:hover){ .kp-lijst li[data-app="gasmee"] a:hover{border-color:#d2a213} .kp-lijst li[data-app="gasmee"] a:hover .kp-pijl{color:#856813} }
 
 /* de grote blokken */
-/* Zeven blokken in twee rijen van vier (gekozen 26/09/2026): bovenaan de drie werkende apps
-   en En meer, daaronder de apps in opbouw. De laatste plek van de tweede rij blijft vrij. */
+/* Zeven blokken in twee rijen van vier (gekozen 26/09/2026): eerst de werkende apps, dan de
+   apps in opbouw, en En meer staat altijd als laatste. De laatste plek van de tweede rij blijft vrij. */
 .portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:1180px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
@@ -396,10 +396,20 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 #blok-leesmee .badge.live .dotje{background:#5852b0;--puls-aan:rgba(88,82,176,.45);--puls-uit:rgba(88,82,176,0)}
 /* Vraag mee(r) = oranje (#e8772e, leestint #a94c16), de kleur van het proefstuk. Nog in opbouw,
    dus enkel het icoon en het accentwoord kleuren mee. De leestint haalt 4,99:1 op papier en
-   5,26:1 op het lichtere vlak van een blok in opbouw (nagemeten 26/09/2026). Reken mee en Tel
-   mee hebben nog geen eigen kleur en blijven dus in het portaalroze. */
+   5,26:1 op het lichtere vlak van een blok in opbouw (nagemeten 26/09/2026). */
 #blok-vraagmee .pcard-ic{color:#a94c16;background:rgba(232,119,46,.06);border-color:rgba(232,119,46,.4)}
 #blok-vraagmee h3 em{color:#a94c16}
+/* Reken mee = licht appelblauwzeegroen, de kleur van het proefstuk (26/09/2026): het accent
+   #8ad8c6 is te licht voor tekst op papier, dus het icoon krijgt de middentoon #35968a (3,34:1
+   op het vlak van een blok in opbouw, genoeg voor een icoon) en "mee" de leestint #1b6a6a (5,91:1). */
+#blok-rekenmee .pcard-ic{color:#35968a;background:rgba(138,216,198,.14);border-color:rgba(53,150,138,.4)}
+#blok-rekenmee h3 em{color:#1b6a6a}
+/* Tel mee = pruim (gekozen 26/09/2026): de tint (OKLCH 320) ligt het verst van de andere
+   app-kleuren, ook bij een simulatie van rood-groen-kleurenblindheid. Accent #a86ab6, leestint
+   #7e4d8a (5,62:1 op papier, 5,92:1 op het vlak van een blok in opbouw, wit erop 6,33:1),
+   diep #623b6b. */
+#blok-telmee .pcard-ic{color:#7e4d8a;background:rgba(168,106,182,.08);border-color:rgba(168,106,182,.4)}
+#blok-telmee h3 em{color:#7e4d8a}
 
 /* over-blok */
 .over{border-top:1px solid var(--lijn);background:var(--bg-band)}
