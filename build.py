@@ -61,10 +61,20 @@ IC = {
     "__IC_LEES__": _ic('<rect x="5" y="3" width="14" height="18"/>'
                        '<line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/>'
                        '<line x1="8" y1="16" x2="13" y2="16"/>'),
-    # Reken mee: staafdiagram op een aslijn (de cijfers)
-    "__IC_REKEN__": _ic('<line x1="4" y1="20" x2="20" y2="20"/>'
-                        '<rect x="6" y="12" width="3" height="8"/><rect x="11" y="7" width="3" height="13"/>'
-                        '<rect x="16" y="15" width="3" height="5"/>'),
+    # Reken mee: een centje ("Volg de centen van de stad"), hetzelfde merkteken als het
+    # tabbladicoon van het proefstuk (26/09/2026, op vraag: "een centje ipv die grafiek"), in
+    # één kleur zoals het GAS-icoon: de munt met kartelrand en "1c", en rechtsonder een sikkel
+    # als dikte, zodat ze als munt leest en niet als badge. Vlakken, geen lettertype.
+    "__IC_REKEN__": (
+                     '<svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true">'
+                     '<path d="M31.7 10.3A15.2 15.2 0 1 1 10.3 31.7A15.2 15.2 0 0 0 31.7 10.3z" fill="currentColor" opacity=".45"/>'
+                     '<circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>'
+                     '<circle cx="20" cy="20" r="12.4" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray=".5 1.6" opacity=".55"/>'
+                     '<rect x="16.6" y="12.7" width="2.9" height="13.4" fill="currentColor"/>'
+                     '<path d="M19.5 12.7h-2.9L13 15.5v2.3l3.6-2.7z" fill="currentColor"/>'
+                     '<rect x="13.6" y="24.5" width="8.7" height="2" rx=".3" fill="currentColor"/>'
+                     '<path d="M26.7 20.6A2.1 2.1 0 1 0 26.7 23.3" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>'
+                     '</svg>'),
     # GAS mee: het vizier met de auto, hetzelfde merkteken als op de GAS-pagina zelf
     # (favicon en heldknop daar), in één kleur: de rand en de details in currentColor,
     # de carrosserie iets lichter, de wielnaven papierwit. Vlakkentekening, dus niet
