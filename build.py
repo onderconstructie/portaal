@@ -177,8 +177,8 @@ enmeer_tpl = BASE / "template-enmeer.html"
 if enmeer_tpl.exists():
     head = subpagina_head(
         html,
-        "En meer As Gau Paust",
-        "En meer: de filosofie van As Gau Paust. Waar het experimentele platform voor staat "
+        "En nog meer As Gau Paust",
+        "En nog meer: de filosofie van As Gau Paust. Waar het experimentele platform voor staat "
         "en waar het heen groeit.",
         "https://asgaupaust.be/en-meer/")
     enmeer_html = enmeer_tpl.read_text(encoding="utf-8").replace("__PORTAAL_HEAD__", head).replace("__STATUSSTROOK__", strook("/#contact")).replace("__MARK__", MARK)
