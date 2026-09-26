@@ -295,19 +295,14 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 @media(hover:hover){ .kp-lijst li[data-app="gasmee"] a:hover{border-color:#d2a213} .kp-lijst li[data-app="gasmee"] a:hover .kp-pijl{color:#856813} }
 
 /* de grote blokken */
+/* Zeven blokken in twee rijen van vier (gekozen 26/09/2026): bovenaan de drie werkende apps
+   en En meer, daaronder de apps in opbouw. De laatste plek van de tweede rij blijft vrij. */
 .portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:1180px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
-/* Reken mee bestaat nog niet, dus krijgt het geen volwaardige kaart naast de drie werkende
-   ingangen: een lege vierde kaart maakt de etalage voor een kwart leeg. Als smalle strook
-   eronder zegt het hetzelfde zonder de indruk van onaf werk. */
-.soon-strook{display:flex;align-items:baseline;flex-wrap:wrap;gap:.7rem;margin:.9rem 0 0;
-  padding:.85rem 1.1rem;border:1px dashed var(--lijn-stippel);border-radius:var(--r-kaart);
-  background:rgba(255,255,255,.42);color:var(--tekst-2);font-size:.92rem;line-height:1.5}
-.soon-strook .ss-badge{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.62rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--stil);border:1px solid var(--lijn-sterk);
-  border-radius:var(--r-chip);padding:.3rem .55rem;flex:none}
-.soon-strook strong{color:var(--tekst);font-weight:600}
+/* Apps in opbouw (Reken mee, Vraag mee(r), Tel mee) staan als blok tussen de rest, maar als <div> en niet
+   als link: een kaart die naar niets leidt, is een dode link. De stippelrand, het grijze chipje
+   "In opbouw" en de grijze tekst (.pcard.soon hieronder) zeggen dat ze er nog niet zijn. */
 .pcard{position:relative;display:flex;flex-direction:column;min-height:200px;
   background:linear-gradient(180deg,var(--kaart-a),var(--kaart-b));border:1px solid var(--lijn-kaart);
   border-radius:var(--r-kaart);padding:1.3rem 1.35rem 1.2rem;color:var(--tekst);overflow:hidden;
@@ -326,7 +321,7 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
    van de gewone .pcard-regels) en hij licht bij het aanduiden net zo roze op als de experimenten
    (zie de gedeelde hover-regel hierboven). Het enige verschil is dat hij GEEN experiment-badge
    draagt en dat zijn call-to-action sober grijs blijft in plaats van roze.
-   'soon' blijft voor wat er echt nog niet is (Reken mee). */
+   'soon' blijft voor wat er echt nog niet is (Reken mee, Vraag mee(r), Tel mee). */
 .pcard.info .go{color:var(--tekst-2)}
 @media(hover:hover){ .pcard.info:hover .go .ar{transform:translateX(5px)} }
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
@@ -356,8 +351,10 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
+/* Hooguit 1,9rem: de langste naam, "Vraag mee(r)", vraagt bij 2,05rem 228 pixels in een kaart die
+   er in vier kolommen 215 biedt, en brak dan over twee regels (gemeten 26/09/2026). */
 .pcard h3{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;line-height:1;
-  font-size:clamp(1.65rem,2.6vw,2.05rem);margin:.4rem 0 .1rem}
+  font-size:clamp(1.65rem,2.6vw,1.9rem);margin:.4rem 0 .1rem}
 .pcard h3 em{color:var(--pink);font-style:normal}
 .pcard .fam{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--stil);margin-bottom:.7rem}
 .pcard p{font-size:.9rem;color:var(--tekst-2);margin:0;line-height:1.5}
@@ -397,6 +394,12 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 @media(hover:hover){ #blok-leesmee.live:hover{border-color:#5852b0} }
 #blok-leesmee .badge.live{background:rgba(88,82,176,.09);color:#3f3a86;border-color:rgba(88,82,176,.22)}
 #blok-leesmee .badge.live .dotje{background:#5852b0;--puls-aan:rgba(88,82,176,.45);--puls-uit:rgba(88,82,176,0)}
+/* Vraag mee(r) = oranje (#e8772e, leestint #a94c16), de kleur van het proefstuk. Nog in opbouw,
+   dus enkel het icoon en het accentwoord kleuren mee. De leestint haalt 4,99:1 op papier en
+   5,26:1 op het lichtere vlak van een blok in opbouw (nagemeten 26/09/2026). Reken mee en Tel
+   mee hebben nog geen eigen kleur en blijven dus in het portaalroze. */
+#blok-vraagmee .pcard-ic{color:#a94c16;background:rgba(232,119,46,.06);border-color:rgba(232,119,46,.4)}
+#blok-vraagmee h3 em{color:#a94c16}
 
 /* over-blok */
 .over{border-top:1px solid var(--lijn);background:var(--bg-band)}
@@ -918,7 +921,7 @@ __STATUSSTROOK__
   </div>
 </div>
 
-<!-- De vier ingangen zijn de hoofdinhoud van deze pagina, dus horen ze in <main>.
+<!-- De ingangen zijn de hoofdinhoud van deze pagina, dus horen ze in <main>.
      Stond dit in <header> (rol banner), dan sloeg "spring naar de hoofdinhoud" ze over. -->
 <main>
 <section class="hero" id="top">
@@ -973,6 +976,7 @@ __STATUSSTROOK__
         <p>Mechelen ziet je rijden, en beboet je soms. Zie waar de camera&#8217;s hangen, wat ze registreren en hoe het met de dossiers afloopt.</p>
         <span class="go">gasmee.asgaupaust.be <span class="ar">&#8594;</span></span>
       </a>
+
       <a class="pcard info" href="/en-meer/">
         <div class="pcard-top"><span class="pcard-ic">__IC_MEER__</span></div>
         <span class="k">waar dit portaal heen groeit</span>
@@ -982,17 +986,37 @@ __STATUSSTROOK__
         <span class="go">Onze filosofie <span class="ar">&#8594;</span></span>
       </a>
 
-    </div>
+      <!-- Apps in opbouw: een blok zoals de rest, maar een <div> en geen link, want er staat nog
+           niets online. "In opbouw" en niet "Binnenkort": dat laatste belooft een datum die er
+           nog niet is. Zodra een app live staat, wordt het een <a class="pcard live"> zoals GAS mee. -->
+      <div class="pcard soon" id="blok-rekenmee">
+        <div class="pcard-top"><span class="pcard-ic">__IC_REKEN__</span><span class="badge wait">In opbouw</span></div>
+        <span class="k">volg de centen van de stad</span>
+        <h3>Reken <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Wie krijgt geld van de stad, waarvoor en hoeveel? Kijk mee en reken na: het is het geld van de Mechelaar.</p>
+        <span class="go">nog niet online</span>
+      </div>
 
-    <!-- Aangekondigde apps krijgen een strook en pas een volwaardige kaart zodra ze live staan:
-         een kaart die naar niets leidt, is een dode link. Elke strook noemt de app en wat ze doet. -->
-    <!-- "In opbouw" en niet "Binnenkort": dat laatste belooft een datum die er nog niet is.
-         Reken mee is nu de enige die nog wacht; GAS mee staat sinds 09/09/2026 live en heeft
-         zijn eigen kaart hierboven. -->
-    <p class="soon-strook">
-      <span class="ss-badge">In opbouw</span>
-      <span>Daar komt <strong>Reken mee met Mechelen</strong> bij: de cijfers achter het bestuur, in heldere dashboards.</span>
-    </p>
+      <div class="pcard soon" id="blok-vraagmee">
+        <div class="pcard-top"><span class="pcard-ic">__IC_VRAAG__</span><span class="badge wait">In opbouw</span></div>
+        <span class="k">stukken opvragen bij de stad</span>
+        <h3>Vraag <em>mee(r)</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Zoek in de beslissingen van Mechelen welke stukken je kan opvragen, en vraag ze zelf op bij de stad.</p>
+        <span class="go">nog niet online</span>
+      </div>
+
+      <div class="pcard soon" id="blok-telmee">
+        <div class="pcard-top"><span class="pcard-ic">__IC_TEL__</span><span class="badge wait">In opbouw</span></div>
+        <span class="k">de cijfers achter het bestuur</span>
+        <h3>Tel <em>mee</em></h3>
+        <div class="fam">met Mechelen</div>
+        <p>Wat doen de raadsleden en het college met hun mandaat? Hun werk in de raad, in heldere cijfers.</p>
+        <span class="go">nog niet online</span>
+      </div>
+
+    </div>
   </div>
 </section>
 

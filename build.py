@@ -43,7 +43,7 @@ CUSTOM_DOMAIN = "asgaupaust.be"
 #     beelden/mug.png). De deelsites houden de Sint-Romboutstoren als sitemerk. ---
 MARK = '<img src="/beelden/mug.png" alt="De mug in de kamer" width="512" height="512">'
 
-# --- Vier blok-iconen (24x24, lijntekening in currentColor = pink). ---
+# --- Blok-iconen (24x24 lijntekening in currentColor = pink; GAS en Vraag als vlakken op 40x40). ---
 def _ic(paths):
     return ('<svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
             'stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true">' + paths + '</svg>')
@@ -79,6 +79,22 @@ IC = {
                    '<circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/>'
                    '<circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/>'
                    '</svg>'),
+    # Vraag mee(r): het merkteken van het proefstuk (Transparantie-proef/beelden/merk.svg), een
+    # stuk met een vraagteken dat in een envelop schuift, in één kleur zoals het GAS-icoon.
+    "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true">'
+                     '<circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>'
+                     '<circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/>'
+                     '<path d="M14.6 9.6h7.6l3.2 3.2v9.6H14.6z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>'
+                     '<path d="M22.2 9.6v3.2h3.2" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>'
+                     '<path d="M18.3 13.7a1.75 1.75 0 1 1 2.6 1.55c-.6.33-.9.7-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>'
+                     '<circle cx="20" cy="18.35" r=".7" fill="currentColor"/>'
+                     '<rect x="11.6" y="19.6" width="16.8" height="9.2" rx="1.6" fill="currentColor" opacity=".72"/>'
+                     '<path d="M12.3 20.5l7.7 5.2 7.7-5.2" fill="none" stroke="#fffdf7" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '</svg>'),
+    # Tel mee: turfstreepjes, vier rechte en een schuine erdoor (het werk van de raad, geteld)
+    "__IC_TEL__": _ic('<line x1="6" y1="6" x2="6" y2="18"/><line x1="10" y1="6" x2="10" y2="18"/>'
+                      '<line x1="14" y1="6" x2="14" y2="18"/><line x1="18" y1="6" x2="18" y2="18"/>'
+                      '<line x1="3.5" y1="16.5" x2="20.5" y2="7.5"/>'),
     # En meer: een plusteken in een gestippeld kader (er komt nog bij)
     "__IC_MEER__": _ic('<rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/>'
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),
