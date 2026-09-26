@@ -295,8 +295,8 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 @media(hover:hover){ .kp-lijst li[data-app="gasmee"] a:hover{border-color:#d2a213} .kp-lijst li[data-app="gasmee"] a:hover .kp-pijl{color:#856813} }
 
 /* de grote blokken */
-/* Zeven blokken in twee rijen van vier (gekozen 26/09/2026): eerst de werkende apps, dan de
-   apps in opbouw, en En nog meer staat altijd als laatste. De laatste plek van de tweede rij blijft vrij. */
+/* Acht blokken in twee rijen van vier (gekozen 26/09/2026): eerst de werkende apps, dan de
+   apps in opbouw, en En nog meer staat altijd als laatste. */
 .portals{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:clamp(1.6rem,3vw,2.4rem)}
 @media(max-width:1180px){.portals{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.portals{grid-template-columns:1fr}}
@@ -351,10 +351,11 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 .badge.wait{border:1px solid var(--lijn-sterk);color:var(--heel-stil)}
 .pcard .k{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stil);line-height:1.45;display:flex;align-items:flex-end;min-height:2.9em}
-/* Hooguit 1,9rem: de langste naam, "Vraag mee(r)", vraagt bij 2,05rem 228 pixels in een kaart die
-   er in vier kolommen 215 biedt, en brak dan over twee regels (gemeten 26/09/2026). */
+/* Hooguit 1,75rem: de langste naam, "Inspireer mee", vraagt bij 1,9rem 229 pixels in een kaart die
+   er in vier kolommen 215 biedt, en brak dan over twee regels; tot 28,5px past ze (gemeten
+   26/09/2026). Alle kaarten krijgen dezelfde maat, zodat de rijen gelijk blijven. */
 .pcard h3{font-family:'JetBrains Mono',monospace;font-weight:500;letter-spacing:-.02em;line-height:1;
-  font-size:clamp(1.65rem,2.6vw,1.9rem);margin:.4rem 0 .1rem}
+  font-size:clamp(1.65rem,2.6vw,1.75rem);margin:.4rem 0 .1rem}
 .pcard h3 em{color:var(--pink);font-style:normal}
 .pcard .fam{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--stil);margin-bottom:.7rem}
 .pcard p{font-size:.9rem;color:var(--tekst-2);margin:0;line-height:1.5}
@@ -394,11 +395,18 @@ button.hero-mark:focus-visible{outline:2px solid var(--pink);outline-offset:8px;
 @media(hover:hover){ #blok-leesmee.live:hover{border-color:#5852b0} }
 #blok-leesmee .badge.live{background:rgba(88,82,176,.09);color:#3f3a86;border-color:rgba(88,82,176,.22)}
 #blok-leesmee .badge.live .dotje{background:#5852b0;--puls-aan:rgba(88,82,176,.45);--puls-uit:rgba(88,82,176,0)}
-/* Vraag mee(r) = oranje (#e8772e, leestint #a94c16), de kleur van het proefstuk. Nog in opbouw,
-   dus enkel het icoon en het accentwoord kleuren mee. De leestint haalt 4,99:1 op papier en
-   5,26:1 op het lichtere vlak van een blok in opbouw (nagemeten 26/09/2026). */
-#blok-vraagmee .pcard-ic{color:#a94c16;background:rgba(232,119,46,.06);border-color:rgba(232,119,46,.4)}
-#blok-vraagmee h3 em{color:#a94c16}
+/* Vraag mee(r) = terracotta (accent #cc6b4a, leestint #a0472f), de kleur van het proefstuk sinds
+   26/09/2026 (eerder die dag oranje). Nog in opbouw, dus enkel het icoon en het accentwoord kleuren
+   mee. De leestint haalt 5,42:1 op papier en 5,71:1 op het lichtere vlak van een blok in opbouw. */
+#blok-vraagmee .pcard-ic{color:#a0472f;background:rgba(204,107,74,.08);border-color:rgba(204,107,74,.4)}
+#blok-vraagmee h3 em{color:#a0472f}
+/* Inspireer mee = groen (26/09/2026), de enige vrije tint tussen het oker van GAS mee en het
+   petrol van Denk mee: kleinste kleurverschil (OKLab) met een andere app 10,4. Bij rood-groen-
+   kleurenblindheid lijkt het op het oker; met acht apps valt dat niet te vermijden, de namen
+   maken het verschil. Accent #6aad3e, middentoon #56932b, leestint #3a7107 (5,53:1 op het vlak
+   van een blok in opbouw, wit erop 5,92:1), diep #2e5314. */
+#blok-inspireermee .pcard-ic{color:#3a7107;background:rgba(106,173,62,.09);border-color:rgba(106,173,62,.45)}
+#blok-inspireermee h3 em{color:#3a7107}
 /* Reken mee = zeeblauw, Tel mee = framboos (26/09/2026). Het appelblauwzeegroen en het pruim
    van eerder die dag leken te veel op het petrol van Denk mee en het indigo van Lees mee: het
    kleinste kleurverschil (OKLab) met een andere app was 4,7. Met deze twee tinten is dat 9,8,

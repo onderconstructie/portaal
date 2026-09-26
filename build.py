@@ -89,21 +89,23 @@ IC = {
                    '<circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/>'
                    '<circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/>'
                    '</svg>'),
-    # Vraag mee(r): het merkteken van het proefstuk (Transparantie-proef/beelden/merk.svg, stand
-    # 26/09/2026), het vizier met een stuk en een vraagteken, in één kleur zoals het GAS-icoon.
-    "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="0 0 40 40" aria-hidden="true">'
-                     '<circle cx="20" cy="20" r="15.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>'
-                     '<circle cx="20" cy="20" r="11.4" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"/>'
-                     '<path d="M20 2.4v3.4M20 34.2v3.4M2.4 20h3.4M34.2 20h3.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
-                     '<path d="M15.8 12h6.2l3.6 3.6v11a1.4 1.4 0 0 1-1.4 1.4h-8.4a1.4 1.4 0 0 1-1.4-1.4V13.4a1.4 1.4 0 0 1 1.4-1.4z" fill="#fffdf7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>'
-                     '<path d="M22 12v2.6a1 1 0 0 0 1 1h2.6z" fill="currentColor" opacity=".45"/>'
-                     '<path d="M18.3 18.6a1.75 1.75 0 1 1 2.6 1.5c-.6.33-.9.72-.9 1.3v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>'
-                     '<circle cx="20" cy="23.9" r=".78" fill="currentColor"/>'
+    # Vraag mee(r): het merkteken van het proefstuk zoals het tabbladicoon daar (stand 26/09/2026,
+    # 13:40): een stuk met een ezelsoor en een vraagteken, zonder vizier. Dezelfde paden en diktes,
+    # in één kleur zoals het GAS-icoon; de viewBox is uitgesneden rond het stuk, anders is het in
+    # een icoon van 28px amper 7px breed.
+    "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="10 10 20 20" aria-hidden="true">'
+                     '<path d="M15.6 12h6.4l4 4v10.4a1.6 1.6 0 0 1-1.6 1.6h-8.8a1.6 1.6 0 0 1-1.6-1.6V13.6a1.6 1.6 0 0 1 1.6-1.6z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-opacity=".7" stroke-linejoin="round"/>'
+                     '<path d="M22 12v2.8a1.2 1.2 0 0 0 1.2 1.2H26" fill="none" stroke="currentColor" stroke-width="1.1" stroke-opacity=".7" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '<path d="M18.5 18.4a1.5 1.5 0 1 1 2.25 1.3c-.52.29-.75.63-.75 1.12v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>'
+                     '<circle cx="20" cy="23.4" r=".99" fill="currentColor"/>'
                      '</svg>'),
     # Tel mee: turfstreepjes, vier rechte en een schuine erdoor (het werk van de raad, geteld)
     "__IC_TEL__": _ic('<line x1="6" y1="6" x2="6" y2="18"/><line x1="10" y1="6" x2="10" y2="18"/>'
                       '<line x1="14" y1="6" x2="14" y2="18"/><line x1="18" y1="6" x2="18" y2="18"/>'
                       '<line x1="3.5" y1="16.5" x2="20.5" y2="7.5"/>'),
+    # Inspireer mee: een gloeilamp (het idee), voorlopig; het proefstuk heeft nog geen eigen teken
+    "__IC_INSPIREER__": _ic('<path d="M12 3.5a5.5 5.5 0 0 0-3.3 9.9c.6.5.9 1.1.9 1.8V16h4.8v-.8c0-.7.3-1.3.9-1.8A5.5 5.5 0 0 0 12 3.5z"/>'
+                            '<line x1="9.8" y1="18.5" x2="14.2" y2="18.5"/><line x1="10.6" y1="21" x2="13.4" y2="21"/>'),
     # En meer: een plusteken in een gestippeld kader (er komt nog bij)
     "__IC_MEER__": _ic('<rect x="4" y="4" width="16" height="16" stroke-dasharray="3 2.4"/>'
                        '<line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/>'),
