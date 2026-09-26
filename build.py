@@ -89,15 +89,25 @@ IC = {
                    '<circle cx="15.7" cy="23" r="1.9" fill="currentColor"/><circle cx="24.3" cy="23" r="1.9" fill="currentColor"/>'
                    '<circle cx="15.7" cy="23" r=".7" fill="#fffdf7"/><circle cx="24.3" cy="23" r=".7" fill="#fffdf7"/>'
                    '</svg>'),
-    # Vraag mee(r): het merkteken van het proefstuk zoals het tabbladicoon daar (stand 26/09/2026,
-    # 13:40): een stuk met een ezelsoor en een vraagteken, zonder vizier. Dezelfde paden en diktes,
-    # in één kleur zoals het GAS-icoon; de viewBox is uitgesneden rond het stuk, anders is het in
-    # een icoon van 28px amper 7px breed.
-    "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="10 10 20 20" aria-hidden="true">'
-                     '<path d="M15.6 12h6.4l4 4v10.4a1.6 1.6 0 0 1-1.6 1.6h-8.8a1.6 1.6 0 0 1-1.6-1.6V13.6a1.6 1.6 0 0 1 1.6-1.6z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-opacity=".7" stroke-linejoin="round"/>'
-                     '<path d="M22 12v2.8a1.2 1.2 0 0 0 1.2 1.2H26" fill="none" stroke="currentColor" stroke-width="1.1" stroke-opacity=".7" stroke-linejoin="round" stroke-linecap="round"/>'
-                     '<path d="M18.5 18.4a1.5 1.5 0 1 1 2.25 1.3c-.52.29-.75.63-.75 1.12v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>'
-                     '<circle cx="20" cy="23.4" r=".99" fill="currentColor"/>'
+    # Vraag mee(r): drie documentjes die verspreid over elkaar liggen, het voorste met het vraagteken
+    # (26/09/2026, op vraag: "verschillende documentjes verspreid over elkaar heen"). Elk blad is het
+    # stuk uit het merkteken van het proefstuk (ezelsoor, zelfde maten en diktes), gedraaid en
+    # verschoven; papierwit gevuld, zodat het voorste de andere afdekt. In één kleur zoals het GAS-icoon.
+    "__IC_VRAAG__": ('<svg class="ic-svg" viewBox="4.6 4 29 29" aria-hidden="true">'
+                     '<g transform="translate(8 8.5) rotate(-16 6 8)">'
+                     '<path d="M1.6 0h6.4l4 4v10.4a1.6 1.6 0 0 1-1.6 1.6H1.6A1.6 1.6 0 0 1 0 14.4V1.6A1.6 1.6 0 0 1 1.6 0z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-opacity=".5" stroke-linejoin="round"/>'
+                     '<path d="M8 0v2.8a1.2 1.2 0 0 0 1.2 1.2H12" fill="none" stroke="currentColor" stroke-width="1.1" stroke-opacity=".5" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '</g>'
+                     '<g transform="translate(18.5 9.5) rotate(14 6 8)">'
+                     '<path d="M1.6 0h6.4l4 4v10.4a1.6 1.6 0 0 1-1.6 1.6H1.6A1.6 1.6 0 0 1 0 14.4V1.6A1.6 1.6 0 0 1 1.6 0z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-opacity=".6" stroke-linejoin="round"/>'
+                     '<path d="M8 0v2.8a1.2 1.2 0 0 0 1.2 1.2H12" fill="none" stroke="currentColor" stroke-width="1.1" stroke-opacity=".6" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '</g>'
+                     '<g transform="translate(13.2 13.5) rotate(-3 6 8)">'
+                     '<path d="M1.6 0h6.4l4 4v10.4a1.6 1.6 0 0 1-1.6 1.6H1.6A1.6 1.6 0 0 1 0 14.4V1.6A1.6 1.6 0 0 1 1.6 0z" fill="#fffdf7" stroke="currentColor" stroke-width="1.1" stroke-opacity=".8" stroke-linejoin="round"/>'
+                     '<path d="M8 0v2.8a1.2 1.2 0 0 0 1.2 1.2H12" fill="none" stroke="currentColor" stroke-width="1.1" stroke-opacity=".8" stroke-linejoin="round" stroke-linecap="round"/>'
+                     '<path d="M4.5 6.4a1.5 1.5 0 1 1 2.25 1.3c-.52.29-.75.63-.75 1.12v.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>'
+                     '<circle cx="6" cy="11.4" r=".99" fill="currentColor"/>'
+                     '</g>'
                      '</svg>'),
     # Tel mee: turfstreepjes, vier rechte en een schuine erdoor (het werk van de raad, geteld)
     "__IC_TEL__": _ic('<line x1="6" y1="6" x2="6" y2="18"/><line x1="10" y1="6" x2="10" y2="18"/>'
